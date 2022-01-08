@@ -1,4 +1,4 @@
 # ECE651
 ### Ongoing taks
 #### Integration of Jira
-#### Integration of Jenkins
+#### 1. Integration of Jenkins
