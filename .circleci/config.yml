@@ -41,11 +41,48 @@ jobs:
   build-and-test-my-branch:
     docker:
     - image: cimg/python:3.8
+    - image: cimg/mysql:8.0.27
+      environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: true
+        MYSQL_ROOT_PASSWORD: ''
+        MYSQL_HOST: 127.0.0.1
+        DB_HOST: 127.0.0.1
     steps:
-    - checkout
-    - run:
-        name: Run Test
-        command: echo "Running dummy test..." && cd src && python3 test.py
+      - checkout
+      - run:
+          name: Wait for MYSQL server.
+          command: |
+              for i in `seq 1 10`;
+              do
+                nc -z 127.0.0.1 3306 && echo Success && exit 0
+                echo -n .
+                sleep 1
+              done
+              echo Failed waiting for MySQL && exit 1
+      - run:
+          name: update APT list
+          command: sudo apt-get update -y
+      - run:
+          name: Install mysql
+          command: echo "Installing packages..." && sudo apt install mysql-client-8.0 -y && sudo apt install libmysqlclient-dev
+      - python/install-packages:
+          pip-dependency-file: .circleci/requirements.txt
+          pkg-manager: pip
+      - run:
+          name: Install npm and tools
+          command: sudo apt install npm && sudo npm install -g firebase-tools
+      - run:
+          name: version check
+          command: echo "Django version:" $(django-admin --version) && echo "MySQL version:" $(mysql --version) &&
+            echo "npm version:" $(npm --version) && echo "node version:" $(node --version)
+      - run:
+          name: test mysql connection
+          command: |
+            mysql -h 127.0.0.1 -u root --execute="CREATE USER 'testuser'@'%' IDENTIFIED BY 'testpass';"
+            mysql -h 127.0.0.1 -u root --execute="GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'%';"
+            mysql -h 127.0.0.1 -u root --execute="FLUSH PRIVILEGES;"
+            mysql -h 127.0.0.1 -u root --execute="CREATE DATABASE test_db;"
+            mysql -h 127.0.0.1 -u root --execute="SHOW DATABASES;"
 
 # Invoke jobs via workflows 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -58,6 +95,7 @@ workflows:
             branches:
               only:
               - develop
+
       - build-and-test-my-branch:
           filters:
             branches:
