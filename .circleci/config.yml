@@ -38,7 +38,16 @@ jobs:
           # This assumes pytest is installed via the install-package step above
           command: echo Running Job
 
-# Invoke jobs via workflows
+  build-and-test-my-branch:
+    docker:
+    - image: cimg/python:3.8
+    steps:
+    - checkout
+    - run:
+        name: Run Test
+        command: echo "Running dummy test..." && cd src && python3 test.py
+
+# Invoke jobs via workflows 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
@@ -49,3 +58,8 @@ workflows:
             branches:
               only:
               - develop
+      - build-and-test-my-branch:
+          filters:
+            branches:
+              only:
+              - Samarth
