@@ -64,7 +64,7 @@ jobs:
           command: sudo apt-get update -y
       - run:
           name: Install mysql
-          command: echo "Installing packages..." && sudo apt install mysql-client-8.0 -y
+          command: echo "Installing packages..." && sudo apt install mysql-client-8.0 -y && sudo apt install libmysqlclient-dev
       - python/install-packages:
           pip-dependency-file: .circleci/requirements.txt
           pkg-manager: pip
