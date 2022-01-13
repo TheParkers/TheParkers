@@ -78,7 +78,7 @@ jobs:
       - run:
           name: test mysql connection
           command: |
-            python manage.py runserver
+            python3 manage.py runserver
             mysql -h 127.0.0.1 -u root --execute="CREATE USER 'testuser'@'%' IDENTIFIED BY 'testpass';"
             mysql -h 127.0.0.1 -u root --execute="GRANT ALL PRIVILEGES ON *.* TO 'testuser'@'%';"
             mysql -h 127.0.0.1 -u root --execute="FLUSH PRIVILEGES;"
