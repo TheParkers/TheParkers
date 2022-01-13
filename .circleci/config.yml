@@ -83,6 +83,8 @@ jobs:
             mysql -h 127.0.0.1 -u root --execute="FLUSH PRIVILEGES;"
             mysql -h 127.0.0.1 -u root --execute="CREATE DATABASE test_db;"
             mysql -h 127.0.0.1 -u root --execute="SHOW DATABASES;"
+            mysql -h 127.0.0.1 -u root --execute="USE test_db;"
+            mysql -h 127.0.0.1 -u root --execute="SHOW TABLES;"
 
 # Invoke jobs via workflows 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
