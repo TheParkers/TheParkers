@@ -100,3 +100,4 @@ workflows:
           filters:
             branches:
               only:
+              - Navjot
