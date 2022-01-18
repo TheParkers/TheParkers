@@ -20,24 +20,59 @@ jobs:
   backendbuild:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_HOST: 127.0.0.1
+          DB_HOST: 127.0.0.1
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: checkout code
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: check python version
-        run: python -V
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.1
+
+      - name: Setup Python
+        uses: actions/setup-python@v2.3.1
+ 
+      - name: Start MySQL server.
+        run: sudo systemctl start mysql.service
+
+      - name: Wait for MYSQL server.
+        run: |
+          for i in `seq 1 20`;
+          do
+            nc -z 127.0.0.1 3306 && echo Success && exit 0
+            echo -n .
+            sleep 1
+          done
+          echo Failed waiting for MySQL && exit 1
       
+      - name: update APT list
+        run: sudo apt-get update -y
+
+      - name: Install npm and tools
+        run: sudo npm install -g firebase-tools
+
       - name: install python dependencies
-        run: pip install -r requirements.txt
+        run: python -m pip install --upgrade pip && pip install -r .github/workflows/requirements.txt
       
       - name: run django server
-        run: cd django_project && python manage.py check
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            cd django_project
+            python manage.py check
+            python manage.py test
+
+      - name: Run Unit Tests
+        run: python -m unittest
+
+      - name: version check
+        run: echo "Django version:" $(django-admin --version) && echo "MySQL version:" $(mysql --version) &&
+            echo "npm version:" $(npm --version) && echo "node version:" $(node --version)
+

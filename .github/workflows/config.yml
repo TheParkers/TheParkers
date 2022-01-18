@@ -65,18 +65,12 @@ jobs:
       - name: run django server
         run: |
             cd django_project
-            python manage.py check &
-            pwd
-            sleep 10
+            python manage.py check
+            python manage.py test
 
       - name: Run Tests
-        run: |
-          cd django_project
-          pwd
-          python manage.py test &
-          sleep 10
+        run: python -m unittest
 
       - name: version check
         run: echo "Django version:" $(django-admin --version) && echo "MySQL version:" $(mysql --version) &&
             echo "npm version:" $(npm --version) && echo "node version:" $(node --version)
-      
