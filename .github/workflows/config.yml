@@ -42,4 +42,4 @@ jobs:
       - name: generate image name 
         run: echo "{DOCKERIMAGE}=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
       - name: build docker image
-        run: docker build -t parkers .
+        run: docker build .
