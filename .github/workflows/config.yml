@@ -54,4 +54,4 @@ jobs:
         run: docker build -t ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
       
       - name: label built docker image for gcp
-        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+        run: docker push ${{ secrets.GCP_REGISTRY }}:backendinitial
