@@ -8,5 +8,4 @@ WORKDIR /
 COPY . .
 RUN pip install -r requirements.txt
 WORKDIR /backend
-EXPOSE 5000
 CMD python manage.py runserver --settings=${env} --insecure 0.0.0.0:8000 
