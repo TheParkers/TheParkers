@@ -46,7 +46,7 @@ jobs:
         run: echo "{DOCKERIMAGE}=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
         
       - name: build docker image
-        run: docker build -t parkers_dev .
+        run: docker build -t ${DOCKERIMAGE} .
       
       - name: label built docker image for gcp
-        run: docker tag parkers_dev gcr.io/theparkers/parkersdev:${DOCKERIMAGE}
+        run: docker push gcr.io/theparkers/parkersdev:${DOCKERIMAGE}
