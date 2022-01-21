@@ -39,7 +39,11 @@ jobs:
   Deployment:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+        
       - name: generate image name 
         run: echo "{DOCKERIMAGE}=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
+        
       - name: build docker image
-        run: echo cwd
+        run: docker build -t parkers_dev .
