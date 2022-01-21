@@ -40,4 +40,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: generate image name 
-        run: echo ::set-env name=dockerImage::theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}
+        run: echo "{DOCKERIMAGE}=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
