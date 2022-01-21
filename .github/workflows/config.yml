@@ -51,7 +51,7 @@ jobs:
         run: echo "DOCKERIMAGE=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
         
       - name: build docker image
-        run: docker build -t ${{ env.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
+        run: docker build -t ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
       
       - name: label built docker image for gcp
-        run: docker push ${{ env.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
