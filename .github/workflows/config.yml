@@ -47,3 +47,6 @@ jobs:
         
       - name: build docker image
         run: docker build -t parkers_dev .
+      
+      - name: label built docker image for gcp
+        run: docker tag parkers_dev gcr.io/theparkers/parkersdev:${DOCKERIMAGE}
