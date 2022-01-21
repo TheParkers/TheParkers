@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  branch: ${GITHUB_REF##*/}
+  branch: ${{GITHUB_REF##*/}}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -49,4 +49,4 @@ jobs:
         run: docker build .
       
       - name: label built docker image for gcp
-        run: docker push gcr.io/theparkers/parkersdev:${{DOCKERIMAGE}}
+        run: docker push gcr.io/theparkers/parkersdev:${{ DOCKERIMAGE }}
