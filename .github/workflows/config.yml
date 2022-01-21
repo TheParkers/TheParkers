@@ -47,14 +47,16 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
         
-      - name: generate image name 
+      - name: Generate image name 
         run: echo "DOCKERIMAGE=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
         
-      - name: build docker image
+      - name: Build docker image
         run: docker build -t ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
       
         
-      - name: label built docker image for gcp
-      - run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
-      - run: docker logout
+      - name: Logout of default docker user
+        run: docker logout
+      
+      - name: Push docker Image to GCR (Google cloud registry)
+        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
           
