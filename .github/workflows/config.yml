@@ -55,6 +55,6 @@ jobs:
       
         
       - name: label built docker image for gcp
-      - run: |
-          docker logout
-          docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+      - run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+      - run: docker logout
+          
