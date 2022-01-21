@@ -39,8 +39,5 @@ jobs:
   Deployment:
     runs-on: ubuntu-latest
     steps:
-      - name: create container image
-        uses: docker build -t developmentimage .
-      
       - name: generate image name 
         run: echo ::set-env name=dockerImage::theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}
