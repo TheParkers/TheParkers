@@ -41,12 +41,19 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.GCP_REGISTRY }}
+          username: ${{ secrets.GCP_USERNAME }}
+          password: ${{ secrets.GCP_PASSWORD }}
         
       - name: generate image name 
         run: echo "DOCKERIMAGE=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
         
       - name: build docker image
-        run: docker build -t gcr.io/theparkers/parkersdev:${{ env.DOCKERIMAGE }} .
+        run: docker build -t ${{ env.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
       
       - name: label built docker image for gcp
-        run: docker push gcr.io/theparkers/parkersdev:${{ env.DOCKERIMAGE }}
+        run: docker push ${{ env.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
