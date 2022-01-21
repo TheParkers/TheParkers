@@ -43,7 +43,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: generate image name 
-        run: echo "{DOCKERIMAGE}=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
+        run: echo "DOCKERIMAGE=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
         
       - name: build docker image
         run: docker build .
