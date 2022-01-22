@@ -57,6 +57,9 @@ jobs:
       - name: Logout of default docker user
         run: docker logout
       
+      - name: Login of gcp docker service account
+        run: docker login -u _json_key --password-stdin https://gcr.io < ${{ secrets.GCP_CREDS }
+      
       - name: Push docker Image to GCR (Google cloud registry)
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
           
