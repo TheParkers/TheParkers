@@ -38,7 +38,7 @@ jobs:
       
       - name: check django sanity
         run: |
-            cd django_project
+            cd backend
             python manage.py check
   
   Deployment:
