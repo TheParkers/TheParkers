@@ -64,7 +64,7 @@ jobs:
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
       
       - name: Deploy
-        run:  gcloud run deploy ${{ GCP_PROJECT_ID }} --image ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} --platform managed --region ${{ DEV_CLOUDRUN_REGION }}
+        run:  gcloud run deploy ${{ secrets.GCP_PROJECT_ID }} --image ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} --platform managed --region ${{ secrets.DEV_CLOUDRUN_REGION }}
           
       
 
