@@ -69,6 +69,7 @@ jobs:
         with:
           image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
           service: theparkers
+          region: us-east1
       
 
           
