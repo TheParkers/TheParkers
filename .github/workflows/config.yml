@@ -59,7 +59,9 @@ jobs:
       
       - name: Login of gcp docker service account
         run: docker login -u _json_key -p "${{ secrets.GCP_CREDS }}" https://gcr.io
+        shell: bash
       
       - name: Push docker Image to GCR (Google cloud registry)
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+        shell: bash
           
