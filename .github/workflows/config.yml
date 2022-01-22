@@ -68,8 +68,8 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
-          service: ${{ GCP_CLOUDRUN_SERVICE_NAME }} 
-          region: ${{ DEV_CLOUDRUN_REGION }}
+          service: ${{ secrets.GCP_CLOUDRUN_SERVICE_NAME }} 
+          region: ${{ secrets.DEV_CLOUDRUN_REGION }}
       
 
           
