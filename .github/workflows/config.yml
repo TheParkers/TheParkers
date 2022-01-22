@@ -6,7 +6,7 @@ name: CI/CD
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
-    branches: [ '*' ]
+    branches: [ 'develop' ]
   pull_request:
     branches: [ develop ]
 
@@ -59,13 +59,6 @@ jobs:
         
       - name: Build docker image
         run: docker build -t ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
-      
-        
-      - name: Logout of default docker user
-        run: docker logout
-        
-      - name: Create login key json file
-        run: echo "${{ secrets.GCP_CREDS }}" >> "keyfile.json"
       
       - name: Push docker Image to GCR (Google cloud registry)
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
