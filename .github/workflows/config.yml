@@ -69,16 +69,27 @@ jobs:
       - name: Build docker image
         run: docker-compose -f docker-compose.yml build
       
-      # - name: Push docker Image to GCR (Google cloud registry)
-      #   run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+      - name: Push docker Frontend Image to GCR (Google cloud registry)
+        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERFRONTENDIMAGE }}
       
-      # - name: Deploy a Cloud Run service
-      #   id: deploy-service
-      #   uses: google-github-actions/deploy-cloudrun@v0
-      #   with:
-      #     image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
-      #     service: theparkers-placeholder 
-      #     region: us-central1
+      - name: Push docker Backend Image to GCR (Google cloud registry)
+        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
+      
+      - name: Deploy Backend app
+        id: deploy-service
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
+          service: ${{ secrets.GCP_CLOUDRUN_BACKEND_SERVICENAME }}
+          region: ${{ secrets.DEV_CLOUDRUN_REGION }}
+      
+      - name: Deploy Frontend app
+        id: deploy-service
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
+          service: ${{ secrets.GCP_CLOUDRUN_FRONTEND_SERVICENAME }}
+          region: ${{ secrets.DEV_CLOUDRUN_REGION }}
       
 
           
