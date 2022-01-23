@@ -87,7 +87,7 @@ jobs:
         id: deploy-app-service
         uses: google-github-actions/deploy-cloudrun@v0
         with:
-          image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
+          image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERFRONTENDIMAGE }}
           service: ${{ secrets.GCP_CLOUDRUN_FRONTEND_SERVICENAME }}
           region: ${{ secrets.DEV_CLOUDRUN_REGION }}
       
