@@ -6,7 +6,7 @@ services:
         container_name: backend
         restart: always
         ports:
-            - 8082:8082
+            - 4200:4200
 
     app-frontend:
         build: ./frontend/
@@ -14,6 +14,6 @@ services:
         container_name: frontend
         restart: always
         ports:
-            - 4200:4200
+            - 80:80
         expose:
-            - "4200"
+            - "80"
