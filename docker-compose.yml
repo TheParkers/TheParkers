@@ -2,7 +2,7 @@ version: "3.3"
 services:
     app-backend:
         build: ./backend/
-        image: ${DOCKERBACKENDIMAGE}
+        image: ${secrets.GCP_REGISTRY}:${DOCKERBACKENDIMAGE}
         container_name: backend
         restart: always
         ports:
@@ -10,7 +10,7 @@ services:
 
     app-frontend:
         build: ./frontend/
-        image: ${DOCKERFRONTENDIMAGE}
+        image: ${secrets.GCP_REGISTRY}:${DOCKERFRONTENDIMAGE}
         container_name: frontend
         restart: always
         ports:
