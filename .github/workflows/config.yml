@@ -57,11 +57,14 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCP_CREDS }}
         
-      - name: Generate frontend image name 
+      - name: Generating frontend image name 
         run: echo "DOCKERFRONTENDIMAGE=theparkersdev-frontend-${{ env.branch }}-${{ env.GITHUB_RUN_ID }}" >> $GITHUB_ENV
       
-      - name: Generate backend image name 
+      - name: Generating backend image name 
         run: echo "DOCKERBACKENDIMAGE=theparkersdev-backend-${{ env.branch }}-${{ env.GITHUB_RUN_ID }}" >> $GITHUB_ENV
+      
+      - name: Adding gcp registry secret to env (for docker compose access)
+        run:  echo "GCP_REGISTRY=${{secrets.GCP_REGISTRY}}" >> $GITHUB_ENV
         
       - name: Build docker image
         run: docker-compose -f docker-compose.yml build
