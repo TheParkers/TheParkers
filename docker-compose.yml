@@ -7,7 +7,7 @@ services:
         restart: always
         ports:
             - 8082:8082
-	app-frontend:
+    app-frontend:
         build: ./frontend/
         image: app_frontend
         container_name: frontend
