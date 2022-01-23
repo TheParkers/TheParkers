@@ -63,8 +63,8 @@ jobs:
       - name: Generate backend image name 
         run: echo "DOCKERBACKENDIMAGE=theparkersdev-backend-${{ env.branch }}-${{ env.GITHUB_RUN_ID }}" >> $GITHUB_ENV
         
-      # - name: Build docker image
-      #   run: docker-compose -f docker-compose build
+      - name: Build docker image
+        run: docker-compose -f docker-compose build
       
       # - name: Push docker Image to GCR (Google cloud registry)
       #   run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
