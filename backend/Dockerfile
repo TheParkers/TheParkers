@@ -1,5 +1,6 @@
 FROM python:3
 ENV env="django_project.settings_dev"
+ENV PORT 8000
 ENV HOST 0.0.0.0
 
 RUN apt-get update -y && apt-get install -y build-essential
