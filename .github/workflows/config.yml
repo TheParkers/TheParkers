@@ -76,7 +76,7 @@ jobs:
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
       
       - name: Deploy Backend app
-        id: deploy-service
+        id: deploy-api-service
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
@@ -84,7 +84,7 @@ jobs:
           region: ${{ secrets.DEV_CLOUDRUN_REGION }}
       
       - name: Deploy Frontend app
-        id: deploy-service
+        id: deploy-app-service
         uses: google-github-actions/deploy-cloudrun@v0
         with:
           image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
