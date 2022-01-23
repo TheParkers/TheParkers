@@ -1,1 +1,0 @@
-# Contains code for the pages in the application. Each page in the application is a view. 
