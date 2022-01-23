@@ -5,8 +5,6 @@ name: CI/CD
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the develop branch
-  push:
-    branches: [ 'develop' ]
   pull_request:
     branches: [ 'develop' ]
 
@@ -59,22 +57,25 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCP_CREDS }}
         
-      - name: Generate image name 
-        run: echo "DOCKERIMAGE=theparkersdev-${{ env.branch }}-${{ env.GITHUB_JOB }}" >> $GITHUB_ENV
+      - name: Generate frontend image name 
+        run: echo "DOCKERFRONTENDIMAGE=theparkersdev-frontend-${{ env.branch }}-${{ env.GITHUB_RUN_ID }}" >> $GITHUB_ENV
+      
+      - name: Generate backend image name 
+        run: echo "DOCKERBACKENDIMAGE=theparkersdev-backend-${{ env.branch }}-${{ env.GITHUB_RUN_ID }}" >> $GITHUB_ENV
         
-      - name: Build docker image
-        run: docker build -t ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }} .
+      # - name: Build docker image
+      #   run: docker-compose -f docker-compose build
       
-      - name: Push docker Image to GCR (Google cloud registry)
-        run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+      # - name: Push docker Image to GCR (Google cloud registry)
+      #   run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
       
-      - name: Deploy a Cloud Run service
-        id: deploy-service
-        uses: google-github-actions/deploy-cloudrun@v0
-        with:
-          image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
-          service: theparkers-placeholder 
-          region: us-central1
+      # - name: Deploy a Cloud Run service
+      #   id: deploy-service
+      #   uses: google-github-actions/deploy-cloudrun@v0
+      #   with:
+      #     image: ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERIMAGE }}
+      #     service: theparkers-placeholder 
+      #     region: us-central1
       
 
           
