@@ -1,10 +1,9 @@
 FROM python:3
 ENV env="django_project.settings_dev"
-# ENV HOST 0.0.0.0
+ENV HOST 0.0.0.0
 
 RUN apt-get update -y && apt-get install -y build-essential
 WORKDIR /
 COPY . .
 RUN pip install -r requirements.txt
-#CMD python manage.py runserver --settings=${env} --insecure 0.0.0.0:8000 
-CMD python manage.py runserver --settings=${env} --insecure
+CMD python manage.py runserver --settings=${env} --insecure 0.0.0.0:8000 
