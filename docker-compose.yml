@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+    app-backend:
+        build: ./backend/
+        image: ${GCP_REGISTRY}:${DOCKERBACKENDIMAGE}
+        container_name: backend
+        restart: always
+        ports:
+            - 4200:4200
+
+    app-frontend:
+        build: ./frontend/
+        image: ${GCP_REGISTRY}:${DOCKERFRONTENDIMAGE}
+        container_name: frontend
+        restart: always
+        ports:
+            - 80:80
+        expose:
+            - "80"

@@ -1,1 +1,0 @@
-# Directory for Utilities, helpers, constants shared across the components in the application
