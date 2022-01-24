@@ -8,5 +8,5 @@ RUN npm install -g ionic
 RUN npm install
 COPY ./ /app/
 
-ENTRYPOINT ["ionic"]
-CMD ["serve", "--port", "80", "--address", "0.0.0.0"]
+ENTRYPOINT ["npm"]
+CMD ["run", "start"]
