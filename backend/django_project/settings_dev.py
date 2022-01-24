@@ -73,16 +73,16 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'mysql.connector.django',
-#         'NAME': 'test_db',
-#         'USER': 'testuser',
-#         'PASSWORD': 'testpass',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'mysql.connector.django',
+        'NAME': 'TheParkers',
+        'USER': 'TestUser',
+        'PASSWORD': '',
+        'HOST': '34.124.120.210',
+        'PORT': '',  
+    }
+}
   
 
 
