@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { FirebaseService } from '../services/firebase/firebase.service';
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private firebase: FirebaseService) {
 
+  }
+  login() {
+      this.firebase.login();
+  }
+  logout() {
+    this.firebase.logout();
+  }
 }

@@ -1,13 +1,14 @@
 {
-  "name": "frontend",
+  "name": "theparkers-app",
   "version": "0.0.1",
   "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "homepage": "https://parkersdev-app-nixgrdwaba-ue.a.run.app/home",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 3000 --disable-host-check",
     "build": "ng build",
-    "test": "ng test",
+    "testlocal": "ng test --code-coverage=true",
+    "testdev": "ng test --code-coverage=true --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -15,6 +16,7 @@
   "dependencies": {
     "@angular/common": "~13.0.0",
     "@angular/core": "~13.0.0",
+    "@angular/fire": "^7.2.0",
     "@angular/forms": "~13.0.0",
     "@angular/platform-browser": "~13.0.0",
     "@angular/platform-browser-dynamic": "~13.0.0",
