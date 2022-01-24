@@ -9,4 +9,4 @@ RUN npm install
 COPY ./ /app/
 
 ENTRYPOINT ["ionic"]
-CMD ["serve", "--port", "80", "--host", "0.0.0.0"]
+CMD ["serve", "--port", "80", "--address", "0.0.0.0"]
