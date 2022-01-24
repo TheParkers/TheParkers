@@ -5,7 +5,7 @@
   "homepage": "https://parkersdev-app-nixgrdwaba-ue.a.run.app/home",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --port 80 --disable-host-check",
+    "start": "ng serve --host 0.0.0.0 --port 3000 --disable-host-check",
     "build": "ng build",
     "testlocal": "ng test --code-coverage=true",
     "testdev": "ng test --code-coverage=true --watch=false --browsers=ChromeHeadless",
