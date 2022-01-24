@@ -7,7 +7,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test --code-coverage=true",
+    "testlocal": "ng test --code-coverage=true",
+    "testdev": "ng test --code-coverage=true --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

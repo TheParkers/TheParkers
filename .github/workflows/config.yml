@@ -25,9 +25,6 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: setup Node.js environment
-        uses: actions/setup-node@v2.5.1
-
       - name: setup Python
         uses: actions/setup-python@v2.3.1
 
@@ -38,6 +35,22 @@ jobs:
         run: |
             cd backend
             python manage.py check
+  
+  frontendbuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      
+      - name: setup Node.js environment
+        uses: actions/setup-node@v2.5.1
+      
+      - name: install npm packages
+        run: cd frontend && npm install
+
+      - name: Run unit tests
+        run: npm run testdev 
+      
   
   Deployment:
     runs-on: ubuntu-latest
