@@ -1,0 +1,17 @@
+{
+    "LABEL": {
+      "name": "Pull request title needs formatting",
+      "color": "EEEEEE"
+    },
+    "CHECKS": {
+      "prefixes": [],
+      "regexp": "PPD-[0-9][0-9]* [a-zA-Z]",
+      "regexpFlags": "i",
+      "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
+    },
+    "MESSAGES": {
+      "success": "All OK",
+      "failure": "Failing CI test",
+      "notice": ""
+    }
+  }
