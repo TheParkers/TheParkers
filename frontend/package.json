@@ -2,12 +2,12 @@
   "name": "theparkers-app",
   "version": "0.0.1",
   "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "homepage": "https://parkersdev-app-nixgrdwaba-ue.a.run.app/home",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --code-coverage=true",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -30,7 +30,6 @@
     "@capacitor/storage": "^1.2.4",
     "@ionic/angular": "^6.0.0",
     "@ionic/pwa-elements": "^3.1.1",
-    "firebase": "^9.6.4",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"

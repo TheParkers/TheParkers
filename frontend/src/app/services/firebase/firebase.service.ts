@@ -9,13 +9,16 @@ export class FirebaseService {
   authState: any = null;
   authUser: any = null;
   constructor(public auth: AngularFireAuth) {
-      this.auth.authState.subscribe( authState => {
+      this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
    }
 
+  get getAuthState() {
+      return this.authState
+  }
   get isAuthenticated() {
-      return this.authState != null;
+      return this.getAuthState != null;
   }
 
   get isEmailVerified(): boolean {

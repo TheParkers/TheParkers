@@ -19,11 +19,10 @@ import { LANGUAGE_CODE } from '@angular/fire/compat/auth';
   imports: [BrowserModule, 
             IonicModule.forRoot(), 
             AppRoutingModule,
-            AngularFireModule.initializeApp(environment.firebaseConfig),
-            AngularFireModule
+            AngularFireModule.initializeApp(environment.firebaseConfig)
           ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-              { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: true } },
+              { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
               { provide: LANGUAGE_CODE, useValue: 'fr' },
               FirebaseService
             ],

@@ -99,6 +99,7 @@
             "karmaConfig": "karma.conf.js",
             "styles": [],
             "scripts": [],
+            "codeCoverageExclude": ["src/app/app-routing.module.ts"],
             "assets": [
               {
                 "glob": "favicon.ico",

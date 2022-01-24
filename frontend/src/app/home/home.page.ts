@@ -10,13 +10,10 @@ export class HomePage {
   constructor(private firebase: FirebaseService) {
 
   }
-
   login() {
       this.firebase.login();
   }
-
   logout() {
     this.firebase.logout();
-}
-
+  }
 }
