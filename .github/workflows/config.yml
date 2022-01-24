@@ -49,7 +49,7 @@ jobs:
         run: cd frontend && npm install
 
       - name: Run unit tests
-        run: npm run testdev 
+        run: cd frontend && npm run testdev 
       
   
   Deployment:
