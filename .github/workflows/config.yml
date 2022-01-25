@@ -17,8 +17,19 @@ env:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
+  PRFormat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check PR title format 
+        uses: thehanimo/pr-title-checker@v1.3.4
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pass_on_octokit_error: false
+          configuration_path: ".github/workflows/pr-title-checker-config.json"
+          
   backendbuild:
     # The type of runner that the job will run on
+    needs: PRFormat
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -37,6 +48,7 @@ jobs:
             python manage.py check
   
   frontendbuild:
+    needs: PRFormat
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
@@ -53,6 +65,7 @@ jobs:
       
   
   Deployment:
+    needs: PRFormat
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
