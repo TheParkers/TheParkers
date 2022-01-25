@@ -51,10 +51,10 @@ jobs:
             cd backend
             python3 manage.py check
   
-      #- name: Run Unit Tests. 
-      #  run: |
-      #      cd backend
-      #      python manage.py test
+      - name: run unit tests 
+       run: |
+           cd backend
+           python manage.py test
 
   frontendbuild:
     needs: PRFormat
