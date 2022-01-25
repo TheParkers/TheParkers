@@ -106,16 +106,16 @@ jobs:
       - name: generating backend image name 
         run: echo "DOCKERBACKENDIMAGE=theparkersdev-backend-${{ env.branch }}-${{ env.jobid }}" >> $GITHUB_ENV
       
-      - name: Adding gcp registery secret to env (for docker compose access)
+      - name: Adding gcp registry secret to env (for docker compose access)
         run:  echo "GCP_REGISTRY=${{secrets.GCP_REGISTRY}}" >> $GITHUB_ENV
         
       - name: Build docker image
         run: docker-compose -f docker-compose.yml build
       
-      - name: Push docker Frontend Image to GCR (Google cloud registery)
+      - name: Push docker Frontend Image to GCR (Google cloud registry)
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERFRONTENDIMAGE }}
       
-      - name: Push docker Backend Image to GCR (Google cloud registery)
+      - name: Push docker Backend Image to GCR (Google cloud registry)
         run: docker push ${{ secrets.GCP_REGISTRY }}:${{ env.DOCKERBACKENDIMAGE }}
       
       - name: Deploy Backend app
