@@ -13,9 +13,6 @@ services:
         image: ${GCP_REGISTRY}:${DOCKERFRONTENDIMAGE}
         container_name: frontend
         restart: always
-        environment:
-            - CHROME_BIN=${chrome}
-            - CHROME_PATH=${chromepath}
         ports:
             - 80:80
         expose:
