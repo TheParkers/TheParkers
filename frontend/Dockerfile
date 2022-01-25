@@ -6,8 +6,10 @@ ENV PORT 80
 COPY package*.json /app/
 RUN npm install -g ionic
 RUN npm install
+RUN 
 COPY ./ /app/
 #RUN npm run-script build:prod
+RUN npm run testdev
 RUN ionic build
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
