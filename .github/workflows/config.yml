@@ -13,6 +13,8 @@ on:
 
 env:
   branch: ${GITHUB_REF##*/}
+  chrome: ${{ secrets.CHROME_BIN }}
+  chromepath: ${{ secrets.CHROME_PATH }}
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,45 +29,45 @@ jobs:
           pass_on_octokit_error: false
           configuration_path: ".github/workflows/pr-title-checker-config.json"
           
-  backendbuild:
-    # The type of runner that the job will run on
-    needs: PRFormat
-    runs-on: ubuntu-latest
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: checkout code
-        uses: actions/checkout@v2
+  # backendbuild:
+  #   # The type of runner that the job will run on
+  #   needs: PRFormat
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+  #     - name: checkout code
+  #       uses: actions/checkout@v2
 
-      - name: setup Python
-        uses: actions/setup-python@v2
+  #     - name: setup Python
+  #       uses: actions/setup-python@v2
 
-      - name: install python dependencies
-        run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
+  #     - name: install python dependencies
+  #       run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
-      - name: check django sanity
-        run: |
-            cd backend
-            python3 manage.py test
+  #     - name: check django sanity
+  #       run: |
+  #           cd backend
+  #           python3 manage.py test
   
-  frontendbuild:
-    needs: PRFormat
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout code
-        uses: actions/checkout@v2
+  # frontendbuild:
+  #   needs: PRFormat
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: checkout code
+  #       uses: actions/checkout@v2
       
-      - name: setup Node.js environment
-        uses: actions/setup-node@v2.5.1
+  #     - name: setup Node.js environment
+  #       uses: actions/setup-node@v2.5.1
       
-      - name: install npm packages
-        run: cd frontend && npm install
+  #     - name: install npm packages
+  #       run: cd frontend && npm install
 
-      - name: Run unit tests
-        run: cd frontend && npm run testdev 
+  #     - name: Run unit tests
+  #       run: cd frontend && npm run testdev 
       
   
   Deployment:
-    needs: [frontendbuild, backendbuild]
+    # needs: [frontendbuild, backendbuild]
     runs-on: ubuntu-latest
     steps:
       - name: checkout code

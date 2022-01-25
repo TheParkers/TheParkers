@@ -14,8 +14,8 @@ services:
         container_name: frontend
         restart: always
         environment:
-            - CHROME_BIN=/usr/bin/chromium-browser
-            - CHROME_PATH=/usr/lib/chromium/
+            - CHROME_BIN=${chrome}
+            - CHROME_PATH=${chromepath}
         ports:
             - 80:80
         expose:
