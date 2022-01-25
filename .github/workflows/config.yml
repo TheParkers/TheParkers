@@ -52,9 +52,9 @@ jobs:
             python3 manage.py check
   
       - name: run unit tests 
-       run: |
-           cd backend
-           python manage.py test
+        run: |
+            cd backend
+            python manage.py test
 
   frontendbuild:
     needs: PRFormat
