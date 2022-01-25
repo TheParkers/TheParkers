@@ -7,7 +7,6 @@ module.exports = function (config) {
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
-      require('karma-docker-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
@@ -58,36 +57,18 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadlessDocker', 'FirefoxHeadlessDocker'],
     singleRun: false,
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadlessDocker: {
-        base: 'Docker',   
-        modemOptions: {
-          socketPath: '/var/run/docker.sock'
-        },
-        createOptions: {
-          Image: 'alpeware/chrome-headless-trunk',
-          Env: ['CHROME_OPTS=$KARMA_URL'],
-          HostConfig: {
-            NetworkMode: 'host'
-          }
-        }
-      },
-      FirefoxHeadlessDocker: {
-        base: 'Docker',
-        modemOptions: {
-          socketPath: '/var/run/docker.sock'
-        },
-        createOptions: {
-          Image: 'rkuzsma/firefox-headless-stable:latest',
-          Cmd: ['firefox', '-p', 'headless', '-headless', '-no-remote', '-url', '$KARMA_URL'],
-          HostConfig: {
-            NetworkMode: 'host'
-          }
-        }
+      ChromeHeadless: {
+        base: 'Chrome',
+        flags: [
+          '--no-sandbox',
+          '--disable-gpu',
+          '--headless',
+          '--remote-debugging-port=9222'
+        ]
       }
-    } 
+    }, 
   });
 };
