@@ -49,8 +49,13 @@ jobs:
       - name: check django sanity
         run: |
             cd backend
-            python3 manage.py test
+            python3 manage.py check
   
+      #- name: Run Unit Tests. 
+      #  run: |
+      #      cd backend
+      #      python manage.py test
+
   frontendbuild:
     needs: PRFormat
     runs-on: ubuntu-latest
