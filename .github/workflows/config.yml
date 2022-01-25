@@ -65,7 +65,7 @@ jobs:
       
   
   Deployment:
-    needs: PRFormat
+    needs: frontendbuild
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
