@@ -46,6 +46,7 @@ jobs:
         run: |
             cd backend
             python3 manage.py test
+            coverage report
   
   frontendbuild:
     needs: PRFormat
