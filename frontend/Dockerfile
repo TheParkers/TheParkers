@@ -1,5 +1,4 @@
 FROM node:16-alpine as build
-RUN apk add chromium
 WORKDIR /app
 ENV HOST 0.0.0.0
 ENV PORT 80
