@@ -45,7 +45,7 @@ jobs:
       - name: check django sanity
         run: |
             cd backend
-            python manage.py check
+            python manage.py test
   
   frontendbuild:
     needs: PRFormat
