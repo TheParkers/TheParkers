@@ -50,11 +50,13 @@ jobs:
         run: |
             cd backend
             python3 manage.py check
+            python3 manage.py makemigrations
+            python manage.py migrate
   
       - name: run unit tests 
         run: |
             cd backend
-            python manage.py test
+            python3 manage.py test
 
   frontendbuild:
     needs: PRFormat
