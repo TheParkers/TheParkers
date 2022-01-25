@@ -5,7 +5,7 @@
     },
     "CHECKS": {
       "prefixes": [],
-      "regexp": "PPD-[0-9][0-9]* [a-zA-Z]",
+      "regexp": "PD-[0-9][0-9]* #time [0-9][0-9]*(m|h|d) #comment [a-zA-z]*",
       "regexpFlags": "i",
       "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
     },
