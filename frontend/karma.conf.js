@@ -1,6 +1,5 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
-process.env.CHROME_BIN = require('puppeteer').executablePath();
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -58,16 +57,36 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['ChromeHeadless'],
+    browsers: ['ChromeHeadlessDocker', 'FirefoxHeadlessDocker'],
     singleRun: false,
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadlessNoSandbox:{
-        base: "ChromeHeadless",
-        flags: [
-          "--no-sandbox"
-        ]
+      ChromeHeadlessDocker: {
+        base: 'Docker',   
+        modemOptions: {
+          socketPath: '/var/run/docker.sock'
+        },
+        createOptions: {
+          Image: 'alpeware/chrome-headless-trunk',
+          Env: ['CHROME_OPTS=$KARMA_URL'],
+          HostConfig: {
+            NetworkMode: 'host'
+          }
+        }
+      },
+      FirefoxHeadlessDocker: {
+        base: 'Docker',
+        modemOptions: {
+          socketPath: '/var/run/docker.sock'
+        },
+        createOptions: {
+          Image: 'rkuzsma/firefox-headless-stable:latest',
+          Cmd: ['firefox', '-p', 'headless', '-headless', '-no-remote', '-url', '$KARMA_URL'],
+          HostConfig: {
+            NetworkMode: 'host'
+          }
+        }
       }
-    }
+    } 
   });
 };

@@ -9,6 +9,8 @@
     "build": "ng build",
     "testlocal": "ng test --code-coverage=true",
     "testdev": "ng test --code-coverage=true --watch=false --browsers=ChromeHeadless",
+    "testdocker": "ng test --code-coverage=true --watch=false",
+    "test": "ng test --code-coverage=true",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -31,7 +33,6 @@
     "@capacitor/storage": "^1.2.4",
     "@ionic/angular": "^6.0.0",
     "@ionic/pwa-elements": "^3.1.1",
-    "puppeteer": "^13.1.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -63,6 +64,7 @@
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-coverage-istanbul-reporter": "~3.0.2",
+    "karma-docker-launcher": "^1.0.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
