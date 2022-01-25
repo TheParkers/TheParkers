@@ -9,6 +9,7 @@
     "build": "ng build",
     "testlocal": "ng test --code-coverage=true",
     "testdev": "ng test --code-coverage=true --watch=false --browsers=ChromeHeadless",
+    "test": "ng test --code-coverage=true",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

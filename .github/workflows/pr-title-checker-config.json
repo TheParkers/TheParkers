@@ -1,0 +1,17 @@
+{
+    "LABEL": {
+      "name": "Pull request title needs formatting",
+      "color": "EEEEEE"
+    },
+    "CHECKS": {
+      "prefixes": [],
+      "regexp": "PD-[0-9][0-9]* #time [0-9][0-9]*(m|h|d) #comment [a-zA-z]*",
+      "regexpFlags": "i",
+      "ignoreLabels" : ["dont-check-PRs-with-this-label", "meta"]
+    },
+    "MESSAGES": {
+      "success": "All OK",
+      "failure": "Please reformat the PR title. eg: PD-45 #time 9h #comment feature addition for backend",
+      "notice": ""
+    }
+  }
