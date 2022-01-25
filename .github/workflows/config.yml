@@ -65,7 +65,7 @@ jobs:
       
   
   Deployment:
-    needs: frontendbuild
+    needs: [frontendbuild, backendbuild]
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
