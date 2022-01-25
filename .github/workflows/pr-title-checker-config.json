@@ -11,7 +11,7 @@
     },
     "MESSAGES": {
       "success": "All OK",
-      "failure": "Failing CI test",
+      "failure": "Please reformat the PR title. eg: PD-45 #time 9h #comment feature addition for backend",
       "notice": ""
     }
   }
