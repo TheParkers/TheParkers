@@ -7,8 +7,6 @@ COPY package*.json /app/
 RUN npm install -g ionic
 RUN npm install
 COPY ./ /app/
-RUN npm run testdocker
-
 RUN ionic build
 FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
