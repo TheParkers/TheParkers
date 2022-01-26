@@ -50,13 +50,25 @@ jobs:
         run: |
             cd backend
             python3 manage.py check
-            python3 manage.py makemigrations
+            python3 manage.py makemigrations --merge
             python manage.py migrate
   
       - name: run unit tests 
         run: |
             cd backend
-            python3 manage.py test
+            coverage run --source='.' manage.py test --noinput
+            coverage report
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDS }}'
+
+      - name: 'set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v0'
+      
+      - name: push coverage files to GCP cloud
+        run: gsutil -m cp -r ${{ env.workspace }}/backend/htmlcov/ gs://theparkers-coverage/backend/
 
   frontendbuild:
     needs: PRFormat
