@@ -57,7 +57,7 @@ jobs:
         run: |
             cd backend
             coverage run  --omit=*/venv/*,*/migrations/*,*/test/* --source='apps' manage.py test --noinput
-            coverage report
+            coverage report --fail-under=90
             coverage html
 
       - id: 'auth'
