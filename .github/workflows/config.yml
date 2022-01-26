@@ -58,6 +58,7 @@ jobs:
             cd backend
             coverage run --source='apps' manage.py test --noinput
             coverage report
+            coverage html
 
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
