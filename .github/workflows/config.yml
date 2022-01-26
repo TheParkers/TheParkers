@@ -56,7 +56,7 @@ jobs:
       - name: run unit tests 
         run: |
             cd backend
-            coverage run --source='apps' manage.py test --noinput
+            coverage run  --omit=*/venv/*,*/migrations/*,*/test/* --source='apps' manage.py test --noinput
             coverage report
             coverage html
 
