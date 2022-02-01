@@ -26,7 +26,6 @@ def user_mod(request, pk):
         user = User.objects.get(pk=pk)
     except Exception as e:
         return HttpResponse(status=404)
-        print(e)
     
     if request.method == 'GET':
         userSer = UserSerializer(user)
@@ -43,4 +42,3 @@ def user_mod(request, pk):
             return JsonResponse(user_data_ser.data, status=201)
         else:
             return JsonResponse(user_data_ser.errors, status=400)
-# Create your views here.
