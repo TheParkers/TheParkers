@@ -5,7 +5,8 @@
         <ion-row>
           <ion-col>
             <div class="header-content">
-              <img class="header-logo" src="../../assets/images/logo.png">
+              <img *ngIf="this.platform.is('desktop')" class="header-logo" src="../../assets/images/desktop/logo.png">
+              <ion-img *ngIf="this.platform.is('mobile')" class="header-logo" [src]="headerimageurl"></ion-img>
               <div class="header-text">The Parkers</div>
             </div>
           </ion-col>

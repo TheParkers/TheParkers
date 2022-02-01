@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Platform } from '@ionic/angular';
 import { FirebaseService } from '../services/firebase/firebase.service';
 @Component({
   selector: 'app-home',
@@ -6,9 +7,9 @@ import { FirebaseService } from '../services/firebase/firebase.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
-  constructor(private firebase: FirebaseService) {
-
+  headerimageurl = '../../assets/images/desktop/logo.png'
+  constructor(private platform: Platform, private firebase: FirebaseService) {
+    
   }
   login() {
       this.firebase.login();
