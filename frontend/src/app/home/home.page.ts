@@ -7,7 +7,7 @@ import { FirebaseService } from '../services/firebase/firebase.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  headerimageurl = '../../assets/images/desktop/logo.png'
+  headerimageurl = '../../assets/images/mobile/logo.png'
   constructor(private platform: Platform, private firebase: FirebaseService) {
     
   }
