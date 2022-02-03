@@ -9,9 +9,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
 
 import { environment } from "../environments/environment.dev";
-import { FirebaseService } from './services/firebase/firebase.service';
+
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 import { LANGUAGE_CODE } from '@angular/fire/compat/auth';
+
+// Services 
+import { FirebaseService } from './services/firebase/firebase.service';
+import { GuardService } from './services/guard/guard.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +28,8 @@ import { LANGUAGE_CODE } from '@angular/fire/compat/auth';
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
               { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
               { provide: LANGUAGE_CODE, useValue: 'fr' },
-              FirebaseService
+              FirebaseService,
+              GuardService
             ],
   bootstrap: [AppComponent],
 })
