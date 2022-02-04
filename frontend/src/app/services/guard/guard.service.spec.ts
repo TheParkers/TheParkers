@@ -42,7 +42,7 @@ describe('GuardService', () => {
     let samplepresentUrl = new UrlTree()
     samplepresentUrl.fragment = sampleFragment
     router.parseUrl.and.returnValue(samplepresentUrl)
-    let result = service.canActivate(null, null)
+    let result = service.canActivate()
     console.log(result)
     expect(result instanceof UrlTree).toBeTruthy();
     expect(result.fragment).toEqual(sampleFragment);
@@ -54,7 +54,7 @@ describe('GuardService', () => {
     let samplepresentUrl = new UrlTree()
     samplepresentUrl.fragment = sampleFragment
     router.parseUrl.and.returnValue(samplepresentUrl)
-    let result = service.canActivate(null, null)
+    let result = service.canActivate()
     console.log(result)
     expect(result instanceof UrlTree).toBeTruthy();
     expect(result.fragment).toEqual(sampleFragment);
