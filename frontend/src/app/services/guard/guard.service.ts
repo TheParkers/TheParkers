@@ -10,8 +10,7 @@ export class GuardService implements CanActivate {
 
   constructor(private firebaseService: FirebaseService, private router: Router) { }
 
-  public canActivate(route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): UrlTree 
+  public canActivate(): UrlTree 
     {
       if (this.firebaseService.isAuthenticated)
       {

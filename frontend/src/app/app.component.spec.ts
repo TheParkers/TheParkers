@@ -1,35 +1,69 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { IonicModule } from '@ionic/angular';
+import { environment } from 'src/environments/environment.dev';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FirebaseService } from './services';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
+  let mockFirebaseService: any;
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ AppComponent ],
+      imports: [BrowserDynamicTestingModule, 
+                IonicModule.forRoot(), 
+                AppRoutingModule,
+                AngularFireModule.initializeApp(environment.firebaseConfig),
+                FormsModule,
+                ReactiveFormsModule,
+                MatNativeDateModule,
+                BrowserAnimationsModule,
+                MatFormFieldModule,
+                MatInputModule,
+                MatIconModule,
+                MatCardModule,
+                MatButtonModule,
+                MatDatepickerModule
+              ],
+      providers: [
+          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout']) }
+      ]
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    mockFirebaseService = TestBed.inject(FirebaseService);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('frontend app is running!');
+  }));
+
+  it('should create component', () => {
+    expect(component).toBeTruthy();
   });
+
+  it('Test login success', () => {
+    mockFirebaseService.login.and.returnValue(null)
+    component.login()
+    expect(component).toBeTruthy();
+  });
+
+  it('Test logout success', () => {
+    mockFirebaseService.logout.and.returnValue(null)
+    component.logout()
+    expect(component).toBeTruthy();
+  });
+
 });

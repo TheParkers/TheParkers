@@ -96,7 +96,7 @@ jobs:
         uses: 'google-github-actions/setup-gcloud@v0'
       
       - name: push coverage files to GCP cloud
-        run: gsutil -m cp -r ${{ env.workspace }}/frontend/coverage/ gs://theparkers-coverage/coverage/
+        run: gsutil -m cp -r ${{ env.workspace }}/frontend/coverage/frontend/ gs://theparkers-coverage/coverage/
 
       
       

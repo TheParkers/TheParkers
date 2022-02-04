@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
@@ -27,7 +26,7 @@ import { SearchParkingComponent } from './components/search-parking/search-parki
 @NgModule({
   declarations: [
     AppComponent,
-    SearchParkingComponent
+    SearchParkingComponent,
   ],
   imports: [
     BrowserModule,
