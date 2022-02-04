@@ -4,7 +4,7 @@ ENV HOST 0.0.0.0
 ENV PORT 80
 
 COPY package*.json /app/
-RUN npm install -g ionic
+RUN npm install -g @angular/cli
 RUN npm install
 COPY ./ /app/
 RUN ng build
