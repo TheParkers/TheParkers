@@ -32,6 +32,7 @@ jobs:
           configuration_path: ".github/workflows/pr-title-checker-config.json"
   
   LabelChanges:
+    needs: PRFormat
     runs-on: ubuntu-latest
     permissions:
       contents: read
