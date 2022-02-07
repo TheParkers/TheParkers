@@ -27,7 +27,7 @@ def user_mod(request, pk):
 
     if request.method == 'GET' or request.method == 'DELETE':
         try:
-            user = User.objects.get(pk=pk)
+            user = User.objects.get(id=pk)
         except Exception as e:
             return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
