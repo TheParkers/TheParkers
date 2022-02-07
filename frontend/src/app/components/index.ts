@@ -1,0 +1,1 @@
+export { SearchParkingComponent } from "./search-parking/search-parking.component";

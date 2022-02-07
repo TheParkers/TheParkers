@@ -1,7 +1,13 @@
 {
-  "name": "frontend",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+  "defaultProject": "frontend",
+  "projects": {
+    "frontend": {
+      "name": "frontend",
+      "integrations": {
+        "cordova": {},
+        "capacitor": {}
+      },
+      "type": "angular"
+    }
+  }
 }

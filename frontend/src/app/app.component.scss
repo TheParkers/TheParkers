@@ -1,0 +1,43 @@
+
+  .header-logo{
+    width: 30px;
+    height: 30px;
+  }
+  
+  .header-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .img-background{
+    height: 100%;
+    background-image: url("../assets/images/21NYTODAY01.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .overlay{
+    position: absolute;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(76,89,90,.45);
+  }
+ .content-xl{
+  font-size: 2rem;
+  font-weight:500;
+  color: white;
+  text-align: center;
+  margin:1rem;
+}
+
+.content-l{
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: white;
+  text-align: center;
+}
+.container-grid{
+  margin-top:2rem;
+}
