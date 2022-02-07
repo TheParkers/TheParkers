@@ -38,9 +38,9 @@ jobs:
       pull-requests: write
 
     steps:
-    - uses: actions/labeler@v2
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+      - uses: actions/labeler@master
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
           
   backendbuild:
     # The type of runner that the job will run on
