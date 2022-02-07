@@ -50,14 +50,14 @@ jobs:
         run: |
             cd backend
             python3 manage.py check
-            python3 manage.py makemigrations --merge
+            python3 manage.py makemigrations
             python manage.py migrate
   
       - name: run unit tests 
         run: |
             cd backend
             coverage run  --omit=*/venv/*,*/migrations/*,*/test/* --source='apps' manage.py test --noinput
-            coverage report
+            coverage report --fail-under=90
             coverage html
 
       - id: 'auth'
