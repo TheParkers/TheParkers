@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     # Our own apps:
     'apps.users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -87,7 +88,7 @@ DATABASES = {
         'PORT': '',  
     }
 }
-  
+
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
