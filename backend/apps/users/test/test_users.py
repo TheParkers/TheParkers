@@ -43,10 +43,18 @@ class TestUserModel(APITestCase):
     def test_post(self):
         resp = self.client.post("/users/", {'userName': "PutUser_1", "userType":"admin"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+    
+    def test_post_bad_request(self):
+        resp = self.client.post("/users/", {'faultyparam': "PutUser_1", "faultyparam":"admin"}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_put(self):
        resp = self.client.put("/users/5/", {'userName': "PutUser_5", "userType":"admin"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    
+    def test_put_bad_request(self):
+       resp = self.client.put("/users/5/", {'faultyparam': "PutUser_5", "faultyparam":"admin"}, format='json')
+       self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_delete(self):
         testuser_3 = User.objects.create(userName="TestUser2", userType="root")
