@@ -5,64 +5,64 @@ repo:
 
 
 frontend:
-- frontent/**
+- any: ['frontent/*]*']
 
 frontendtest:
-- frontent/src/**/*.spec.js
+- any: ['frontent/src/**/*.spec.js']
 
 frontendfeature:
-- frontent/src/app/components/**
+- any: ['frontent/src/app/components/**']
 
 frontendservice:
-- frontent/src/app/services/**
+- any: ['frontent/src/app/services/**']
 
 frontendmodel:
-- frontent/src/app/models/**
+- any: ['frontent/src/app/models/**']
 
 frontendassets:
-- frontent/src/assets/**
+- any: ['frontent/src/assets/**']
 
 frontendenvironment:
-- frontent/src/environments/**
+- any: ['frontent/src/environments/**']
 
 frontenddocker:
-- frontend/Dockerfile
+- any: ['frontend/Dockerfile']
 
 frontendupdatereadme:
-- frontend/README.md
+- any: ['frontend/README.md']
 
 
 
 CI/CD:
-- .github/**
+- any: ['.github/**']
 
 
 backend:
-- backend/**
+- any: ['backend/**']
 
 backendfeature:
-- backend/apps/**
+- any: ['backend/apps/**']
 
 backendtest:
-- backend/apps/**/test/**
+- any: ['backend/apps/**/test/**']
 
 backendmodels:
-- backend/apps/**/models.py
+- any: ['backend/apps/**/models.py']
 
 backendviews:
-- backend/apps/**/views.py
+- any: ['backend/apps/**/views.py']
 
 backendurls:
-- backend/apps/**/urls.py
+- any: ['backend/apps/**/urls.py']
 
 backendenvironment:
 - any: ['backend/django_project/**', 'backend/manage.py']
 
 backendrequirementsupdate:
-- backend/requirements.txt
+- any: ['backend/requirements.txt']
 
 backenddocker:
-- backend/Dockerfile
+- any: ['backend/Dockerfile']
 
 backendupdatereadme:
-- backend/README.md
+- any: ['backend/README.md']
