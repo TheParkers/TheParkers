@@ -28,13 +28,16 @@ class TestUserModel(APITestCase):
         if serializer.is_valid():
             users_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(users_json, response.content)
-            
-    def test_get_one(self):
+
+    @patch('apps.users.models.User.objects')       
+    def test_get_one(self, mockUser):
         testuser_3 = User.objects.create(userName="TestUser2", userType="root")
         response = self.client.get('/users/1/')
-        data = response.json()
-        self.assertEqual(data.get('userName'), testuser_3.userName)
-        self.assertEqual(data.get('userType'), testuser_3.userType)
+        single_user = User.objects.get(pk=1)
+        serializer = UserSerializer(data=single_user, many=False)
+        if serializer.is_valid():
+            user_json = JsonResponse(serializer.data, safe=False)
+            self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post(self):
