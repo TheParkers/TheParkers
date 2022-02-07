@@ -31,7 +31,7 @@ jobs:
           pass_on_octokit_error: false
           configuration_path: ".github/workflows/pr-title-checker-config.json"
   
-  LabelChangee:
+  LabelChanges:
     runs-on: ubuntu-latest
     permissions:
       contents: read
