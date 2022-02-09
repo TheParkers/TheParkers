@@ -1,6 +1,5 @@
 Django
 mysql-connector-python
-mysqlclient
 djangorestframework
 requests
 pyrebase4
