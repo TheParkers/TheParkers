@@ -4,5 +4,5 @@ from .models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['userName', 'userType']
+        fields = ['tpk_firebaseid']
         app_label = 'User'

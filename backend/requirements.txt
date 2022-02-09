@@ -1,7 +1,8 @@
-Django==4.0.1
+Django
 mysql-connector-python
 mysqlclient
 djangorestframework
 requests
+pyrebase4
 
 coverage
