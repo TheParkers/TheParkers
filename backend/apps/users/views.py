@@ -50,7 +50,6 @@ def user_mod(request, pk):
         newUser.tpk_name = firebase_user['users'][0]['providerUserInfo'][0]['displayName']
         newUser.tpk_photoUrl = firebase_user['users'][0]['providerUserInfo'][0]['photoUrl']
         newUser.save()
-        print('it came here')
         response = UserResponseSerializer(newUser, many=False)
         return JsonResponse(response.data, status=status.HTTP_201_CREATED)
 
