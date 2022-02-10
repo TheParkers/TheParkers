@@ -1,5 +1,4 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 class User(models.Model):
     REQUIRED_FIELDS = ['tpk_firebaseid', 'tpk_name']
