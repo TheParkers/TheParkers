@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.core.exceptions import ObjectDoesNotExist
 
 from apps.users.models import User
 from apps.users.serializers import UserResponseSerializer
@@ -10,7 +9,6 @@ from rest_framework.decorators import api_view, authentication_classes,  permiss
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from rest_framework.permissions import AllowAny
-from apps.parkersauth.permissions.IsUserLoggedIn import IsUserLoggedIn
 from apps.users.services import firebase
 
 
