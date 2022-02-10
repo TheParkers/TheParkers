@@ -57,7 +57,7 @@ class TestUserModel(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        resp = self.client.put("/users/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
+        resp = self.client.put("/users/register/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual('{"tpk_name": "test", "tpk_email": "test@test.com", "tpk_photoUrl": "test"}', str(resp.content, 'utf-8'))
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
     
@@ -66,7 +66,7 @@ class TestUserModel(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "invalidToken",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        resp = self.client.put("/users/5/", {"tpk_firebaseid": "PutUser_1"}, format='json')
+        resp = self.client.put("/users/register/5/", {"tpk_firebaseid": "PutUser_1"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
     
     @patch('apps.users.models.User.objects.filter')
@@ -76,11 +76,11 @@ class TestUserModel(APITestCase):
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         mockUsers.return_value = {"tpk_email": "test", "tpk_isdeleted": False}
-        resp = self.client.put("/users/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
+        resp = self.client.put("/users/register/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_406_NOT_ACCEPTABLE)
     
     def test_put_bad_request(self):
-       resp = self.client.put("/users/5/", {'tpk_firebaseid_inavlidkey': "PutUser_1"}, format='json')
+       resp = self.client.put("/users/register/5/", {'tpk_firebaseid_inavlidkey': "PutUser_1"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_delete(self):
