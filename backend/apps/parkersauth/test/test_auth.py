@@ -27,12 +27,10 @@ class TestAuthModule(APITestCase):
         resp = self.client.post("/signin/", {"tpk_firebasetoken_invalidparam": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.users.models.User.objects.get')
     @patch('apps.users.services.firebase.getUserProfileByToken')   
-    def testSignInUserNotFound(self, mockService, mockUsers):
+    def testSignInUserNotFound(self, mockService):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": None, "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        mockUsers.return_value = User.DoesNotExist
         resp = self.client.post("/signin/", {"tpk_firebasetoken": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)

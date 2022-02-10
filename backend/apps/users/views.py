@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from .models import User
-from .serializers import UserResponseSerializer, UserSerializer
+from .serializers import UserResponseSerializer
 
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
@@ -23,9 +23,9 @@ def users_list(request):
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([AllowAny])
 def user_mod(request, pk):
-    if request.method == 'GET' or request.method == 'DELETE':
+    if request.method == 'GET' or request.method == 'DELETE' and request.user:
         try:
-            user = User.objects.get(pk=pk)
+            user = User.objects.get(tpk_firebaseid=pk)
         except Exception as e:
             return JsonResponse({}, status=status.HTTP_404_NOT_FOUND)
 
@@ -51,11 +51,11 @@ def user_mod(request, pk):
         response = UserResponseSerializer(newUser, many=False)
         return JsonResponse(response.data, status=status.HTTP_201_CREATED)
 
-    if request.method == 'GET':
+    if request.method == 'GET' and request.user:
         userSer = UserResponseSerializer(user)
         return JsonResponse(userSer.data, status=status.HTTP_200_OK)
 
-    if request.method == 'DELETE':
+    if request.method == 'DELETE' and request.user:
         user.tpk_isdeleted = True
         user.save()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)

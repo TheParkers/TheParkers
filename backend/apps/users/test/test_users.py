@@ -27,16 +27,22 @@ class TestUserModel(APITestCase):
             users_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(users_json, response.content)
 
-    @patch('apps.users.models.User.objects')       
+    @patch('apps.users.models.User.objects.get')      
     def test_get_one(self, mockUser):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
-        response = self.client.get('/users/1/')
-        single_user = User.objects.get(pk=1)
+        mockUser.return_value = testuser_3
+
+        response = self.client.get('/users/testid/')
+        single_user = User.objects.get(tpk_email="test_email@test.com")
         serializer = UserResponseSerializer(data=single_user, many=False)
         if serializer.is_valid():
             user_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+         
+    def test_get_one_notfound(self):
+        response = self.client.get('/users/testid/')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     # def test_post(self):
     #     resp = self.client.post("/users/", {'tpk_firebaseid': "PutUser_1"}, format='json')
@@ -79,7 +85,7 @@ class TestUserModel(APITestCase):
 
     def test_delete(self):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
-        resp = self.client.delete('/users/1/')
+        resp = self.client.delete('/users/testid/')
         updated_testuser_3 = User.objects.get(tpk_email="test_email@test.com")
         self.assertTrue(updated_testuser_3.tpk_isdeleted)
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
