@@ -1,7 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class User(models.Model):
-    userName = models.CharField(max_length=100)
-    userType = models.CharField(max_length=100)
-    def __str__(self):
-        return self.userName
+    tpk_firebaseid = models.CharField(max_length=100)
+    tpk_name = models.CharField(max_length=100)
+    tpk_email = models.CharField(max_length=100)
+    tpk_updatedOn = models.DateTimeField(auto_now=True)
+    tpk_userCreatedOn = models.DateTimeField(auto_now_add=True)
+    tpk_photoUrl = models.CharField(max_length=500, default="NA")
