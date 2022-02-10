@@ -1,32 +1,27 @@
-from hashlib import new
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from rest_framework.permissions import AllowAny
+from django.http import JsonResponse
 from .models import User
 from .serializers import UserResponseSerializer, UserSerializer
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+from rest_framework import status
+
+from apps.parkersauth.permissions.IsUserLoggedIn import IsUserLoggedIn
 from apps.users.services import firebase
 
-@permission_classes([AllowAny])
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
+@permission_classes([IsUserLoggedIn])
 def users_list(request):
     if request.method == 'GET':
         usersList = User.objects.all()
-        userSerializer = UserSerializer(usersList, many=True)
+        userSerializer = UserResponseSerializer(usersList, many=True)
         return JsonResponse(userSerializer.data, safe=False)
-
-    if request.method == 'POST':
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PUT', 'GET', 'DELETE'])
+@permission_classes([AllowAny])
 def user_mod(request, pk):
     if request.method == 'GET' or request.method == 'DELETE':
         try:
@@ -47,7 +42,7 @@ def user_mod(request, pk):
             return JsonResponse({}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
         newUser.tpk_email = firebase_user['users'][0]['providerUserInfo'][0]['email']
-        check_existing_user = User.objects.filter(tpk_email=newUser.tpk_email)
+        check_existing_user = User.objects.filter(tpk_email=newUser.tpk_email, tpk_isdeleted=False)
         if check_existing_user:
             return JsonResponse({}, status=status.HTTP_406_NOT_ACCEPTABLE)
         newUser.tpk_name = firebase_user['users'][0]['providerUserInfo'][0]['displayName']
@@ -63,5 +58,5 @@ def user_mod(request, pk):
     if request.method == 'DELETE':
         user.tpk_isdeleted = True
         user.save()
-        return HttpResponse(status=status.HTTP_202_ACCEPTED)
+        return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
             # except Exception as e:

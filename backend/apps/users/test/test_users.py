@@ -1,5 +1,4 @@
 from re import S
-from unittest import mock
 from unittest.mock import patch
 from django.http import JsonResponse
 
@@ -39,13 +38,13 @@ class TestUserModel(APITestCase):
             self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    def test_post(self):
-        resp = self.client.post("/users/", {'tpk_firebaseid': "PutUser_1"}, format='json')
-        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+    # def test_post(self):
+    #     resp = self.client.post("/users/", {'tpk_firebaseid': "PutUser_1"}, format='json')
+    #     self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
     
-    def test_post_bad_request(self):
-        resp = self.client.post("/users/", {'tpk_firebaseidinvalidkey': "PutUser_1"}, format='json')
-        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+    # def test_post_bad_request(self):
+    #     resp = self.client.post("/users/", {'tpk_firebaseidinvalidkey': "PutUser_1"}, format='json')
+    #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     @patch('apps.users.services.firebase.getUserProfileByToken')
     def test_put(self, mockService):
@@ -70,7 +69,7 @@ class TestUserModel(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        mockUsers.return_value = {"tpk_email": "test"}
+        mockUsers.return_value = {"tpk_email": "test", "tpk_isdeleted": False}
         resp = self.client.put("/users/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_406_NOT_ACCEPTABLE)
     
