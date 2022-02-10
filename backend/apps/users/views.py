@@ -61,6 +61,7 @@ def user_mod(request, pk):
         return JsonResponse(userSer.data, status=status.HTTP_200_OK)
 
     if request.method == 'DELETE':
-        user.delete()
+        user.tpk_isdeleted = True
+        user.save()
         return HttpResponse(status=status.HTTP_202_ACCEPTED)
             # except Exception as e:

@@ -81,6 +81,8 @@ class TestUserModel(APITestCase):
     def test_delete(self):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         resp = self.client.delete('/users/1/')
+        updated_testuser_3 = User.objects.get(tpk_email="test_email@test.com")
+        self.assertTrue(updated_testuser_3.tpk_isdeleted)
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 
     def test_get_nonexistent_user(self):

@@ -8,3 +8,4 @@ class User(models.Model):
     tpk_updatedOn = models.DateTimeField(auto_now=True)
     tpk_userCreatedOn = models.DateTimeField(auto_now_add=True)
     tpk_photoUrl = models.CharField(max_length=500, default="NA")
+    tpk_isdeleted = models.BooleanField(default=False)
