@@ -20,7 +20,7 @@ def users_list(request):
         return JsonResponse(userSerializer.data, safe=False)
 
 
-@api_view(['PUT', 'GET', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 @permission_classes([IsUserLoggedIn])
 def user_mod(request, pk):
     if request.method == 'GET' or request.method == 'DELETE' and request.user:
