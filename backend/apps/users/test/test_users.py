@@ -3,7 +3,7 @@ from unittest.mock import patch
 from django.http import JsonResponse
 
 from ..models import User
-from ..serializers import UserSerializer
+from ..serializers import UserResponseSerializer, UserSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
 
@@ -32,7 +32,7 @@ class TestUserModel(APITestCase):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         response = self.client.get('/users/1/')
         single_user = User.objects.get(pk=1)
-        serializer = UserSerializer(data=single_user, many=False)
+        serializer = UserResponseSerializer(data=single_user, many=False)
         if serializer.is_valid():
             user_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(user_json, response.content)

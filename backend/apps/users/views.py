@@ -52,11 +52,10 @@ def user_mod(request, pk):
         return JsonResponse(response.data, status=status.HTTP_201_CREATED)
 
     if request.method == 'GET':
-        userSer = UserSerializer(user)
+        userSer = UserResponseSerializer(user)
         return JsonResponse(userSer.data, status=status.HTTP_200_OK)
 
     if request.method == 'DELETE':
         user.tpk_isdeleted = True
         user.save()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
-            # except Exception as e:
