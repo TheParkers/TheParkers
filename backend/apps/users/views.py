@@ -47,6 +47,9 @@ def user_mod(request, pk):
             return JsonResponse({}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
         newUser.tpk_email = firebase_user['users'][0]['providerUserInfo'][0]['email']
+        check_existing_user = User.objects.filter(tpk_email=newUser.tpk_email)
+        if check_existing_user:
+            return JsonResponse({}, status=status.HTTP_406_NOT_ACCEPTABLE)
         newUser.tpk_name = firebase_user['users'][0]['providerUserInfo'][0]['displayName']
         newUser.tpk_photoUrl = firebase_user['users'][0]['providerUserInfo'][0]['photoUrl']
         newUser.save()

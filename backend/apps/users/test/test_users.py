@@ -64,6 +64,16 @@ class TestUserModel(APITestCase):
         resp = self.client.put("/users/5/", {"tpk_firebaseid": "PutUser_1"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
     
+    @patch('apps.users.models.User.objects.filter')
+    @patch('apps.users.services.firebase.getUserProfileByToken')
+    def test_put_duplicate_user(self, mockService, mockUsers):
+        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
+                                    "email": "test@test.com", "displayName": 
+                                    "test", "photoUrl": "test"}]}]}
+        mockUsers.return_value = {"tpk_email": "test"}
+        resp = self.client.put("/users/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_406_NOT_ACCEPTABLE)
+    
     def test_put_bad_request(self):
        resp = self.client.put("/users/5/", {'tpk_firebaseid_inavlidkey': "PutUser_1"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
