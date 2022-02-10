@@ -1,6 +1,7 @@
 Django
 mysql-connector-python
 djangorestframework
+djangorestframework-simplejwt
 requests
 pyrebase4
 
