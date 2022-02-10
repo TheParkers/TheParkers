@@ -12,8 +12,7 @@ class TestUserModel(APITestCase):
     client = APIRequestFactory()
     @patch('apps.users.models.User.objects')
     def setUp(self, mockUser):
-        sampleuser_1 = User.objects.create(userName="TestUser2", userType="root")
-        sampleuser_2 = User.objects.create(userName="TestUser3", userType="guest")    
+        sampleuser_1 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
 
     def test_get(self):
         response = self.client.get('/users/')
@@ -31,7 +30,7 @@ class TestUserModel(APITestCase):
 
     @patch('apps.users.models.User.objects')       
     def test_get_one(self, mockUser):
-        testuser_3 = User.objects.create(userName="TestUser2", userType="root")
+        testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         response = self.client.get('/users/1/')
         single_user = User.objects.get(pk=1)
         serializer = UserSerializer(data=single_user, many=False)
@@ -41,23 +40,36 @@ class TestUserModel(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_post(self):
-        resp = self.client.post("/users/", {'userName': "PutUser_1", "userType":"admin"}, format='json')
+        resp = self.client.post("/users/", {'tpk_firebaseid': "PutUser_1"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
     
     def test_post_bad_request(self):
-        resp = self.client.post("/users/", {'faultyparam': "PutUser_1", "faultyparam":"admin"}, format='json')
+        resp = self.client.post("/users/", {'tpk_firebaseidinvalidkey': "PutUser_1"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_put(self):
-       resp = self.client.put("/users/5/", {'userName': "PutUser_5", "userType":"admin"}, format='json')
-       self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    @patch('apps.users.services.firebase.getUserProfileByToken')
+    def test_put(self, mockService):
+        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
+                                    "email": "test@test.com", "displayName": 
+                                    "test", "photoUrl": "test"}]}]}
+        resp = self.client.put("/users/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
+        self.assertEqual('{"tpk_name": "test", "tpk_email": "test@test.com", "tpk_photoUrl": "test"}', str(resp.content, 'utf-8'))
+        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+    
+    @patch('apps.users.services.firebase.getUserProfileByToken')
+    def test_put_tokenauthentication_failed(self, mockService):
+        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "invalidToken",  
+                                    "email": "test@test.com", "displayName": 
+                                    "test", "photoUrl": "test"}]}]}
+        resp = self.client.put("/users/5/", {"tpk_firebaseid": "PutUser_1"}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
     
     def test_put_bad_request(self):
-       resp = self.client.put("/users/5/", {'faultyparam': "PutUser_5", "faultyparam":"admin"}, format='json')
+       resp = self.client.put("/users/5/", {'tpk_firebaseid_inavlidkey': "PutUser_1"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_delete(self):
-        testuser_3 = User.objects.create(userName="TestUser2", userType="root")
+        testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         resp = self.client.delete('/users/1/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 

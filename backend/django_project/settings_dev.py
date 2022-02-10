@@ -40,7 +40,6 @@ INSTALLED_APPS = [
 
     # Our own apps:
     'apps.users',
-    'apps.customAuth',
     'rest_framework',
     'rest_framework.authtoken'
 ]
