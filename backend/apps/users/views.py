@@ -20,8 +20,8 @@ def users_list(request):
         return JsonResponse(userSerializer.data, safe=False)
 
 
-@api_view(['PUT', 'GET', 'DELETE'])
-@permission_classes([AllowAny])
+@api_view(['GET', 'DELETE'])
+@permission_classes([IsUserLoggedIn])
 def user_mod(request, pk):
     if request.method == 'GET' or request.method == 'DELETE' and request.user:
         try:
@@ -29,6 +29,18 @@ def user_mod(request, pk):
         except Exception as e:
             return JsonResponse({}, status=status.HTTP_404_NOT_FOUND)
 
+    if request.method == 'GET' and request.user:
+        userSer = UserResponseSerializer(user)
+        return JsonResponse(userSer.data, status=status.HTTP_200_OK)
+
+    if request.method == 'DELETE' and request.user:
+        user.tpk_isdeleted = True
+        user.save()
+        return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
+
+@api_view(['PUT'])
+@permission_classes([AllowAny])
+def new_user(request, pk):
     if request.method == 'PUT':
         try:
             token = request.data['tpk_firebaseid']
@@ -50,12 +62,3 @@ def user_mod(request, pk):
         newUser.save()
         response = UserResponseSerializer(newUser, many=False)
         return JsonResponse(response.data, status=status.HTTP_201_CREATED)
-
-    if request.method == 'GET' and request.user:
-        userSer = UserResponseSerializer(user)
-        return JsonResponse(userSer.data, status=status.HTTP_200_OK)
-
-    if request.method == 'DELETE' and request.user:
-        user.tpk_isdeleted = True
-        user.save()
-        return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
