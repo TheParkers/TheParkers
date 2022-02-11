@@ -8,13 +8,14 @@ import { FirebaseService } from './services';
 })
 export class AppComponent {
   title = 'frontend';
+  email = 'test@gmail.com'
+  password = 's'
   constructor(private firebase: FirebaseService){};
- 
+      
   login() {
     this.firebase.login();
   }
-  email: string;
-  password: string;
+  
   
 
   signUp() {
