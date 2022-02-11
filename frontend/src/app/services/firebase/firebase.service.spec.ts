@@ -80,6 +80,11 @@ describe('FirebaseService', () => {
     service.SignUp("test@gmail.com","s")
     expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
+  it('Test successful login with email', () => {
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve("test@gmail.com"))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
 
 
   it('Test logout success', () => {

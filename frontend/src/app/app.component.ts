@@ -16,7 +16,10 @@ export class AppComponent {
     this.firebase.login();
   }
   
-  
+  signIn() {
+ 
+    this.firebase.SignIn(this.email, this.password);
+    }
 
   signUp() {
   
