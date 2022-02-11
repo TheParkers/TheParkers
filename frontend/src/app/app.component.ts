@@ -9,10 +9,18 @@ import { FirebaseService } from './services';
 export class AppComponent {
   title = 'frontend';
   constructor(private firebase: FirebaseService){};
+  email: string;
+  password: string;
+  
   login() {
     this.firebase.login();
   }
   logout() {
     this.firebase.logout();
+  }
+  passwordResetEmail(){
+    this.email = 'test@gmail.com';
+    this.firebase.passwordResetEmail(this.email);
+    
   }
 }

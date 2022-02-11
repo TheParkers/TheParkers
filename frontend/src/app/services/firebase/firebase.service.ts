@@ -28,6 +28,8 @@ export class FirebaseService {
       return this.isAuthenticated ? this.authState.uid : null
   }
 
+
+
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
@@ -36,6 +38,17 @@ export class FirebaseService {
       })
       .catch(err => {
         console.log('Error in firebase authentication');
+      });
+  }
+
+  passwordResetEmail(email: string){
+    this.auth.sendPasswordResetEmail(email).then(
+      () => {
+        // template defined in the firebase
+        console.log('Password reset email sent');
+      })
+      .catch((error) => {
+        console.log('Error in password reset');
       });
   }
 
