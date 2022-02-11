@@ -20,7 +20,7 @@ grab the list of lat and long from the DB and display it on the map
 '''
 
 @csrf_exempt
-@permission_classes([IsUserLoggedIn])
+# @permission_classes([IsUserLoggedIn])
 @api_view(['GET', 'POST'])
 def LatLongList(request):
     if request.method == 'GET':
@@ -37,7 +37,7 @@ def LatLongList(request):
         return JsonResponse(serializer.errors, status=400)
 
 @api_view(['PUT', 'GET', 'DELETE'])
-@permission_classes([IsUserLoggedIn])
+# @permission_classes([IsUserLoggedIn])
 def LatLongMod(request, pk):
     # Loc = GCoordList.objects.all()
     # LatLongPairs = []
