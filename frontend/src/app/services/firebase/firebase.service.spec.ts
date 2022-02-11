@@ -98,9 +98,9 @@ describe('FirebaseService', () => {
   });
 
   it('Test failure password reset', () => {
-    mockAuthService.passwordResetEmail.and.returnValue(Promise.reject(null))
+    mockAuthService.sendPasswordResetEmail.and.returnValue(Promise.reject(null))
     service.passwordResetEmail("test@gmail.com")
-    expect(mockAuthService.passwordResetEmail).toHaveBeenCalledWith("test@gmail.com")
+    expect(mockAuthService.sendPasswordResetEmail).toHaveBeenCalledWith("test@gmail.com")
   }); 
 
 
