@@ -15,6 +15,14 @@ export class AppComponent {
   login() {
     this.firebase.login();
   }
+
+  signUp() {
+  
+  this.email = 'test@gmail.com';
+  this.password = 's';
+  this.firebase.SignUp(this.email, this.password);
+  
+  }
   logout() {
     this.firebase.logout();
   }
@@ -23,4 +31,5 @@ export class AppComponent {
     this.firebase.passwordResetEmail(this.email);
     
   }
+
 }

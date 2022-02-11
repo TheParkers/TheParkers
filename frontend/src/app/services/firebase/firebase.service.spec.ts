@@ -67,7 +67,19 @@ describe('FirebaseService', () => {
     service.login()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
+  
+  it('Test successful signUp with email', () => {
+    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.resolve(null))
+    service.SignUp("test@gmail.com","s")
+    expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
 
+  it('Test failure signUp with email', () => {
+    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.reject(null))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+ 
   it('Test successful password reset', () => {
     mockAuthService.sendPasswordResetEmail.and.returnValue(Promise.resolve(null))
     service.passwordResetEmail("test@gmail.com")
