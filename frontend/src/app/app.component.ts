@@ -17,16 +17,14 @@ export class AppComponent {
   }
   
   signIn() {
- 
     this.firebase.SignIn(this.email, this.password);
     }
 
   signUp() {
-  
-  //this.email = 'test@gmail.com';
-  //this.password = 's';
   this.firebase.SignUp(this.email, this.password);
-  
+  }
+  passwordResetEmail(){
+    this.firebase.passwordResetEmail(this.email);
   }
   
   logout() {
