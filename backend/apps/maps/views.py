@@ -39,12 +39,23 @@ def LatLongMod(request, pk):
             Coords = GCoordList.objects.get(pk=pk)
         except GCoordList.DoesNotExist:
             return HttpResponse(status=404)
+<<<<<<< HEAD
     
     if request.method == 'GET':
+=======
+
+    
+    if request.method == 'GET':
+        
+>>>>>>> 573170ddae9676b40079816e49e8cab865aa25b0
         serializer = MapSerializer(Coords)
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
+<<<<<<< HEAD
+=======
+
+>>>>>>> 573170ddae9676b40079816e49e8cab865aa25b0
         data = JSONParser().parse(request)
         serializer = MapSerializer(data = data)
         if serializer.is_valid():
