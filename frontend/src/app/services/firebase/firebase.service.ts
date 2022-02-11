@@ -28,7 +28,6 @@ export class FirebaseService {
       return this.isAuthenticated ? this.authState.uid : null
   }
 
-/* Sign up */
   SignUp(email: string, password: string) {
     this.auth
     .createUserWithEmailAndPassword(email, password)
@@ -40,7 +39,15 @@ export class FirebaseService {
       console.log('Something is wrong in Signup:');
     });
   }
-  /* Sign in */
+  passwordResetEmail(email: string){
+    this.auth.sendPasswordResetEmail(email).then(
+      () => {
+        console.log('Password reset email sent');
+      })
+      .catch((error) => {
+        console.log('Error in password reset');
+      });
+  } 
   SignIn(email: string, password: string) {
     this.auth
     .signInWithEmailAndPassword(email, password)
@@ -49,12 +56,10 @@ export class FirebaseService {
     console.log('You are Successfully logged in!');
     })
     .catch(err => {
-    console.log('Something is wrong in SignIn:');
-      
+    console.log('Something is wrong in SignIn:'); 
     });
   }
-
-
+  
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
