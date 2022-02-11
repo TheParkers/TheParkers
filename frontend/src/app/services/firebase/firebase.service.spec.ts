@@ -79,6 +79,18 @@ describe('FirebaseService', () => {
     service.SignIn("test@gmail.com","s")
     expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
+
+  it('Test successful login with email', () => {
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(null))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test failure login with email', () => {
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.reject(null))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
  
   it('Test successful password reset', () => {
     mockAuthService.sendPasswordResetEmail.and.returnValue(Promise.resolve(null))
