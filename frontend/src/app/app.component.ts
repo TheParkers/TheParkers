@@ -9,12 +9,13 @@ import { FirebaseService } from './services';
 export class AppComponent {
   title = 'frontend';
   constructor(private firebase: FirebaseService){};
-  email: string;
-  password: string;
-  
+ 
   login() {
     this.firebase.login();
   }
+  email: string;
+  password: string;
+  
 
   signUp() {
   
@@ -23,13 +24,22 @@ export class AppComponent {
   this.firebase.SignUp(this.email, this.password);
   
   }
-  logout() {
-    this.firebase.logout();
-  }
+  signIn() {
+ 
+    this.email = 'test@gmail.com';
+    this.password = '';
+    this.firebase.SignIn(this.email, this.password);
+    }
+
+  
   passwordResetEmail(){
     this.email = 'test@gmail.com';
     this.firebase.passwordResetEmail(this.email);
     
+  }
+  
+  logout() {
+    this.firebase.logout();
   }
 
 }
