@@ -1,5 +1,5 @@
-from django.urls import URLPattern, path
-from . import views
+from django.urls import path
+from apps.maps import views
 
 app_name = "Map_Test"
 

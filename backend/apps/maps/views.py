@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from maps.serializers import MapSerializer
-# from .forms import LatLong
+from apps.maps.serializers import MapSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-from maps.models import GCoordList
+from apps.maps.models import GCoordList
 from rest_framework.parsers import JSONParser
 from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view
@@ -42,15 +41,12 @@ def LatLongMod(request, pk):
             Coords = GCoordList.objects.get(pk=pk)
         except GCoordList.DoesNotExist:
             return HttpResponse(status=404)
-
     
     if request.method == 'GET':
-        
         serializer = MapSerializer(Coords)
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-
         data = JSONParser().parse(request)
         serializer = MapSerializer(data = data)
         if serializer.is_valid():

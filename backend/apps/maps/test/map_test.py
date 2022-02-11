@@ -8,13 +8,15 @@ from rest_framework import status
 
 class TestUserModel(APITestCase):
     client = APIRequestFactory()
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
     @patch('maps.models.GCoordList.objects')
-    def setUp(self, mockUser):
+    def setUp(self, mockUser, mockPerm):
+        mockPerm.return_value = True
         sampleCoords_1 = GCoordList.objects.create(Lat_db="43.47221", Long_db="-80.54486")
         sampleCoords_2 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
 
-    
-    def test_get(self):
+    def test_get(self, mockPerm):
+        mockPerm.return_value = True
         response = self.client.get('/map/')
 
         # assert response code.
@@ -27,9 +29,10 @@ class TestUserModel(APITestCase):
         if serializer.is_valid():
             Coord_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(Coord_json, response.content)
-    
+
     @patch('maps.models.GCoordList.objects')       
-    def test_get_one(self, mockUser):
+    def test_get_one(self, mockUser, mockPerm):
+        mockPerm.return_value = True
         sample_input = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         response = self.client.get('/map/1/')
         single_user = GCoordList.objects.get(pk=1)
@@ -39,29 +42,34 @@ class TestUserModel(APITestCase):
             self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
-    def test_post(self):
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_post(self, mockPerm):
         resp = self.client.post("/map/", {'Lat_db': "43.47620", "Long_db":"-80.54525"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
-    
-    def test_post_bad_request(self):
+
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_post_bad_request(self, mockPerm):
         resp = self.client.post("/map/", {'faultyParam': "43.47620", "faultyParam":"-80.54525"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_put(self):
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_put(self, mockPerm):
        resp = self.client.put("/map/5/", {"Lat_db": "43.47620", "Long_db":"-80.54525"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_200_OK)
     
-    def test_put_bad_request(self):
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_put_bad_request(self, mockPerm):
        resp = self.client.put("/map/5/", {'faultyParam': "43.47620", "faultyParam":"-80.54525"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_delete(self):
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_delete(self, mockPerm):
         sample_input3 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
-        # print(sample_input3)
         resp = self.client.delete('/map/1/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 
-    def test_get_nonexistent_user(self):
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    def test_get_nonexistent_user(self, mockPerm):
         resp = self.client.delete('/map/123456/')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
     
