@@ -5,25 +5,25 @@ repo:
 
 
 frontend:
-- any: ['frontent/*]*']
+- any: ['frontend/*]*']
 
 frontendtest:
-- any: ['frontent/src/**/*.spec.js']
+- any: ['frontend/src/**/*.spec.js']
 
 frontendfeature:
-- any: ['frontent/src/app/components/**']
+- any: ['frontend/src/app/components/**']
 
 frontendservice:
-- any: ['frontent/src/app/services/**']
+- any: ['frontend/src/app/services/**']
 
 frontendmodel:
-- any: ['frontent/src/app/models/**']
+- any: ['frontend/src/app/models/**']
 
 frontendassets:
-- any: ['frontent/src/assets/**']
+- any: ['frontend/src/assets/**']
 
 frontendenvironment:
-- any: ['frontent/src/environments/**']
+- any: ['frontend/src/environments/**']
 
 frontenddocker:
 - any: ['frontend/Dockerfile']
