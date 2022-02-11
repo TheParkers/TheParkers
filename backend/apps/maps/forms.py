@@ -10,7 +10,3 @@ class LatLong(forms.ModelForm):
             'Lat_db' : _('Lattitude'),
             'Long_db' : _('Longitude'),
         }
-
-# class LatLong(forms.Form):
-#     Lat = forms.DecimalField()
-#     Long = forms.DecimalField()
