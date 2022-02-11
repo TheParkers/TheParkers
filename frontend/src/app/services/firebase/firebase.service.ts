@@ -28,6 +28,20 @@ export class FirebaseService {
       return this.isAuthenticated ? this.authState.uid : null
   }
 
+/* Sign up */
+  SignUp(email: string, password: string) {
+    this.auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(res => {
+      console.log('You are Successfully signed up!', res);
+      this.authUser = res
+    })
+    .catch(error => {
+      console.log('Something is wrong in Signup:');
+    });
+  }
+
+
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {

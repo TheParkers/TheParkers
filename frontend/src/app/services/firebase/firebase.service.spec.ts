@@ -22,7 +22,8 @@ describe('FirebaseService', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
       ],
       providers: [
-        {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut']) },
+        {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut', 'createUserWithEmailAndPassword' , 'signInWithEmailAndPassword',
+        'sendPasswordResetEmail']) },
         FirebaseService
       ]
     });
@@ -67,6 +68,19 @@ describe('FirebaseService', () => {
     service.login()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
+  
+  it('Test successful signUp with email', () => {
+    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.resolve("test@gmail.com"))
+    service.SignUp("test@gmail.com","s")
+    expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test failure signUp with email', () => {
+    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.reject(null))
+    service.SignUp("test@gmail.com","s")
+    expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
 
   it('Test logout success', () => {
     mockAuthService.signOut.and.returnValue(Promise.resolve(null))
