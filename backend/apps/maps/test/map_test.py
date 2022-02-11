@@ -1,16 +1,14 @@
-from re import S
-from unittest import mock
 from unittest.mock import patch
 from django.http import JsonResponse
 
-from Map_Test.models import GCoordList
-from Map_Test.serializers import MapSerializer
+from apps.maps.models import GCoordList
+from apps.maps.serializers import MapSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
 
 class TestUserModel(APITestCase):
     client = APIRequestFactory()
-    @patch('Map_Test.models.GCoordList.objects')
+    @patch('maps.models.GCoordList.objects')
     def setUp(self, mockUser):
         sampleCoords_1 = GCoordList.objects.create(Lat_db="43.47221", Long_db="-80.54486")
         sampleCoords_2 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
@@ -30,7 +28,7 @@ class TestUserModel(APITestCase):
             Coord_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(Coord_json, response.content)
     
-    @patch('Map_Test.models.GCoordList.objects')       
+    @patch('maps.models.GCoordList.objects')       
     def test_get_one(self, mockUser):
         sample_input = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         response = self.client.get('/map/1/')

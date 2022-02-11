@@ -1,5 +1,5 @@
 from django import forms
-from Map_Test.models import GCoordList
+from maps.models import GCoordList
 from django.utils.translation import gettext_lazy as _
 
 class LatLong(forms.ModelForm):
