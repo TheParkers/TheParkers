@@ -1,22 +1,23 @@
+from re import S
 from unittest.mock import patch
 from django.http import JsonResponse
 
-from apps.maps.models import GCoordList
-from apps.maps.serializers import MapSerializer
+from ..models import GCoordList
+from ..serializers import MapSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
 
-class TestUserModel(APITestCase):
+class TestMapsModel(APITestCase):
     client = APIRequestFactory()
     @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
-    @patch('maps.models.GCoordList.objects')
+    @patch('apps.maps.models.GCoordList.objects')
     def setUp(self, mockUser, mockPerm):
         mockPerm.return_value = True
         sampleCoords_1 = GCoordList.objects.create(Lat_db="43.47221", Long_db="-80.54486")
         sampleCoords_2 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
 
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
     def test_get(self, mockPerm):
-        mockPerm.return_value = True
         response = self.client.get('/map/')
 
         # assert response code.
@@ -30,9 +31,9 @@ class TestUserModel(APITestCase):
             Coord_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(Coord_json, response.content)
 
-    @patch('maps.models.GCoordList.objects')       
+    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.maps.models.GCoordList.objects')       
     def test_get_one(self, mockUser, mockPerm):
-        mockPerm.return_value = True
         sample_input = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         response = self.client.get('/map/1/')
         single_user = GCoordList.objects.get(pk=1)
