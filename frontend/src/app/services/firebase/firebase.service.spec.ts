@@ -70,39 +70,15 @@ describe('FirebaseService', () => {
   });
   
   it('Test successful signUp with email', () => {
-    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.resolve(null))
+    mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.resolve("test@gmail.com"))
     service.SignUp("test@gmail.com","s")
     expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
   it('Test failure signUp with email', () => {
     mockAuthService.createUserWithEmailAndPassword.and.returnValue(Promise.reject(null))
-    service.SignIn("test@gmail.com","s")
+    service.SignUp("test@gmail.com","s")
     expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
-  });
-
-  it('Test successful login with email', () => {
-    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(null))
-    service.SignIn("test@gmail.com","s")
-    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
-  });
-
-  it('Test failure login with email', () => {
-    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.reject(null))
-    service.SignIn("test@gmail.com","s")
-    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
-  });
- 
-  it('Test successful password reset', () => {
-    mockAuthService.sendPasswordResetEmail.and.returnValue(Promise.resolve(null))
-    service.passwordResetEmail("test@gmail.com")
-    expect(mockAuthService.sendPasswordResetEmail).toHaveBeenCalledWith("test@gmail.com")
-  });
-
-  it('Test failure password reset', () => {
-    mockAuthService.passwordResetEmail.and.returnValue(Promise.reject(null))
-    service.passwordResetEmail("test@gmail.com")
-    expect(mockAuthService.passwordResetEmail).toHaveBeenCalledWith("test@gmail.com")
   });
 
 

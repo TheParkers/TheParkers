@@ -40,20 +40,7 @@ export class FirebaseService {
       console.log('Something is wrong in Signup:');
     });
   }
-  
-  /* Sign in */
-  SignIn(email: string, password: string) {
-    this.auth
-    .signInWithEmailAndPassword(email, password)
-    .then(res => {
-      this.authUser = res
-    console.log('You are Successfully logged in!');
-    })
-    .catch(err => {
-    console.log('Something is wrong in SignIn:');
-      
-    });
-  }
+
 
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
@@ -63,17 +50,6 @@ export class FirebaseService {
       })
       .catch(err => {
         console.log('Error in firebase authentication');
-      });
-  }
-
-  passwordResetEmail(email: string){
-    this.auth.sendPasswordResetEmail(email).then(
-      () => {
-        // template defined in the firebase
-        console.log('Password reset email sent');
-      })
-      .catch((error) => {
-        console.log('Error in password reset');
       });
   }
 

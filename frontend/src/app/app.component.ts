@@ -20,23 +20,10 @@ export class AppComponent {
 
   signUp() {
   
-  this.email = 'test@gmail.com';
-  this.password = 's';
+  //this.email = 'test@gmail.com';
+  //this.password = 's';
   this.firebase.SignUp(this.email, this.password);
   
-  }
-  signIn() {
- 
-    this.email = 'test@gmail.com';
-    this.password = '';
-    this.firebase.SignIn(this.email, this.password);
-    }
-
-  
-  passwordResetEmail(){
-    this.email = 'test@gmail.com';
-    this.firebase.passwordResetEmail(this.email);
-    
   }
   
   logout() {
