@@ -22,7 +22,8 @@ describe('FirebaseService', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
       ],
       providers: [
-        {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut']) },
+        {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut', 'createUserWithEmailAndPassword' , 'signInWithEmailAndPassword',
+        'sendPasswordResetEmail']) },
         FirebaseService
       ]
     });
