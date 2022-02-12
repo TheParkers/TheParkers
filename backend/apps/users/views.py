@@ -48,8 +48,7 @@ def new_user(request, pk):
         except Exception as e:
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
         newUser = User()
-        newUser.tpk_firebaseid = firebase_user['users'][0]['providerUserInfo'][0]['rawId']
-
+        newUser.tpk_firebaseid = firebase_user['users'][0]['localId']
         if pk != newUser.tpk_firebaseid:
             return JsonResponse({}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
