@@ -32,9 +32,18 @@ export class FirebaseService {
   SignUp(email: string, password: string) {
     this.auth
     .createUserWithEmailAndPassword(email, password)
-    .then(res => {
-      console.log('You are Successfully signed up!', res);
-      
+    .then(success => {
+      console.log('You are Successfully signed up!', success);
+      let useruid = success.user?.uid
+        success.user?.getIdToken().then( firebaseToken => {
+          if (success.additionalUserInfo?.isNewUser && useruid)
+          {
+            this.parkerAuth.registerUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('register user successful', user)
+            })
+          }
+        });
     })
     .catch(error => {
       console.log('Something is wrong in Signup:');
@@ -75,7 +84,7 @@ export class FirebaseService {
               console.log('register user successful', user)
             })
           }
-        })
+        });
       })
       .catch(err => {
         console.log('Error in firebase authentication');
