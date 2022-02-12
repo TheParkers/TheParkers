@@ -95,6 +95,17 @@ export class FirebaseService {
                   });
                 });
             })
+            this.parkerAuth.loginUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('google login user successful', user)
+            })
+          }
+          if (!(success.additionalUserInfo?.isNewUser) && useruid)
+          {
+            this.parkerAuth.loginUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('google login user successful', user)
+            })
           }
           else {
               success.user?.getIdToken().then( firebaseToken => {
