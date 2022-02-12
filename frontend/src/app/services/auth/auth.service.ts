@@ -36,7 +36,7 @@ export class AuthService {
         Authorization: token
       })
     }
-    return this.http.post<FirebaseToken>(environment.apiUrls.loginUser+userid, requestObj, httpOptions)
+    return this.http.post<FirebaseToken>(environment.apiUrls.loginUser, requestObj, httpOptions)
     .pipe(
       catchError(this.handleError('Login user to parker', requestObj))
     )

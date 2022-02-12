@@ -28,7 +28,7 @@ describe('FirebaseService', () => {
       providers: [
         {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut', 'createUserWithEmailAndPassword' , 'signInWithEmailAndPassword',
         'sendPasswordResetEmail']) },
-        {provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker'])},
+        {provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker'])},
         FirebaseService
       ]
     });

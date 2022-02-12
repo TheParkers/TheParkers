@@ -18,7 +18,7 @@ describe('AuthService', () => {
         HttpClientModule,
       ],
       providers: [
-        {provide: HttpClient, useValue: jasmine.createSpyObj(['put']) },
+        {provide: HttpClient, useValue: jasmine.createSpyObj(['put' ,'post']) },
         AuthService
       ]
     });
