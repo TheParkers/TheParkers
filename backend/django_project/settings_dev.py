@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'corsheaders',
     # Our own apps:
     'apps.users',
+    'apps.maps',
     'apps.parkersauth',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
