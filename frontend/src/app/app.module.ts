@@ -22,6 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SearchParkingComponent } from './components/search-parking/search-parking.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from './services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,7 @@ import { SearchParkingComponent } from './components/search-parking/search-parki
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     IonicModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
@@ -47,6 +50,7 @@ import { SearchParkingComponent } from './components/search-parking/search-parki
   providers: [
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
     { provide: LANGUAGE_CODE, useValue: 'fr' },
+    AuthService,
     FirebaseService, 
     GuardService
   ],
