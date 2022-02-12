@@ -15,11 +15,11 @@ export const environment = {
   },
   apiServer: 'https://parkersdev-api-nixgrdwaba-ue.a.run.app',
   apiUrls: {
-    registerUser: 'http://localhost:8000/users/register/',
-    loginUser: 'http://localhost:8000/signin/'
+    registerUser: '/users/register/',
+    loginUser: '/signin/'
   }
 };
-
+1
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
