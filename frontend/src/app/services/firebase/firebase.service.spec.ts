@@ -28,7 +28,7 @@ describe('FirebaseService', () => {
       providers: [
         {provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup', 'signOut', 'createUserWithEmailAndPassword' , 'signInWithEmailAndPassword',
         'sendPasswordResetEmail']) },
-        {provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker'])},
+        {provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker'])},
         FirebaseService
       ]
     });
@@ -99,7 +99,7 @@ describe('FirebaseService', () => {
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
-  it('Test successful login if not new user flag not provided', () => {
+  it('Test successful login if  user flag not provided', () => {
     let sampleResponse = {
       user: {
         uid: 'sample uid',
@@ -118,19 +118,6 @@ describe('FirebaseService', () => {
   it('Test successful login if user not provided by firebase', () => {
     let sampleResponse = {
       
-    }
-    const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-    mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
-    authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
-    expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
-  });
-
-  it('Test successful login if user uid not provided', () => {
-    let sampleResponse = {
-      additionalUserInfo:{
-        isNewUser: false,
-      }
     }
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
@@ -243,17 +230,115 @@ describe('FirebaseService', () => {
     service.SignUp("test@gmail.com","s")
     expect(mockAuthService.createUserWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
+
+
+
   it('Test failure login with email', () => {
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.reject(null))
     service.SignIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
+
+
   it('Test successful login with email', () => {
-    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve("test@gmail.com"))
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      },
+      additionalUserInfo:{
+        isNewUser: false,
+      }
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
     service.SignIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
+
+  it('Test successful login with email when fag is not false', () => {
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      },
+      additionalUserInfo:{
+        isNewUser: true,
+      }
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test successful login with email with not user uid', () => {
+    let sampleResponse = {
+      user: {
+        // uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      },
+      additionalUserInfo:{
+        isNewUser: false,
+      }
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test successful login with email email with no firebase token', () => {
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        // getIdToken: () => {
+        //   return Promise.resolve('firebasetoken')
+        // }
+      },
+      additionalUserInfo:{
+        isNewUser: false,
+      }
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test successful login with email email with no user info', () => {
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      }
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+  it('Test successful login with email email with no user', () => {
+    let sampleResponse = {
+
+    }
+    mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
+    authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    service.SignIn("test@gmail.com","s")
+    expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
+  });
+
+
   it('Test successful password reset', () => {
     mockAuthService.sendPasswordResetEmail.and.returnValue(Promise.resolve(null))
     service.passwordResetEmail("test@gmail.com")
