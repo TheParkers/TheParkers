@@ -20,7 +20,7 @@ class TestAuthModule(APITestCase):
         Object = lambda **kwargs: type("Object", (), kwargs)
         person = Object(access_token = "test token")
         mockToken.return_value = person
-        resp = self.client.post("/signin/", {"tpk_firebasetoken": "token"}, format='json')
+        resp = self.client.post("/signin/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
   
     def testSignInBadRequest(self):
@@ -32,5 +32,5 @@ class TestAuthModule(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": None, "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        resp = self.client.post("/signin/", {"tpk_firebasetoken": "token"}, format='json')
+        resp = self.client.post("/signin/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)

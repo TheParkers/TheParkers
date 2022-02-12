@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import firebase from 'firebase/compat/app';
 export class FirebaseService {
   authState: any = null;
   authUser: any = null;
-  constructor(public auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
@@ -28,11 +29,78 @@ export class FirebaseService {
       return this.isAuthenticated ? this.authState.uid : null
   }
 
-  login() {
+  SignUp(email: string, password: string) {
+    this.auth
+    .createUserWithEmailAndPassword(email, password)
+    .then(success => {
+      console.log('You are Successfully signed up!', success);
+      let useruid = success.user?.uid
+        success.user?.getIdToken().then( firebaseToken => {
+          if (success.additionalUserInfo?.isNewUser && useruid)
+          {
+            this.parkerAuth.registerUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('register user successful', user)
+            })
+          }
+        });
+    })
+    .catch(error => {
+      console.log('Something is wrong in Signup:');
+    });
+  }
+  passwordResetEmail(email: string){
+    this.auth.sendPasswordResetEmail(email).then(
+      () => {
+        console.log('Password reset email sent');
+      })
+      .catch((error) => {
+        console.log('Error in password reset');
+      });
+  } 
+
+  SignIn(email: string, password: string) {
+    this.auth
+    .signInWithEmailAndPassword(email, password)
+    .then(res => {
+      console.log('You are Successfully logged in!');
+      res.user?.getIdToken().then( firebaseToken => {
+          this.parkerAuth.loginUserToParker(firebaseToken)
+          .subscribe( user => {
+            console.log('Login user successful', user)
+          })
+      });
+    })
+    .catch(err => {
+    console.log('Something is wrong in SignIn:'); 
+    });
+  }
+  
+  googlelogin() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
         console.log('Authentication succeeded', success);
         this.authUser = success.additionalUserInfo
+        let useruid = success.user?.uid
+        success.user?.getIdToken().then( firebaseToken => {
+          if (success.additionalUserInfo?.isNewUser && useruid)
+          {
+            this.parkerAuth.registerUserToParker(firebaseToken, useruid)
+            .subscribe( () => {
+                console.log('register user successful', success.user)
+                  this.parkerAuth.loginUserToParker(firebaseToken)
+                  .subscribe( user => {
+                    console.log('first time Google Login user successful', user)
+                  });
+            })
+          }
+          else {
+                this.parkerAuth.loginUserToParker(firebaseToken)
+                .subscribe( user => {
+                  console.log('Google Login user successful', user)
+                });
+            }
+        });
       })
       .catch(err => {
         console.log('Error in firebase authentication');

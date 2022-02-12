@@ -40,7 +40,7 @@ describe('AppComponent', () => {
                 MatDatepickerModule
               ],
       providers: [
-          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout']) }
+          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['googlelogin', 'logout']) }
       ]
     }).compileComponents();
 
@@ -55,7 +55,7 @@ describe('AppComponent', () => {
   });
 
   it('Test login success', () => {
-    mockFirebaseService.login.and.returnValue(null)
+    mockFirebaseService.googlelogin.and.returnValue(null)
     component.login()
     expect(component).toBeTruthy();
   });
