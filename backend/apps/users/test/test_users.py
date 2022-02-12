@@ -57,7 +57,7 @@ class TestUserModel(APITestCase):
 
     @patch('apps.users.services.firebase.getUserProfileByToken')
     def test_put(self, mockService):
-        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
+        mockService.return_value = {"users":[{'localId':'PutUser_1',"providerUserInfo":[{"rawId": "invalidToken",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         resp = self.client.put("/users/register/PutUser_1/", {"tpk_firebaseid": "token"}, format='json')
@@ -66,7 +66,7 @@ class TestUserModel(APITestCase):
     
     @patch('apps.users.services.firebase.getUserProfileByToken')
     def test_put_tokenauthentication_failed(self, mockService):
-        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "invalidToken",  
+        mockService.return_value = {"users":[{'localId':'invalidToken',"providerUserInfo":[{"rawId": "invalidToken",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         resp = self.client.put("/users/register/5/", {"tpk_firebaseid": "PutUser_1"}, format='json')
@@ -75,7 +75,7 @@ class TestUserModel(APITestCase):
     @patch('apps.users.models.User.objects.filter')
     @patch('apps.users.services.firebase.getUserProfileByToken')
     def test_put_duplicate_user(self, mockService, mockUsers):
-        mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
+        mockService.return_value = {"users":[{'localId':'PutUser_1',"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         mockUsers.return_value = {"tpk_email": "test", "tpk_isdeleted": False}

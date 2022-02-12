@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import firebase from 'firebase/compat/app';
 export class FirebaseService {
   authState: any = null;
   authUser: any = null;
-  constructor(public auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
@@ -33,7 +34,7 @@ export class FirebaseService {
     .createUserWithEmailAndPassword(email, password)
     .then(res => {
       console.log('You are Successfully signed up!', res);
-      this.authUser = res
+      
     })
     .catch(error => {
       console.log('Something is wrong in Signup:');
@@ -65,6 +66,16 @@ export class FirebaseService {
       success => {
         console.log('Authentication succeeded', success);
         this.authUser = success.additionalUserInfo
+        let useruid = success.user?.uid
+        success.user?.getIdToken().then( firebaseToken => {
+          if (success.additionalUserInfo?.isNewUser && useruid)
+          {
+            this.parkerAuth.registerUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('register user successful', user)
+            })
+          }
+        })
       })
       .catch(err => {
         console.log('Error in firebase authentication');
