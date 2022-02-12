@@ -65,4 +65,20 @@ describe('AuthService', () => {
     service.loginUserToParker(token, uid)
   });
 
+  it('test loginUsertoParker failure', () => {
+    const errorResponse = new HttpErrorResponse({
+      error: { code: `some code`, message: `some message.` },
+      status: 400,
+      statusText: 'Bad Request',
+    });
+    expect(service).toBeTruthy();
+    let token = 'sampletoken'
+    let uid = 'testuid'
+    http.post.and.returnValue(throwError(() => new Error('test')))
+    let response = service.loginUserToParker(token, uid)
+    response.subscribe( error => {
+      console.log(error.tpk_firebaseid)
+      expect(error.tpk_firebaseid).toEqual(token)
+    });
+
 });
