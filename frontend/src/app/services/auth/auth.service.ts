@@ -26,7 +26,7 @@ export class AuthService {
       catchError(this.handleError('Register user to parker', requestObj))
     )
   }
-  loginUserToParker(token: string, userid: string): Observable<any> {
+  loginUserToParker(token: string): Observable<any> {
     const requestObj: FirebaseToken = {
       "tpk_firebaseid": token
     }

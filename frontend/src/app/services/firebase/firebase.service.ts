@@ -64,15 +64,11 @@ export class FirebaseService {
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       console.log('You are Successfully logged in!');
-      let useruid = res.user?.uid
       res.user?.getIdToken().then( firebaseToken => {
-        if (!(res.additionalUserInfo?.isNewUser) && useruid)
-        {
-          this.parkerAuth.loginUserToParker(firebaseToken, useruid)
+          this.parkerAuth.loginUserToParker(firebaseToken)
           .subscribe( user => {
             console.log('Login user successful', user)
           })
-        }
       });
     })
     .catch(err => {
@@ -80,7 +76,7 @@ export class FirebaseService {
     });
   }
   
-  login() {
+  googlelogin() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
         console.log('Authentication succeeded', success);
@@ -90,10 +86,20 @@ export class FirebaseService {
           if (success.additionalUserInfo?.isNewUser && useruid)
           {
             this.parkerAuth.registerUserToParker(firebaseToken, useruid)
-            .subscribe( user => {
-              console.log('register user successful', user)
+            .subscribe( () => {
+                console.log('register user successful', success.user)
+                  this.parkerAuth.loginUserToParker(firebaseToken)
+                  .subscribe( user => {
+                    console.log('first time Google Login user successful', user)
+                  });
             })
           }
+          else {
+                this.parkerAuth.loginUserToParker(firebaseToken)
+                .subscribe( user => {
+                  console.log('Google Login user successful', user)
+                });
+            }
         });
       })
       .catch(err => {

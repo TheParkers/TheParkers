@@ -10,7 +10,7 @@ export class AppComponent {
   constructor(private firebase: FirebaseService){};
       
   login() {
-    this.firebase.login();
+    this.firebase.googlelogin();
   }
   
   logout() {

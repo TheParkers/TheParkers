@@ -62,7 +62,7 @@ describe('AuthService', () => {
     let token = 'sampletoken'
     let uid = 'testuid'
     http.post.and.returnValue(of({sample:'test'}))
-    service.loginUserToParker(token, uid)
+    service.loginUserToParker(token)
   });
 
   it('test loginUsertoParker failure', () => {
@@ -75,7 +75,7 @@ describe('AuthService', () => {
     let token = 'sampletoken'
     let uid = 'testuid'
     http.post.and.returnValue(throwError(() => new Error('test')))
-    let response = service.loginUserToParker(token, uid)
+    let response = service.loginUserToParker(token)
     response.subscribe( error => {
       console.log(error.tpk_firebaseid)
       expect(error.tpk_firebaseid).toEqual(token)
