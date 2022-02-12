@@ -76,7 +76,7 @@ export class FirebaseService {
     });
   }
   
-  login() {
+  googlelogin() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
         console.log('Authentication succeeded', success);

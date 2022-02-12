@@ -76,7 +76,7 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
@@ -95,7 +95,7 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
@@ -111,7 +111,7 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
@@ -122,7 +122,7 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
@@ -135,14 +135,14 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
   it('Test failure login', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.reject(null))
-    service.login()
+    service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
   
