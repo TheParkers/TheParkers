@@ -93,6 +93,17 @@ export class FirebaseService {
             .subscribe( user => {
               console.log('register user successful', user)
             })
+            this.parkerAuth.loginUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('google login user successful', user)
+            })
+          }
+          if (!(success.additionalUserInfo?.isNewUser) && useruid)
+          {
+            this.parkerAuth.loginUserToParker(firebaseToken, useruid)
+            .subscribe( user => {
+              console.log('google login user successful', user)
+            })
           }
         });
       })
