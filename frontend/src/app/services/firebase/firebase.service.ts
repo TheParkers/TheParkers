@@ -58,12 +58,22 @@ export class FirebaseService {
         console.log('Error in password reset');
       });
   } 
+
   SignIn(email: string, password: string) {
     this.auth
     .signInWithEmailAndPassword(email, password)
     .then(res => {
-      this.authUser = res
-    console.log('You are Successfully logged in!');
+      console.log('You are Successfully logged in!');
+      let useruid = success.user?.uid
+      success.user?.getIdToken().then( firebaseToken => {
+        if (!(success.additionalUserInfo?.isNewUser) && useruid)
+        {
+          this.parkerAuth.LoginUserToParker(firebaseToken, useruid)
+          .subscribe( user => {
+            console.log('Login user successful', user)
+          })
+        }
+      });
     })
     .catch(err => {
     console.log('Something is wrong in SignIn:'); 

@@ -37,6 +37,7 @@ describe('AuthService', () => {
     http.put.and.returnValue(of({sample:'test'}))
     service.registerUserToParker(token, uid)
   });
+  
 
   it('test registerUserToParker failure', () => {
     const errorResponse = new HttpErrorResponse({
@@ -54,6 +55,14 @@ describe('AuthService', () => {
       expect(error.tpk_firebaseid).toEqual(token)
     });
     
+  });
+
+  it('test loginUsertoParker success', () => {
+    expect(service).toBeTruthy();
+    let token = 'sampletoken'
+    let uid = 'testuid'
+    http.post.and.returnValue(of({sample:'test'}))
+    service.loginUserToParker(token, uid)
   });
 
 });
