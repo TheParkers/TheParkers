@@ -64,11 +64,11 @@ export class FirebaseService {
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       console.log('You are Successfully logged in!');
-      let useruid = success.user?.uid
-      success.user?.getIdToken().then( firebaseToken => {
-        if (!(success.additionalUserInfo?.isNewUser) && useruid)
+      let useruid = res.user?.uid
+      res.user?.getIdToken().then( firebaseToken => {
+        if (!(res.additionalUserInfo?.isNewUser) && useruid)
         {
-          this.parkerAuth.LoginUserToParker(firebaseToken, useruid)
+          this.parkerAuth.loginUserToParker(firebaseToken, useruid)
           .subscribe( user => {
             console.log('Login user successful', user)
           })
