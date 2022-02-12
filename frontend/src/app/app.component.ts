@@ -7,12 +7,14 @@ import { FirebaseService } from './services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'frontend';
   constructor(private firebase: FirebaseService){};
+      
   login() {
-    this.firebase.login();
+    this.firebase.googlelogin();
   }
+  
   logout() {
     this.firebase.logout();
   }
+
 }
