@@ -80,5 +80,6 @@ describe('AuthService', () => {
       console.log(error.tpk_firebaseid)
       expect(error.tpk_firebaseid).toEqual(token)
     });
+  });
 
 });
