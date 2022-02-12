@@ -12,9 +12,14 @@ export const environment = {
     messagingSenderId: "111997111938",
     appId: "1:111997111938:web:39e0c8e1909756dcde6e9b",
     measurementId: "G-S566XNQGE2"
+  },
+  apiServer: 'https://parkersdev-api-nixgrdwaba-ue.a.run.app',
+  apiUrls: {
+    registerUser: '/users/register/',
+    loginUser: '/signin/'
   }
 };
-
+1
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

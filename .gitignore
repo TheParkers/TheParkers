@@ -1,2 +1,6 @@
 
 # Global ignores
+backend/django_project/settings_dev.py
+.gitignore
+backend/apps/users/migrations/0001_initial.py
+backend/apps/users/permissions.py

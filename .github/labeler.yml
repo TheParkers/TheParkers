@@ -1,0 +1,68 @@
+repo:
+- '*'
+
+
+
+
+frontend:
+- any: ['frontend/*]*']
+
+frontendtest:
+- any: ['frontend/src/**/*.spec.js']
+
+frontendfeature:
+- any: ['frontend/src/app/components/**']
+
+frontendservice:
+- any: ['frontend/src/app/services/**']
+
+frontendmodel:
+- any: ['frontend/src/app/models/**']
+
+frontendassets:
+- any: ['frontend/src/assets/**']
+
+frontendenvironment:
+- any: ['frontend/src/environments/**']
+
+frontenddocker:
+- any: ['frontend/Dockerfile']
+
+frontendupdatereadme:
+- any: ['frontend/README.md']
+
+
+
+CI/CD:
+- any: ['.github/**']
+
+
+backend:
+- any: ['backend/**']
+
+backendfeature:
+- any: ['backend/apps/**']
+
+backendtest:
+- any: ['backend/apps/**/test/**']
+
+backendmodels:
+- any: ['backend/apps/**/models.py']
+
+backendviews:
+- any: ['backend/apps/**/views.py']
+
+backendurls:
+- any: ['backend/apps/**/urls.py']
+
+backendenvironment:
+- any: ['backend/django_project/**', 'backend/manage.py']
+
+backendrequirementsupdate:
+- any: ['backend/requirements.txt']
+
+backenddocker:
+- any: ['backend/Dockerfile']
+
+backendupdatereadme:
+- any: ['backend/README.md']

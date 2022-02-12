@@ -31,5 +31,3 @@
 ### 1. After running test
 ### 2. An automated directory named '/htmlcov' is generated
 ### 3. go to the directory '/htmlcov' and open index.html in a browser to see coverage reports
-
-
