@@ -76,8 +76,53 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    authService.loginUserToParker.and.returnValue(of({user: 'username'}))
     service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
+  });
+
+  it('Test successful google signup with first time user success login', () => {
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      },
+      additionalUserInfo:{
+        isNewUser: true,
+      }
+    }
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+    mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
+    authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    authService.loginUserToParker.and.returnValue(of({user: 'username'}))
+    service.googlelogin()
+    expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
+    // expect(authService.loginUserToParker).toHaveBeenCalled();
+    // expect(authService.registerUserToParker).toHaveBeenCalled();
+  });
+
+  it('Test successful google signup with first time user success login', () => {
+    let sampleResponse = {
+      user: {
+        uid: 'sample uid',
+        getIdToken: () => {
+          return Promise.resolve('firebasetoken')
+        }
+      },
+      additionalUserInfo:{
+        isNewUser: true,
+      }
+    }
+    const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+    mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
+    authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    authService.loginUserToParker.and.returnValue(of({user: 'username'}))
+    service.googlelogin()
+    expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
+    // expect(authService.loginUserToParker).toHaveBeenCalled();
+    // expect(authService.registerUserToParker).toHaveBeenCalled();
   });
 
   it('Test successful login if not new user', () => {
@@ -95,6 +140,7 @@ describe('FirebaseService', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
     authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    authService.loginUserToParker.and.returnValue(of({user: 'username'}))
     service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
@@ -110,7 +156,7 @@ describe('FirebaseService', () => {
     }
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.resolve(sampleResponse))
-    authService.registerUserToParker.and.returnValue(of({user: 'sampleresponse'}))
+    authService.loginUserToParker.and.returnValue(of({user: 'username'}))
     service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
