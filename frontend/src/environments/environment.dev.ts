@@ -16,7 +16,7 @@ export const environment = {
   apiServer: 'https://parkersdev-api-nixgrdwaba-ue.a.run.app',
   apiUrls: {
     registerUser: 'http://localhost:8000/users/register/',
-    loginUser: 'http://localhost:8000/signin'
+    loginUser: 'http://localhost:8000/signin/'
   }
 };
 
