@@ -18,7 +18,7 @@ from apps.users.services import firebase
 def signIn(request):
     if request.method == 'POST':
         try:
-            token = request.data['tpk_firebasetoken']
+            token = request.data['tpk_firebaseid']
             firebase_user = firebase.getUserProfileByToken(token)
         except Exception as e:
             return JsonResponse({}, status=status.HTTP_400_BAD_REQUEST)
