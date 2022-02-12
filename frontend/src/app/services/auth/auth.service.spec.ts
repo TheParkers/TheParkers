@@ -60,7 +60,6 @@ describe('AuthService', () => {
   it('test loginUsertoParker success', () => {
     expect(service).toBeTruthy();
     let token = 'sampletoken'
-    let uid = 'testuid'
     http.post.and.returnValue(of({sample:'test'}))
     service.loginUserToParker(token)
   });
@@ -73,7 +72,6 @@ describe('AuthService', () => {
     });
     expect(service).toBeTruthy();
     let token = 'sampletoken'
-    let uid = 'testuid'
     http.post.and.returnValue(throwError(() => new Error('test')))
     let response = service.loginUserToParker(token)
     response.subscribe( error => {

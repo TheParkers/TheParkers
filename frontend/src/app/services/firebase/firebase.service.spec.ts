@@ -61,7 +61,7 @@ describe('FirebaseService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Test successful login', () => {
+  it('Test successful google signup', () => {
     let sampleResponse = {
       user: {
         uid: 'sample uid',
@@ -99,8 +99,6 @@ describe('FirebaseService', () => {
     authService.loginUserToParker.and.returnValue(of({user: 'username'}))
     service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
-    // expect(authService.loginUserToParker).toHaveBeenCalled();
-    // expect(authService.registerUserToParker).toHaveBeenCalled();
   });
 
   it('Test successful google signup with first time user success login', () => {
@@ -121,11 +119,9 @@ describe('FirebaseService', () => {
     authService.loginUserToParker.and.returnValue(of({user: 'username'}))
     service.googlelogin()
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
-    // expect(authService.loginUserToParker).toHaveBeenCalled();
-    // expect(authService.registerUserToParker).toHaveBeenCalled();
   });
 
-  it('Test successful login if not new user', () => {
+  it('Test successful google signin if not new user', () => {
     let sampleResponse = {
       user: {
         uid: 'sample uid',
@@ -145,7 +141,7 @@ describe('FirebaseService', () => {
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
-  it('Test successful login if  user flag not provided', () => {
+  it('Test successful google login if user flag not provided', () => {
     let sampleResponse = {
       user: {
         uid: 'sample uid',
@@ -161,7 +157,7 @@ describe('FirebaseService', () => {
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
-  it('Test successful login if user not provided by firebase', () => {
+  it('Test successful google login if user not provided by firebase', () => {
     let sampleResponse = {
       
     }
@@ -172,7 +168,7 @@ describe('FirebaseService', () => {
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
-  it('Test successful login if user uid not provided', () => {
+  it('Test successful google login if user uid not provided', () => {
     let sampleResponse = {
       additionalUserInfo:{
         isNewUser: false,
@@ -185,7 +181,7 @@ describe('FirebaseService', () => {
     expect(mockAuthService.signInWithPopup).toHaveBeenCalledWith(googleAuthProvider)
   });
 
-  it('Test failure login', () => {
+  it('Test failure google login', () => {
     const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
     mockAuthService.signInWithPopup.and.returnValue(Promise.reject(null))
     service.googlelogin()
