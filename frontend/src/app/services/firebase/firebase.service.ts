@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
 import { AuthService } from '../auth/auth.service';
+import firebase from 'firebase/compat/app';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,11 @@ export class FirebaseService {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
+
+      GoogleAuth.initialize({
+        scopes: ['profile', 'email'],
+        grantOfflineAccess: true,
+      });
    }
 
   get getAuthState() {
@@ -79,15 +85,23 @@ export class FirebaseService {
   googlelogin() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
       success => {
-        console.log('Authentication succeeded', success);
-        this.authUser = success.additionalUserInfo
-        let useruid = success.user?.uid
-        success.user?.getIdToken().then( firebaseToken => {
-          if (success.additionalUserInfo?.isNewUser && useruid)
+          this.firebaseGoogleAuth(success);
+      })
+      .catch(err => {
+        console.log('Error in firebase authentication',err);
+      });
+  }
+
+  private firebaseGoogleAuth(user: firebase.auth.UserCredential) {
+        console.log('Authentication succeeded', user);
+        this.authUser = user.additionalUserInfo
+        let useruid = user.user?.uid
+        user.user?.getIdToken().then( firebaseToken => {
+          if (user.additionalUserInfo?.isNewUser && useruid)
           {
             this.parkerAuth.registerUserToParker(firebaseToken, useruid)
             .subscribe( () => {
-                console.log('register user successful', success.user)
+                console.log('register user successful', user.user)
                   this.parkerAuth.loginUserToParker(firebaseToken)
                   .subscribe( user => {
                     console.log('first time Google Login user successful', user)
@@ -101,10 +115,20 @@ export class FirebaseService {
                 });
             }
         });
-      })
-      .catch(err => {
-        console.log('Error in firebase authentication');
+  }
+
+  async capacitorGoogleLogin()
+  {
+    GoogleAuth.signIn().then((user) => {
+      this.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(user.authentication.idToken))
+      .then((credential)=> {
+            this.firebaseGoogleAuth(credential)
+      }).catch((error) => {
+          console.error('Capacitor Signin with firebase',error)
       });
+    }).catch((error) => {
+      console.log('Capacitor Signin with google',error);
+    })
   }
 
   logout() {
