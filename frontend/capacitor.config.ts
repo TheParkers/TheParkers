@@ -21,18 +21,7 @@ const config: CapacitorConfig = {
       serverClientId: '111997111938-euaqk6kaaj6lg2ut73vudb9ue7u0b0en.apps.googleusercontent.com',
       forceCodeForRefreshToken: true,
     }
-  }, 
-  // cordova: {
-  //   preferences: {
-  //     ScrollEnabled: 'false',
-  //     BackupWebStorage: 'none',
-  //     SplashMaintainAspectRatio: 'true',
-  //     FadeSplashScreenDuration: '300',
-  //     SplashShowOnlyFirstTime: 'false',
-  //     SplashScreen: 'screen',
-  //     SplashScreenDelay: '3000'
-  //   }
-  // }
+  },
 };
 
 export default config;
