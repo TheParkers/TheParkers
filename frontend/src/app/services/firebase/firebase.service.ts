@@ -14,11 +14,6 @@ export class FirebaseService {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
-
-      GoogleAuth.initialize({
-        scopes: ['profile', 'email'],
-        grantOfflineAccess: true,
-      });
    }
 
   get getAuthState() {
