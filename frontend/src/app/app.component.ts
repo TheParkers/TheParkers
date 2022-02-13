@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from './services';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,17 @@ import { FirebaseService } from './services';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private firebase: FirebaseService){};
+  constructor(private firebase: FirebaseService, private platform: Platform){};
       
   login() {
-    this.firebase.googlelogin();
+    console.log(this.platform.platforms())
+    if (!this.platform.is('capacitor'))
+    {
+      this.firebase.googlelogin();
+    }
+    else {
+      this.firebase.capacitorGoogleLogin();
+    }
   }
   
   logout() {
