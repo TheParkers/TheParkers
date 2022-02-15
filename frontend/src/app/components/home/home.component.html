@@ -1,0 +1,49 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-title>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <div class="header-content">
+                <img class="header-logo" src="../../assets/images/logo.png">
+                <div class="header-text">The Parkers</div>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content [fullscreen]="true">
+    <div class="img-background">
+      <div class="overlay">
+        <ion-grid class="container-grid">
+        <ion-row>
+          <ion-col class="content-xl">Parking for travelers</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col class="content-l">pre-book parking, pay less, enjoy more</ion-col>
+        </ion-row>
+        <app-search-parking></app-search-parking>
+          <ion-row>
+            <ion-col size="12" size-sm>
+              <ion-button color="light" size="medium" expand="block" (click)="login()">Login/Sign Up</ion-button>
+            </ion-col>
+            <ion-col size="12" size-sm>
+              <ion-button color="light" size="medium" expand="block" (click)="logout()">Sign out</ion-button>
+            </ion-col>
+            <ion-col size="12" size-sm>
+              <ion-button color="light" size="medium" expand="block">Rent a Parking</ion-button>
+            </ion-col>
+            <ion-col size="12" size-sm>
+              <ion-button color="light" size="medium" expand="block">View Profile</ion-button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+  
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </ion-content>
