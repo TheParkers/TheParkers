@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment.dev";
 import { catchError, Observable, of } from 'rxjs';
 import { FirebaseToken } from '../models/requests/firebasetoken';
+import { ParkerSinginResponse } from '../models/responses/user';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class AuthService {
       catchError(this.handleError('Register user to parker', requestObj))
     )
   }
-  loginUserToParker(token: string): Observable<any> {
+  loginUserToParker(token: string): Observable<ParkerSinginResponse> {
     const requestObj: FirebaseToken = {
       "tpk_firebaseid": token
     }
@@ -43,9 +44,9 @@ export class AuthService {
   }
 
   private handleError<T>(operation:any , result?: T) {
-    return (error: any): Observable<T> => {
+    return (error: any): Observable<any> => {
       console.error(operation,error);
-      return of(result as T);
+      return of(error as T);
     };
   }
 

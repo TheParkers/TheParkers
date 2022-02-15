@@ -75,8 +75,8 @@ describe('AuthService', () => {
     http.post.and.returnValue(throwError(() => new Error('test')))
     let response = service.loginUserToParker(token)
     response.subscribe( error => {
-      console.log(error.tpk_firebaseid)
-      expect(error.tpk_firebaseid).toEqual(token)
+      console.log(error.parker_token)
+      expect(error.parker_token).toEqual(token)
     });
   });
 
