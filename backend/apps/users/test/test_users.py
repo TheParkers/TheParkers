@@ -13,7 +13,7 @@ class TestUserModel(APITestCase):
     def setUp(self, mockUser):
         sampleuser_1 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_get(self, mockPerm):
         response = self.client.get('/users')
 
@@ -28,7 +28,7 @@ class TestUserModel(APITestCase):
             users_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(users_json, response.content)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.models.User.objects.get')      
     def test_get_one(self, mockUser, mockPerm):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
@@ -42,7 +42,7 @@ class TestUserModel(APITestCase):
             self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')     
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')     
     def test_get_one_notfound(self, mockPerm):
         response = self.client.get('/users/testid')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
@@ -55,7 +55,7 @@ class TestUserModel(APITestCase):
     #     resp = self.client.post("/users/", {'tpk_firebaseidinvalidkey': "PutUser_1"}, format='json')
     #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.users.services.firebase.getUserProfileByToken')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_put(self, mockService):
         mockService.return_value = {"users":[{'localId':'PutUser_1',"providerUserInfo":[{"rawId": "invalidToken",  
                                     "email": "test@test.com", "displayName": 
@@ -64,7 +64,7 @@ class TestUserModel(APITestCase):
         self.assertEqual('{"tpk_name": "test", "tpk_email": "test@test.com", "tpk_photoUrl": "test"}', str(resp.content, 'utf-8'))
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
     
-    @patch('apps.users.services.firebase.getUserProfileByToken')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_put_tokenauthentication_failed(self, mockService):
         mockService.return_value = {"users":[{'localId':'invalidToken',"providerUserInfo":[{"rawId": "invalidToken",  
                                     "email": "test@test.com", "displayName": 
@@ -73,7 +73,7 @@ class TestUserModel(APITestCase):
         self.assertEqual(resp.status_code, status.HTTP_503_SERVICE_UNAVAILABLE)
     
     @patch('apps.users.models.User.objects.filter')
-    @patch('apps.users.services.firebase.getUserProfileByToken')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_put_duplicate_user(self, mockService, mockUsers):
         mockService.return_value = {"users":[{'localId':'PutUser_1',"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
@@ -86,7 +86,7 @@ class TestUserModel(APITestCase):
        resp = self.client.put("/users/register/5", {'tpk_firebaseid_inavlidkey': "PutUser_1"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission') 
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission') 
     def test_delete(self, mockPerm):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         resp = self.client.delete('/users/testid')
@@ -94,7 +94,7 @@ class TestUserModel(APITestCase):
         self.assertTrue(updated_testuser_3.tpk_isdeleted)
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission') 
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission') 
     def test_get_nonexistent_user(self, mockPerm):
         resp = self.client.delete('/users/123456')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)

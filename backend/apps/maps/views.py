@@ -48,11 +48,11 @@ def mod_maps(request, parker_map_id):
     DELETE:
         success response: status HTTP_200_OK
     '''
-    if ("GET", "DELETE") in request.method:
+    if "GET" in request.method or "DELETE" in request.method:
         try:
-            parker_map = parker_map.objects.get(pk=parker_map_id)
-        except parker_map.DoesNotExist:
-            return HttpResponse(status=404)
+            parker_map = ParkerMap.objects.get(pk=parker_map_id)
+        except ParkerMap.DoesNotExist:
+            return JsonResponse({}, status=404)
 
     if request.method == 'GET':
         serializer = MapSerializer(parker_map)
@@ -64,8 +64,9 @@ def mod_maps(request, parker_map_id):
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
+        return JsonResponse({}, status=400)
 
     if request.method == 'DELETE':
         parker_map.delete()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
-    return JsonResponse(serializer.errors, status=400)
+    return JsonResponse(serializer.errors, status=404)

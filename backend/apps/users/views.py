@@ -25,7 +25,7 @@ def users_list(request):
         parker_users = User.objects.all()
         user_serializer = UserResponseSerializer(parker_users, many=True)
         return JsonResponse(user_serializer.data, safe=False)
-    return JsonResponse({request.data}, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({request.data}, status=status.HTTP_404_BAD_REQUEST)
 
 
 @api_view(['GET', 'DELETE'])
@@ -56,7 +56,7 @@ def user_mod(request, firebase_user_id):
         user.tpk_isdeleted = True
         user.save()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
-    return JsonResponse({request.data}, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({request.data}, status=status.HTTP_404_BAD_REQUEST)
 
 @api_view(['PUT'])
 @permission_classes([AllowAny])
@@ -75,8 +75,8 @@ def new_user(request, firebase_user_id):
             token = request.data['tpk_firebaseid']
             firebase_user = firebase.get_user_profile_bytoken(token)
         except Exception as error:
-            # print(error)
-            return JsonResponse({error}, status=status.HTTP_400_BAD_REQUEST)
+            print(error)
+            return JsonResponse({}, status=400)
         new_parker_user = User()
         new_parker_user.tpk_firebaseid = firebase_user['users'][0]['localId']
         if firebase_user_id != new_parker_user.tpk_firebaseid:
@@ -92,4 +92,4 @@ def new_user(request, firebase_user_id):
         new_parker_user.save()
         response = UserResponseSerializer(new_parker_user, many=False)
         return JsonResponse(response.data, status=status.HTTP_201_CREATED)
-    return JsonResponse({request.data}, status=status.HTTP_400_BAD_REQUEST)
+    return JsonResponse({}, status=status.HTTP_404_BAD_REQUEST)

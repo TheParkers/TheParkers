@@ -9,16 +9,16 @@ from rest_framework import status
 
 class TestMapsModel(APITestCase):
     client = APIRequestFactory()
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
-    @patch('apps.maps.models.GCoordList.objects')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('apps.maps.models.ParkerMap.objects')
     def setUp(self, mockUser, mockPerm):
         mockPerm.return_value = True
         sampleCoords_1 = ParkerMap.objects.create(Lat_db="43.47221", Long_db="-80.54486")
         sampleCoords_2 = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_get(self, mockPerm):
-        response = self.client.get('/map/')
+        response = self.client.get('/map')
 
         # assert response code.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -31,8 +31,8 @@ class TestMapsModel(APITestCase):
             Coord_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(Coord_json, response.content)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
-    @patch('apps.maps.models.GCoordList.objects')       
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('apps.maps.models.ParkerMap.objects')       
     def test_get_one(self, mockUser, mockPerm):
         sample_input = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         response = self.client.get('/map/1/')
@@ -43,33 +43,33 @@ class TestMapsModel(APITestCase):
             self.assertJSONEqual(user_json, response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_post(self, mockPerm):
-        resp = self.client.post("/map/", {'Lat_db': "43.47620", "Long_db":"-80.54525"}, format='json')
+        resp = self.client.post("/map", {'Lat_db': "43.47620", "Long_db":"-80.54525"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_post_bad_request(self, mockPerm):
-        resp = self.client.post("/map/", {'faultyParam': "43.47620", "faultyParam":"-80.54525"}, format='json')
+        resp = self.client.post("/map", {'faultyParam': "43.47620", "faultyParam":"-80.54525"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_put(self, mockPerm):
        resp = self.client.put("/map/5/", {"Lat_db": "43.47620", "Long_db":"-80.54525"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_200_OK)
     
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_put_bad_request(self, mockPerm):
        resp = self.client.put("/map/5/", {'faultyParam': "43.47620", "faultyParam":"-80.54525"}, format='json')
        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_delete(self, mockPerm):
         sample_input3 = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         resp = self.client.delete('/map/1/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 
-    @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_get_nonexistent_user(self, mockPerm):
         resp = self.client.delete('/map/123456/')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
