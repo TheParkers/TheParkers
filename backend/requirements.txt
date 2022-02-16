@@ -8,5 +8,5 @@ pyrebase4
 
 # Dev dependencies
 coverage
+pylint
 pylint-django
-pylint-fail-under

@@ -2,7 +2,7 @@ from re import S
 from unittest.mock import patch
 from django.http import JsonResponse
 
-from ..models import GCoordList
+from ..models import ParkerMap
 from ..serializers import MapSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
@@ -13,8 +13,8 @@ class TestMapsModel(APITestCase):
     @patch('apps.maps.models.GCoordList.objects')
     def setUp(self, mockUser, mockPerm):
         mockPerm.return_value = True
-        sampleCoords_1 = GCoordList.objects.create(Lat_db="43.47221", Long_db="-80.54486")
-        sampleCoords_2 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
+        sampleCoords_1 = ParkerMap.objects.create(Lat_db="43.47221", Long_db="-80.54486")
+        sampleCoords_2 = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")    
 
     @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
     def test_get(self, mockPerm):
@@ -24,7 +24,7 @@ class TestMapsModel(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         # get data from DB
-        all_Coords = GCoordList.objects.all()
+        all_Coords = ParkerMap.objects.all()
         # serialize, convert to json and compare against response.
         serializer = MapSerializer(data=all_Coords, many=True)
         if serializer.is_valid():
@@ -34,9 +34,9 @@ class TestMapsModel(APITestCase):
     @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
     @patch('apps.maps.models.GCoordList.objects')       
     def test_get_one(self, mockUser, mockPerm):
-        sample_input = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
+        sample_input = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         response = self.client.get('/map/1/')
-        single_user = GCoordList.objects.get(pk=1)
+        single_user = ParkerMap.objects.get(pk=1)
         serializer = MapSerializer(data=single_user, many=False)
         if serializer.is_valid():
             user_json = JsonResponse(serializer.data, safe=False)
@@ -65,7 +65,7 @@ class TestMapsModel(APITestCase):
 
     @patch('apps.parkersauth.permissions.IsUserLoggedIn.IsUserLoggedIn.has_permission')
     def test_delete(self, mockPerm):
-        sample_input3 = GCoordList.objects.create(Lat_db="43.47620", Long_db="-80.54525")
+        sample_input3 = ParkerMap.objects.create(Lat_db="43.47620", Long_db="-80.54525")
         resp = self.client.delete('/map/1/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
 
