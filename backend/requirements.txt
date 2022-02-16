@@ -6,4 +6,7 @@ djangorestframework-simplejwt
 requests
 pyrebase4
 
+# Dev dependencies
 coverage
+pylint-django
+pylint-fail-under
