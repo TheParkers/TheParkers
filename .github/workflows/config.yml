@@ -59,7 +59,7 @@ jobs:
         run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
       - name: check lint
-        run: cd backend && pylint-fail-under --fail_under 9.0 --load-plugins pylint_django --ignore test apps
+        run: cd backend && pylint --fail-under=8  --load-plugins pylint_django --ignore test apps 
 
       - name: check django sanity
         run: |
