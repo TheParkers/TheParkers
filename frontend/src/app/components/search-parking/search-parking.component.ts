@@ -6,14 +6,12 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './search-parking.component.html',
   styleUrls: ['./search-parking.component.scss']
 })
-export class SearchParkingComponent implements OnInit {
+export class SearchParkingComponent {
 
   constructor() { }
   range = new FormGroup({
     start: new FormControl(),
     end: new FormControl(),
   });
-  ngOnInit(): void {
-  }
 
 }

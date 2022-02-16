@@ -8,14 +8,11 @@ import { FirebaseService } from 'src/app/services';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor(private firebase: FirebaseService, 
     private platform: Platform,
     private router: Router){
       
-  }
-  ngOnInit() {
-    
   }
       
   login() {
