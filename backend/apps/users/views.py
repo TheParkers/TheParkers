@@ -46,7 +46,7 @@ def user_mod(request, firebase_user_id):
             user = User.objects.get(tpk_firebaseid=firebase_user_id)
         except Exception as error:
             print(error)
-            return JsonResponse({}, status=status.HTTP_404_NOT_FOUND)
+            return JsonResponse({}, status=404)
 
     if request.method == 'GET' and request.user:
         user_ser = UserResponseSerializer(user)
@@ -56,7 +56,7 @@ def user_mod(request, firebase_user_id):
         user.tpk_isdeleted = True
         user.save()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
-    return JsonResponse({request.data}, status=status.HTTP_404_BAD_REQUEST)
+    return JsonResponse({request.data}, status=404)
 
 @api_view(['PUT'])
 @permission_classes([AllowAny])
@@ -80,16 +80,16 @@ def new_user(request, firebase_user_id):
         new_parker_user = User()
         new_parker_user.tpk_firebaseid = firebase_user['users'][0]['localId']
         if firebase_user_id != new_parker_user.tpk_firebaseid:
-            return JsonResponse({}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            return JsonResponse({}, status=503)
 
         new_parker_user.tpk_email = firebase_user['users'][0]['providerUserInfo'][0]['email']
         check_existing_user = User.objects.filter(tpk_email=new_parker_user.tpk_email,
                                                     tpk_isdeleted=False)
         if check_existing_user:
-            return JsonResponse({}, status=status.HTTP_406_NOT_ACCEPTABLE)
+            return JsonResponse({}, status=406)
         new_parker_user.tpk_name = firebase_user['users'][0]['providerUserInfo'][0]['displayName']
         new_parker_user.tpk_photoUrl = firebase_user['users'][0]['providerUserInfo'][0]['photoUrl']
         new_parker_user.save()
         response = UserResponseSerializer(new_parker_user, many=False)
-        return JsonResponse(response.data, status=status.HTTP_201_CREATED)
-    return JsonResponse({}, status=status.HTTP_404_BAD_REQUEST)
+        return JsonResponse(response.data, status=201)
+    return JsonResponse({}, status=404)

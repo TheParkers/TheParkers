@@ -26,10 +26,10 @@ def sign_in(request):
     '''
     if request.method == 'POST':
         try:
-            
             token = request.data['tpk_firebaseid']
             firebase_user = firebase.get_user_profile_bytoken(token)
-        except Exception as e:
+        except Exception as error:
+            print(error)
             return JsonResponse({}, status=400)
         login_email = firebase_user['users'][0]['providerUserInfo'][0]['email']
         try:
