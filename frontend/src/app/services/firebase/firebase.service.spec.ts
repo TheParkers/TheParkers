@@ -47,7 +47,7 @@ describe('FirebaseService', () => {
 
   it('Test service initialization', () => {
       expect(service.authState).toBeTruthy()
-      expect(service.isAuthenticated).toBeTruthy()
+      expect(service.isAuthenticatedWithFirebase).toBeTruthy()
       expect(service.isEmailVerified).toBeTruthy()
       expect(service.currentUserId).toEqual('sample')
       expect(service).toBeTruthy();
@@ -55,7 +55,7 @@ describe('FirebaseService', () => {
 
   it('Test service initialization failure', () => {
     spyOnProperty(service, 'getAuthState').and.returnValue(null)
-    expect(service.isAuthenticated).toBeFalsy()
+    expect(service.isAuthenticatedWithFirebase).toBeFalsy()
     expect(service.isEmailVerified).toBeFalsy()
     expect(service.currentUserId).toBeNull()
     expect(service).toBeTruthy();
@@ -277,7 +277,7 @@ describe('FirebaseService', () => {
 
   it('Test failure login with email', () => {
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.reject(null))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -297,7 +297,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -315,7 +315,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -333,7 +333,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -351,7 +351,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -366,7 +366,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
@@ -376,7 +376,7 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(of({user: 'sampleresponse'}))
-    service.SignIn("test@gmail.com","s")
+    service.signIn("test@gmail.com","s")
     expect(mockAuthService.signInWithEmailAndPassword).toHaveBeenCalledWith("test@gmail.com","s")
   });
 
