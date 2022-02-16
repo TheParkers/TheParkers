@@ -25,7 +25,7 @@ def users_list(request):
         parker_users = User.objects.all()
         user_serializer = UserResponseSerializer(parker_users, many=True)
         return JsonResponse(user_serializer.data, safe=False)
-    return JsonResponse({request.data}, status=status.HTTP_404_BAD_REQUEST)
+    return JsonResponse({request.data}, status=404)
 
 
 @api_view(['GET', 'DELETE'])
