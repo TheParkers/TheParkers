@@ -11,7 +11,7 @@ class TestAuthModule(APITestCase):
 
     @patch('apps.users.models.User.objects.get')
     @patch('rest_framework_simplejwt.tokens.RefreshToken.for_user')
-    @patch('apps.users.services.firebase.get_user_profile_bytoken')   
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def testSignIn(self, mockService, mockToken, mockUsers):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
