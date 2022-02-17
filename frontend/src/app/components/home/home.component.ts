@@ -16,29 +16,9 @@ export class HomeComponent {
   }
       
   login() {
-    console.log(this.platform.platforms())
-    if (!this.platform.is('capacitor'))
-    {
-      this.firebase.googlelogin().then(
-        (success) => {
-            this.router.navigate(['/dashboard'])
-        },
-        (error) => {
-           console.error("Home Error: in log in login", error)
-        }
-       );
-    }
-    else {
-      this.firebase.capacitorGoogleLogin().then(
-        (success) => {
-            console.log('hello', success)
-            this.router.navigate(['/dashboard'])
-        },
-        (error) => {
-          console.error("Home Error: in log in login", error)
-       }
-      );
-    }
+    this.firebase.login().then( (success) => {
+        console.log('login user success from home')
+    })
   }
   
   logout() {

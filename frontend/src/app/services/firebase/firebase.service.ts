@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
 import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth'
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth'
 export class FirebaseService {
   authState: any = null;
   authUser: any = null;
-  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService) {
+  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService, private platform: Platform) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
@@ -88,6 +89,14 @@ export class FirebaseService {
     .catch(err => {
     console.log('Something is wrong in SignIn:'); 
     });
+  }
+
+  login(): Promise<any> {
+    if (!this.platform.is('capacitor'))
+    {
+      return this.googlelogin()
+    }
+    return this.capacitorGoogleLogin()
   }
   
   googlelogin(): Promise<firebase.auth.UserCredential> {

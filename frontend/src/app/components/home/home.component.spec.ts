@@ -10,10 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, Platform } from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
+import { SearchParkingComponent } from '..';
 
 import { HomeComponent } from './home.component';
 
@@ -21,9 +22,10 @@ describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let mockFirebaseService: any;
+  let platformService: any;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent ],
+      declarations: [ HomeComponent, SearchParkingComponent ],
       imports: [BrowserDynamicTestingModule, 
                 IonicModule.forRoot(), 
                 AppRoutingModule,
@@ -40,12 +42,14 @@ describe('HomeComponent', () => {
                 MatDatepickerModule
               ],
       providers: [
-          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['googlelogin', 'logout']) }
+          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout']) },
+          { provide: Platform, useValue: jasmine.createSpyObj('Platform', ['is', 'platforms'])}
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
     mockFirebaseService = TestBed.inject(FirebaseService);
+    platformService = TestBed.inject(Platform);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
@@ -55,7 +59,7 @@ describe('HomeComponent', () => {
   });
 
   it('Test login success', () => {
-    mockFirebaseService.googlelogin.and.returnValue(null)
+    mockFirebaseService.login.and.returnValue(Promise.resolve({}))
     component.login()
     expect(component).toBeTruthy();
   });

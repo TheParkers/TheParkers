@@ -4,7 +4,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { IonicModule } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-
+import { ParkerSinginResponse, User } from '../models/responses/user';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -40,19 +40,23 @@ describe('AuthService', () => {
   
 
   it('test registerUserToParker failure', () => {
-    const errorResponse = new HttpErrorResponse({
-      error: { code: `some code`, message: `some message.` },
-      status: 400,
-      statusText: 'Bad Request',
-    });
+    const sampleUser: User = {
+      tpk_email: "testemail",
+      tpk_firebaseid: "testid",
+      tpk_name: "testid",
+      tpk_photoUrl: 'testurl'
+  }
+  const errorResponse: ParkerSinginResponse = {
+      parker_token: "sampletoken",
+      user: sampleUser
+  }
     expect(service).toBeTruthy();
     let token = 'sampletoken'
     let uid = 'testuid'
-    http.put.and.returnValue(throwError(() => new Error('test')))
+    http.put.and.returnValue(throwError(() => errorResponse))
     let response = service.registerUserToParker(token, uid)
     response.subscribe( error => {
-      console.log(error.tpk_firebaseid)
-      expect(error.tpk_firebaseid).toEqual(token)
+      expect(error).toEqual(errorResponse)
     });
     
   });
@@ -65,18 +69,23 @@ describe('AuthService', () => {
   });
 
   it('test loginUsertoParker failure', () => {
-    const errorResponse = new HttpErrorResponse({
-      error: { code: `some code`, message: `some message.` },
-      status: 400,
-      statusText: 'Bad Request',
-    });
+    const sampleUser: User = {
+        tpk_email: "testemail",
+        tpk_firebaseid: "testid",
+        tpk_name: "testid",
+        tpk_photoUrl: 'testurl'
+    }
+    const errorResponse: ParkerSinginResponse = {
+        parker_token: "sampletoken",
+        user: sampleUser
+    }
     expect(service).toBeTruthy();
     let token = 'sampletoken'
-    http.post.and.returnValue(throwError(() => new Error('test')))
+    http.post.and.returnValue(throwError(() => errorResponse))
     let response = service.loginUserToParker(token)
     response.subscribe( error => {
-      console.log(error.parker_token)
-      expect(error.parker_token).toEqual(token)
+          expect(error.parker_token).toBe('sampletoken')
+          expect(error.user).toBe(sampleUser)
     });
   });
 
