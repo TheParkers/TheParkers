@@ -1,5 +1,6 @@
 Django
 mysql-connector-python
+django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
 requests
