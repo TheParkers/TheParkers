@@ -17,12 +17,14 @@ export class HomeComponent {
       
   login() {
     this.firebase.login().then( (success) => {
+        this.router.navigate(['/dashboard'])
         console.log('login user success from home')
     })
   }
   
   logout() {
     this.firebase.logout();
+    this.router.navigate(['/home'])
   }
 
 }
