@@ -9,8 +9,7 @@ import { FirebaseService } from 'src/app/services';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private firebase: FirebaseService, 
-    private platform: Platform,
+  constructor(private firebase: FirebaseService,
     private router: Router){
       
   }

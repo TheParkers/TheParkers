@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { IonicModule, Platform } from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FirebaseService } from 'src/app/services';
@@ -23,6 +24,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let mockFirebaseService: any;
   let platformService: any;
+  let routerService: any;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ HomeComponent, SearchParkingComponent ],
@@ -43,12 +45,13 @@ describe('HomeComponent', () => {
               ],
       providers: [
           { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout']) },
-          { provide: Platform, useValue: jasmine.createSpyObj('Platform', ['is', 'platforms'])}
+          { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) }
       ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
     mockFirebaseService = TestBed.inject(FirebaseService);
+    routerService = TestBed.inject(Router);
     platformService = TestBed.inject(Platform);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -59,12 +62,14 @@ describe('HomeComponent', () => {
   });
 
   it('Test login success', () => {
+    routerService.navigate.and.returnValue('/')
     mockFirebaseService.login.and.returnValue(Promise.resolve({}))
     component.login()
     expect(component).toBeTruthy();
   });
 
   it('Test logout success', () => {
+    routerService.navigate.and.returnValue('/')
     mockFirebaseService.logout.and.returnValue(null)
     component.logout()
     expect(component).toBeTruthy();
