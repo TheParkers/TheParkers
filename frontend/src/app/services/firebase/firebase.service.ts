@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
-import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth'
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Platform } from '@ionic/angular';
 
 @Injectable({
@@ -11,7 +11,10 @@ import { Platform } from '@ionic/angular';
 export class FirebaseService {
   authState: any = null;
   authUser: any = null;
-  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService, private platform: Platform) {
+  constructor(public auth: AngularFireAuth, 
+              private parkerAuth: AuthService, 
+              private platform: Platform
+              ) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
@@ -82,7 +85,10 @@ export class FirebaseService {
               this.authUser = user.user
               console.log('Login user successful with email and password', user) 
             },
-            error: error => console.log(error)
+            error: error => {
+              console.log(error)
+              this.authUser = null
+            }
           })
       });
     })
@@ -111,6 +117,7 @@ export class FirebaseService {
       });
   }
 
+  //@ts-ignore
   async capacitorGoogleLogin(): Promise<any> {
     await GoogleAuth.signIn().then(async (user) => {
       await this.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(user.authentication.idToken))
@@ -126,7 +133,7 @@ export class FirebaseService {
     })
   }
 
-  private firebaseGoogleAuth(user: firebase.auth.UserCredential) {
+  public firebaseGoogleAuth(user: firebase.auth.UserCredential) {
     this.authUser = user.additionalUserInfo
     let useruid = user.user?.uid
     user.user?.getIdToken().then( firebaseToken => {
