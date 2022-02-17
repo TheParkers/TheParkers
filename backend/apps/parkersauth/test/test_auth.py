@@ -11,7 +11,7 @@ class TestAuthModule(APITestCase):
 
     @patch('apps.users.models.User.objects.get')
     @patch('rest_framework_simplejwt.tokens.RefreshToken.for_user')
-    @patch('apps.users.services.firebase.getUserProfileByToken')   
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def testSignIn(self, mockService, mockToken, mockUsers):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
@@ -27,7 +27,7 @@ class TestAuthModule(APITestCase):
         resp = self.client.post("/signin/", {"tpk_firebasetoken_invalidparam": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
-    @patch('apps.users.services.firebase.getUserProfileByToken')   
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')   
     def testSignInUserNotFound(self, mockService):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": None, "displayName": 

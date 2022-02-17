@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
 import { AuthService } from '../auth/auth.service';
+import firebase from 'firebase/compat/app';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
+import { Platform } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +11,10 @@ import { AuthService } from '../auth/auth.service';
 export class FirebaseService {
   authState: any = null;
   authUser: any = null;
-  constructor(public auth: AngularFireAuth, private parkerAuth: AuthService) {
+  constructor(public auth: AngularFireAuth, 
+              private parkerAuth: AuthService, 
+              private platform: Platform
+              ) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
       })
@@ -18,15 +23,24 @@ export class FirebaseService {
   get getAuthState() {
       return this.authState
   }
-  get isAuthenticated() {
+
+  get getAuthUser() {
+      return this.authUser
+  }
+
+  get isAuthenticatedWithFirebase() {
       return this.getAuthState != null;
   }
 
+  get isAuthenticatedWithParker() {
+      return this.getAuthUser != null;
+  }
+
   get isEmailVerified(): boolean {
-      return this.isAuthenticated ? this.authState.emailVerified : false;
+      return this.isAuthenticatedWithFirebase ? this.authState.emailVerified : false;
   }
   get currentUserId(): string {
-      return this.isAuthenticated ? this.authState.uid : null
+      return this.isAuthenticatedWithFirebase ? this.authState.uid : null
   }
 
   SignUp(email: string, password: string) {
@@ -59,15 +73,22 @@ export class FirebaseService {
       });
   } 
 
-  SignIn(email: string, password: string) {
+  signIn(email: string, password: string) {
     this.auth
     .signInWithEmailAndPassword(email, password)
     .then(res => {
       console.log('You are Successfully logged in!');
       res.user?.getIdToken().then( firebaseToken => {
           this.parkerAuth.loginUserToParker(firebaseToken)
-          .subscribe( user => {
-            console.log('Login user successful', user)
+          .subscribe({ 
+            next: user => { 
+              this.authUser = user.user
+              console.log('Login user successful with email and password', user) 
+            },
+            error: error => {
+              console.log(error)
+              this.authUser = null
+            }
           })
       });
     })
@@ -75,36 +96,83 @@ export class FirebaseService {
     console.log('Something is wrong in SignIn:'); 
     });
   }
+
+  login(): Promise<any> {
+    if (!this.platform.is('capacitor'))
+    {
+      return this.googlelogin()
+    }
+    return this.capacitorGoogleLogin()
+  }
   
-  googlelogin() {
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
-      success => {
-        console.log('Authentication succeeded', success);
-        this.authUser = success.additionalUserInfo
-        let useruid = success.user?.uid
-        success.user?.getIdToken().then( firebaseToken => {
-          if (success.additionalUserInfo?.isNewUser && useruid)
-          {
-            this.parkerAuth.registerUserToParker(firebaseToken, useruid)
-            .subscribe( () => {
-                console.log('register user successful', success.user)
-                  this.parkerAuth.loginUserToParker(firebaseToken)
-                  .subscribe( user => {
-                    console.log('first time Google Login user successful', user)
-                  });
-            })
-          }
-          else {
-                this.parkerAuth.loginUserToParker(firebaseToken)
-                .subscribe( user => {
-                  console.log('Google Login user successful', user)
-                });
-            }
-        });
+  googlelogin(): Promise<firebase.auth.UserCredential> {
+    return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then(success => {
+           this.firebaseGoogleAuth(success);
       })
       .catch(err => {
-        console.log('Error in firebase authentication');
+          console.error('Error in firebase authentication',err);
+          this.authUser = null
+          return err
       });
+  }
+
+  //@ts-ignore
+  async capacitorGoogleLogin(): Promise<any> {
+    await GoogleAuth.signIn().then(async (user) => {
+      await this.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(user.authentication.idToken))
+      .then(credential => {
+          return this.firebaseGoogleAuth(credential)
+      }).catch((error) => {
+          console.error('Capacitor Signin with firebase',error)
+          return error 
+      });
+    }).catch((error) => {
+      console.log('Capacitor Signin with google',error);
+      return error
+    })
+  }
+
+  public firebaseGoogleAuth(user: firebase.auth.UserCredential) {
+    this.authUser = user.additionalUserInfo
+    let useruid = user.user?.uid
+    user.user?.getIdToken().then( firebaseToken => {
+      if (user.additionalUserInfo?.isNewUser && useruid)
+      {
+        this.parkerAuth.registerUserToParker(firebaseToken, useruid)
+        .subscribe( () => {
+            console.log('register user to parker successful', user.user)
+              this.parkerAuth.loginUserToParker(firebaseToken)
+              .subscribe({ 
+                next: response => {
+                  console.log('Login first time user to parker successful', user)
+                  this.authUser = response.user
+                },
+                error: error => {
+                  console.error(error)
+                  this.authUser = null
+                }
+              })
+        })
+      }
+      else 
+      {
+        this.parkerAuth.loginUserToParker(firebaseToken)
+        .subscribe({ 
+            next: response => {
+              console.log('Login user to parker successful', response.user)
+              this.authUser = response.user
+            },
+            error: error => {
+              console.error('Login user to parker',error)
+              this.authUser = null
+            }
+            });
+        }
+    }).catch( error => {
+      console.error('login to parker failed, invalid google user')
+      this.authUser = null
+    });
   }
 
   logout() {
@@ -114,6 +182,6 @@ export class FirebaseService {
       })
       .catch(err => {
         console.log('Error in logout');
-      });
+    });
   }
 }

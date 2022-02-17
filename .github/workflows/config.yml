@@ -58,6 +58,9 @@ jobs:
       - name: install python dependencies
         run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
+      - name: check lint
+        run: cd backend && pylint --fail-under=8  --load-plugins pylint_django --ignore test apps 
+
       - name: check django sanity
         run: |
             cd backend
@@ -95,6 +98,9 @@ jobs:
       
       - name: install npm packages
         run: cd frontend && npm install
+
+      - name: check lint
+        run: cd frontend && npm run lint
 
       - name: run unit tests
         run: cd frontend && npm run testdev 

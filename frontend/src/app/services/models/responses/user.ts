@@ -4,3 +4,9 @@ export interface User {
     tpk_photoUrl: string;
     tpk_firebaseid: string
   }
+
+
+export interface ParkerSinginResponse {
+  parker_token: string,
+  user: User
+}
