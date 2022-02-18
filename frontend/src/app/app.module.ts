@@ -26,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './services/auth/auth.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { HomeComponent } from './components/home/home.component';
     { provide: LANGUAGE_CODE, useValue: 'fr' },
     AuthService,
     FirebaseService, 
-    GuardService
+    GuardService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
