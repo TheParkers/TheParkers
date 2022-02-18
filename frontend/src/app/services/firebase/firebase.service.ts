@@ -4,6 +4,8 @@ import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Platform } from '@ionic/angular';
+import { LocalStorageService } from '..';
+import { LocalStorageModel } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +15,13 @@ export class FirebaseService {
   authUser: any = null;
   constructor(public auth: AngularFireAuth, 
               private parkerAuth: AuthService, 
-              private platform: Platform
+              private platform: Platform,
+              private localStorageService : LocalStorageService
               ) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
-      })
+      });
+      this.localStorageService = localStorageService;
    }
 
   get getAuthState() {
@@ -161,6 +165,7 @@ export class FirebaseService {
         .subscribe({ 
             next: response => {
               console.log('Login user to parker successful', response.user)
+              this.localStorageService.setItem(LocalStorageModel.autheticationToken, response.parker_token)
               this.authUser = response.user
             },
             error: error => {
@@ -179,6 +184,7 @@ export class FirebaseService {
     this.auth.signOut().then(
       success => {
         console.log('Logout success', success);
+        this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
       })
       .catch(err => {
         console.log('Error in logout');
