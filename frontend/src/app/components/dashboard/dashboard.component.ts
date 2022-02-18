@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,9 +10,14 @@ import { ActionSheetController } from '@ionic/angular';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private actionSheetCtrl: ActionSheetController) {}
+  constructor(private userService: UserService, 
+    private firebaseService: FirebaseService,
+    private actionSheetCtrl: ActionSheetController) {
+      console.log("dashboard component",this.firebaseService.authUser)
+    }
 
   ngOnInit(): void {
+    this.userService.getuserbyidasync();
     console.log('dashboard')
   }
 
