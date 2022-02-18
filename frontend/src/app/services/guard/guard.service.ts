@@ -10,12 +10,13 @@ export class GuardService implements CanActivate {
 
   constructor(private firebaseService: FirebaseService, private router: Router) { }
 
-  public canActivate(): UrlTree 
+  public canActivate(): UrlTree|boolean 
     {
-      if (this.firebaseService.isAuthenticated)
+      console.log('guard service', this.firebaseService.isAuthenticatedWithParker)
+      if (this.firebaseService.isAuthenticatedWithParker)
       {
-         return this.router.parseUrl(this.router.url)
+         return true
       }
-      return this.router.parseUrl('/home');
+      return this.router.parseUrl('/');
     }
 }

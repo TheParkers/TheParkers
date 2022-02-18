@@ -1,8 +1,12 @@
 Django
 mysql-connector-python
+django-cors-headers
 djangorestframework
 djangorestframework-simplejwt
 requests
 pyrebase4
 
+# Dev dependencies
 coverage
+pylint
+pylint-django
