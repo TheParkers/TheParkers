@@ -25,6 +25,7 @@ import { SearchParkingComponent } from './components/search-parking/search-parki
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { HomeComponent } from './components/home/home.component';
     AuthService,
     FirebaseService, 
     GuardService,
+    UserService,
     LocalStorageService
   ],
   bootstrap: [AppComponent]
