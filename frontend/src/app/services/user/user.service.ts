@@ -9,7 +9,7 @@ import { FirebaseService } from '..';
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private firebaseService: FirebaseService) {
+  constructor(private http: HttpClient) {
   }
 
 

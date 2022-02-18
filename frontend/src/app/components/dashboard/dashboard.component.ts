@@ -9,11 +9,10 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  constructor(private userService: UserService, 
-    private firebaseService: FirebaseService,
-    private actionSheetCtrl: ActionSheetController) {
-      console.log("dashboard component",this.firebaseService.authUser)
+  // private firebaseService: FirebaseService,
+    // 
+  constructor(private userService: UserService, private actionSheetCtrl: ActionSheetController) {
+      // console.log("dashboard component",this.firebaseService.authUser)
     }
 
   ngOnInit(): void {
