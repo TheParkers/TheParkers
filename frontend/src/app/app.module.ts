@@ -7,13 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { AngularFireModule } from '@angular/fire/compat';
 
 import { environment } from "../environments/environment.dev";
-import { FirebaseService, GuardService } from './services'
+import { FirebaseService, GuardService , AuthService, LocalStorageService, HttpInterceptorService} from './services'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
@@ -22,8 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SearchParkingComponent } from './components/search-parking/search-parking.component';
-import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './services/auth/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 
@@ -56,9 +55,11 @@ import { HomeComponent } from './components/home/home.component';
   providers: [
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
     { provide: LANGUAGE_CODE, useValue: 'fr' },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     AuthService,
     FirebaseService, 
-    GuardService
+    GuardService,
+    LocalStorageService
   ],
   bootstrap: [AppComponent]
 })

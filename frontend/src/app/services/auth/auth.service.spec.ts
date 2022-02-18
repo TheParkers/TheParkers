@@ -4,7 +4,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { IonicModule } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { ParkerSinginResponse, User } from '../models/responses/user';
+import { ParkerSinginResponse, User } from '../../models/responses/user';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
