@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.userService.getuserbyidasync();
+    // this.userService.getuserbyidasync(this.firebaseService.authUser);
     console.log('dashboard')
   }
 

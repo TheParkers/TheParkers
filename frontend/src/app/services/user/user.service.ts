@@ -13,19 +13,19 @@ export class UserService {
   }
 
 
-  async getuserbyidasync(id:any) {
-      let user = this.firebaseService.getAuthUser
-      if (user) 
-      {
-          const httpOptions = {
-            headers: new HttpHeaders({
-              'Content-Type':  'application/json',
-            })
-          }
-          return this.http.get<any>(
-                    environment.apiServer+environment.apiUrls.user.userbyid+user.tpk_firebaseid, 
-                    httpOptions)
-      }
-      return of(throwError(() => new Error('User Service failed: unauthenticated parker access')))
-  } 
+  // async getuserbyidasync(id:any) {
+  //     let user = this.firebaseService.getAuthUser
+  //     if (user) 
+  //     {
+  //         const httpOptions = {
+  //           headers: new HttpHeaders({
+  //             'Content-Type':  'application/json',
+  //           })
+  //         }
+  //         return this.http.get<any>(
+  //                   environment.apiServer+environment.apiUrls.user.userbyid+user.tpk_firebaseid, 
+  //                   httpOptions)
+  //     }
+  //     return of(throwError(() => new Error('User Service failed: unauthenticated parker access')))
+  // } 
 }
