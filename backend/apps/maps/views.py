@@ -1,28 +1,31 @@
-from django.shortcuts import render
-from apps.maps.serializers import MapSerializer
+'''
+APIViews: maps
+'''
+from django.http import JsonResponse, HttpResponse
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
-from apps.maps.models import GCoordList
 from rest_framework.parsers import JSONParser
-from django.http import JsonResponse, HttpResponse
-from rest_framework.decorators import api_view
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import status
-from apps.parkersauth.permissions.IsUserLoggedIn import IsUserLoggedIn
 
-'''
-create a form with inputs lat and long and stores it to the database
-grab the list of lat and long from the DB and display it on the map
+from apps.maps.serializers import MapSerializer
+from apps.maps.models import ParkerMap
+from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
 
-'''
 @permission_classes([IsUserLoggedIn])
 @api_view(['GET', 'POST'])
-def LatLongList(request):
+def get_all_maps(request):
+    '''
+    API: /map
+    payload: {}
+    GET:
+        success response: list<Maps>, status.HTTP_200_OK
+    POST:
+        success response: map, status 201
+    '''
     if request.method == 'GET':
-        Coords = GCoordList.objects.all()
-        serializer = MapSerializer(Coords,many = True)
+        parker_maps = ParkerMap.objects.all()
+        serializer = MapSerializer(parker_maps,many = True)
         return JsonResponse(serializer.data, safe=False)
-        
+
     if request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = MapSerializer(data = data)
@@ -30,31 +33,40 @@ def LatLongList(request):
             serializer.save()
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
+    return JsonResponse({request.data}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT', 'GET', 'DELETE'])
 @permission_classes([IsUserLoggedIn])
-def LatLongMod(request, pk):
-    if request.method == "GET" or request.method == "DELETE":
+def mod_maps(request, parker_map_id):
+    '''
+    API: /'map/<int:pk>/
+    payload: {}
+    GET:
+        success response: Map, status.HTTP_200_OK
+    PUT:
+        success response: Map, status HTTP_200_OK
+    DELETE:
+        success response: status HTTP_200_OK
+    '''
+    if "GET" in request.method or "DELETE" in request.method:
         try:
-            Coords = GCoordList.objects.get(pk=pk)
-        except GCoordList.DoesNotExist:
-            return HttpResponse(status=404)
-    
+            parker_map = ParkerMap.objects.get(pk=parker_map_id)
+        except ParkerMap.DoesNotExist:
+            return JsonResponse({}, status=404)
+
     if request.method == 'GET':
-        serializer = MapSerializer(Coords)
+        serializer = MapSerializer(parker_map)
         return JsonResponse(serializer.data)
 
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         data = JSONParser().parse(request)
         serializer = MapSerializer(data = data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
+        return JsonResponse({}, status=400)
 
-    elif request.method == 'DELETE':
-        Coords.delete()
+    if request.method == 'DELETE':
+        parker_map.delete()
         return JsonResponse({}, status=status.HTTP_202_ACCEPTED)
-
-    
-    
+    return JsonResponse(serializer.errors, status=404)
