@@ -88,6 +88,7 @@ describe('FirebaseService', () => {
   it('Test service initialization failure', () => {
     spyOnProperty(service, 'getAuthState').and.returnValue(null)
     expect(service.isAuthenticatedWithFirebase).toBeFalsy()
+    expect(service.isAuthenticatedWithParker).toBeFalsy()
     expect(service.isEmailVerified).toBeFalsy()
     expect(service.currentUserId).toBeNull()
     expect(service).toBeTruthy();
