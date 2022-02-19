@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
           console.log('User service call', user)
       },
       error: (error) => {
-          console.log("Dashboard: Error in get user by id", error)
+          console.log("Dashboard: Error in get user by id")
       }
     })
   }
