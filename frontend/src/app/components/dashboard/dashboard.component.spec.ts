@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FirebaseService } from 'src/app/services';
+import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment.dev';
 
 import { DashboardComponent } from './dashboard.component';
@@ -70,7 +71,8 @@ describe('DashboardComponent', () => {
       declarations: [ DashboardComponent ],
       providers: [
         { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
-        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])}
+        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])},
+        { provide: UserService, useValue: jasmine.createSpyObj('UserService', ['getuserbyemail'])}
       ]
     })
     .compileComponents();

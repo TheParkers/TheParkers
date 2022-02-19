@@ -16,6 +16,7 @@ from apps.users.models import User as ParkerUser
 @authentication_classes([])
 @permission_classes([AllowAny])
 def sign_in(request):
+    print(request.COOKIES)
     '''
     API: signin
     payload: {
@@ -40,5 +41,7 @@ def sign_in(request):
         parker_token = generate_access_token(parker_user)
         response = { "user": UserResponseSerializer(parker_user, many=False).data,
                     "parker_token": str(parker_token.access_token) }
-        return JsonResponse(response, status=status.HTTP_200_OK)
+        httpResponse = JsonResponse(response, status=status.HTTP_200_OK)
+        httpResponse.set_cookie(key='Authorisation', value='Bearer '+str(parker_token.access_token), path='/')
+        return httpResponse
     return JsonResponse({}, status=404)
