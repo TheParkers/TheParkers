@@ -1,16 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { ActionSheetController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services';
+import { environment } from 'src/environments/environment.dev';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent{
 
-  constructor() { }
+  constructor(private actionSheetCtrl: ActionSheetController, private firebaseService: FirebaseService) {}
 
-  ngOnInit(): void {
-    console.log('dashboard')
+   /* istanbul ignore next */
+  public async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService));
+    console.log(actionSheet)
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
   }
 
 }

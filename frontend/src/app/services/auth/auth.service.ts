@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment.dev";
 import { catchError, Observable, of } from 'rxjs';
-import { FirebaseToken } from '../models/requests/firebasetoken';
-import { ParkerSinginResponse } from '../models/responses/user';
+import { FirebaseToken , ParkerSinginResponse} from '../../models';
 
 @Injectable({
   providedIn: 'root'
