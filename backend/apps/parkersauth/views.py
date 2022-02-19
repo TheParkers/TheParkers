@@ -16,7 +16,6 @@ from apps.users.models import User as ParkerUser
 @authentication_classes([])
 @permission_classes([AllowAny])
 def sign_in(request):
-    print(request.COOKIES)
     '''
     API: signin
     payload: {
