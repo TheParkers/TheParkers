@@ -16,7 +16,6 @@ export class HomeComponent {
       
   login() {
     this.firebase.login().then( (success) => {
-        this.router.navigate(['/dashboard'])
         console.log('login user success from home')
     })
   }
