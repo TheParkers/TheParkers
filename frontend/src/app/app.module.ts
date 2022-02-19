@@ -56,7 +56,7 @@ import { UserService } from './services/user/user.service';
   providers: [
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
     { provide: LANGUAGE_CODE, useValue: 'fr' },
-    // { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
     AuthService,
     FirebaseService, 
     GuardService,
