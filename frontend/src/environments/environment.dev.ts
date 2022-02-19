@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+/* istanbul ignore next */
 export const environment = {
   production: false,
   firebaseConfig: {
@@ -17,6 +17,39 @@ export const environment = {
   apiUrls: {
     registerUser: '/users/register/',
     loginUser: '/signin/'
+  },
+  actionSheetConfig: (service: any)=> {
+      return {
+        cssClass: 'my-custom-class',
+        translucent: false,
+        buttons: [{
+          text: 'Bookings',
+          role: 'bookings',
+          icon: 'cart-outline',
+          id: 'delete-button',
+          data: {
+            type: 'delete'
+          },
+          handler: () => {
+            console.log('Bookings clicked');
+          }
+        }, {
+          text: 'Rentals',
+          icon: 'car-sport-outline',
+          data: 10,
+          handler: () => {
+            console.log('Rentals clicked');
+          }
+        }, {
+          text: 'Profile',
+          icon: 'person-circle-outline',
+          data: 'Data value',
+          handler: () => {
+            service.logout();
+            console.log('control sheet profile clicked');
+          }
+        }]
+      }
   }
 };
 1
