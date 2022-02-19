@@ -43,7 +43,7 @@ def user_mod(request, firebase_user_id):
     '''
     if request.method == 'GET' or request.method == 'DELETE' and request.user:
         try:
-            user = User.objects.get(tpk_firebaseid=firebase_user_id)
+            user = User.objects.get(tpk_email=firebase_user_id)
         except Exception as error:
             print(error)
             return JsonResponse({}, status=404)
