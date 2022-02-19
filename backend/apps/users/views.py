@@ -4,7 +4,7 @@ APIViews: users
 from django.http import JsonResponse
 
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework import status
 
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
@@ -43,7 +43,7 @@ def user_mod(request, firebase_user_id):
     '''
     if request.method == 'GET' or request.method == 'DELETE' and request.user:
         try:
-            user = User.objects.get(tpk_firebaseid=firebase_user_id)
+            user = User.objects.get(tpk_email=firebase_user_id)
         except Exception as error:
             print(error)
             return JsonResponse({}, status=404)
@@ -59,6 +59,7 @@ def user_mod(request, firebase_user_id):
     return JsonResponse({request.data}, status=404)
 
 @api_view(['PUT'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 def new_user(request, firebase_user_id):
     '''
