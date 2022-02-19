@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.dev';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent{
+export class DashboardComponent {
 
   constructor(private actionSheetCtrl: ActionSheetController, private firebaseService: FirebaseService) {}
 
