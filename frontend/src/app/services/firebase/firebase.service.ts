@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Platform } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class FirebaseService {
   authUser: any = null;
   constructor(public auth: AngularFireAuth, 
               private parkerAuth: AuthService, 
-              private platform: Platform
+              private platform: Platform,
+              private router: Router
               ) {
       this.auth.authState.subscribe(authState => {
           this.authState = authState
@@ -41,6 +43,11 @@ export class FirebaseService {
   }
   get currentUserId(): string {
       return this.isAuthenticatedWithFirebase ? this.authState.uid : null
+  }
+
+  clearAuthStates() {
+    this.authState = null;
+    this.authUser = null;
   }
 
   SignUp(email: string, password: string) {
@@ -87,7 +94,7 @@ export class FirebaseService {
             },
             error: error => {
               console.log(error)
-              this.authUser = null
+              this.clearAuthStates()
             }
           })
       });
@@ -105,19 +112,18 @@ export class FirebaseService {
     return this.capacitorGoogleLogin()
   }
   
-  googlelogin(): Promise<firebase.auth.UserCredential> {
-    return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+  async googlelogin(): Promise<any> {
+    return await this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
     .then(success => {
            this.firebaseGoogleAuth(success);
       })
       .catch(err => {
           console.error('Error in firebase authentication',err);
-          this.authUser = null
-          return err
+          this.clearAuthStates()
       });
   }
 
-  //@ts-ignore
+  /* istanbul ignore next */
   async capacitorGoogleLogin(): Promise<any> {
     await GoogleAuth.signIn().then(async (user) => {
       await this.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(user.authentication.idToken))
@@ -128,6 +134,7 @@ export class FirebaseService {
           return error 
       });
     }).catch((error) => {
+      this.clearAuthStates()
       console.log('Capacitor Signin with google',error);
       return error
     })
@@ -147,10 +154,11 @@ export class FirebaseService {
                 next: response => {
                   console.log('Login first time user to parker successful', user)
                   this.authUser = response.user
+                  this.router.navigate(['/dashboard'])
                 },
                 error: error => {
                   console.error(error)
-                  this.authUser = null
+                  this.clearAuthStates()
                 }
               })
         })
@@ -162,16 +170,17 @@ export class FirebaseService {
             next: response => {
               console.log('Login user to parker successful', response.user)
               this.authUser = response.user
+              this.router.navigate(['/dashboard'])
             },
             error: error => {
               console.error('Login user to parker',error)
-              this.authUser = null
+              this.clearAuthStates()
             }
             });
         }
     }).catch( error => {
       console.error('login to parker failed, invalid google user')
-      this.authUser = null
+      this.clearAuthStates()
     });
   }
 
@@ -179,6 +188,8 @@ export class FirebaseService {
     this.auth.signOut().then(
       success => {
         console.log('Logout success', success);
+        this.clearAuthStates()
+        this.router.navigate(['/'])
       })
       .catch(err => {
         console.log('Error in logout');
