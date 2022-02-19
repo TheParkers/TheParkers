@@ -1,56 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services';
-import { UserService } from 'src/app/services/user/user.service';
+import { environment } from 'src/environments/environment.dev';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-  // private firebaseService: FirebaseService,
-    // 
-  constructor(private userService: UserService, private actionSheetCtrl: ActionSheetController) {
-      // console.log("dashboard component",this.firebaseService.authUser)
-    }
+export class DashboardComponent{
 
-  ngOnInit(): void {
-    // this.userService.getuserbyidasync(this.firebaseService.authUser);
-    console.log('dashboard')
-  }
+  constructor(private actionSheetCtrl: ActionSheetController, private firebaseService: FirebaseService) {}
 
-  async presentActionSheet() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      cssClass: 'my-custom-class',
-      translucent: false,
-      buttons: [{
-        text: 'Bookings',
-        role: 'bookings',
-        icon: 'cart-outline',
-        id: 'delete-button',
-        data: {
-          type: 'delete'
-        },
-        handler: () => {
-          console.log('Bookings clicked');
-        }
-      }, {
-        text: 'Rentals',
-        icon: 'car-sport-outline',
-        data: 10,
-        handler: () => {
-          console.log('Rentals clicked');
-        }
-      }, {
-        text: 'Profile',
-        icon: 'person-circle-outline',
-        data: 'Data value',
-        handler: () => {
-          console.log('Profile clicked');
-        }
-      }]
-    });
+   /* istanbul ignore next */
+  public async presentActionSheet() {
+    const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService));
+    console.log(actionSheet)
     await actionSheet.present();
 
     const { role, data } = await actionSheet.onDidDismiss();
