@@ -22,6 +22,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatNativeDateModule } from '@angular/material/core';
 import { SearchParkingComponent } from './components/search-parking/search-parking.component';
+import { PreloaderComponent } from './components/pre-loader/pre-loader.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
@@ -33,6 +34,7 @@ import { UserService } from './services/user/user.service';
     DashboardComponent,
     AppComponent,
     HomeComponent,
+    PreloaderComponent,
   ],
   imports: [
     BrowserModule,
