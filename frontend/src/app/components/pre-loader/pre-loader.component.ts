@@ -3,26 +3,25 @@ import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pre-loader',
- // templateUrl: 'loading-example.html',
+  //templateUrl: 'loading-example.html',
   styleUrls: ['./pre-loader.component.scss']
 })
 export class PreloaderComponent{
+  loading : any
   constructor(public loadingController: LoadingController) {
-      const loading = await this.loadingController.create({
+      
+  }
+
+  async presentLoading() {
+    this.loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Please wait...',
       duration: 1500
     });
+    await this.loading.present();
   }
-
-  async presentLoading() {
-    
-    await loading.present();
-
-   
-  }
-  async function hideLoading() {
-    const { role, data } = await loading.onDidDismiss();
+  async hideLoading() {
+    const { role, data } = await this.loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
 }
