@@ -3,7 +3,7 @@ import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-pre-loader',
-  templateUrl: '',
+  //templateUrl: '',
   styleUrls: ['./pre-loader.component.scss']
 })
 export class PreloaderComponent{
