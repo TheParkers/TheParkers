@@ -39,7 +39,8 @@ export class FirebaseService {
   }
 
   get isAuthenticatedWithParker() {
-      return this.getAuthUser != null;
+      console.log(this.localStorageService.getItem(LocalStorageModel.autheticationToken))
+      return this.localStorageService.getItem(LocalStorageModel.autheticationToken) != null;
   }
 
   get isEmailVerified(): boolean {

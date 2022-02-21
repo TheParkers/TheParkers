@@ -13,7 +13,9 @@ export class PreLoaderService {
     this.loadingController.create({
         message: 'Loading...'
     }).then((response) => {
-        response.present();
+        response.present().then( ()=> {
+            console.log('Preloader loaded successfully')
+        });
     });
   }
   dismissLoader() {
