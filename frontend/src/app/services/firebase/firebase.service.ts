@@ -52,6 +52,8 @@ export class FirebaseService {
   clearAuthStates() {
     this.authState = null;
     this.authUser = null;
+    this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
+    this.router.navigate(['/'])
   }
 
   SignUp(email: string, password: string) {
@@ -193,9 +195,7 @@ export class FirebaseService {
     this.auth.signOut().then(
       success => {
         console.log('Logout success', success);
-        this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
-        this.clearAuthStates()
-        this.router.navigate(['/'])
+        this.clearAuthStates();
       })
       .catch(err => {
         console.log('Error in logout');
