@@ -9,7 +9,15 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    children: [
+      {
+        path: 'dashboard', // child route path
+        component: DashboardComponent,
+        canActivate: [GuardService],
+      },
+    ]
+    
   },
   // Dashboard urls
   {
