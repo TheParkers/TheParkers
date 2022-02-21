@@ -2,11 +2,12 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
-from .models import User, Permission
+from .models import User
 from .serializers import UserResponseSerializer, PermissionSerializer
+from django.contrib.auth.models import Permission
 
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes#, permission_required
 from rest_framework import status
 
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
@@ -96,18 +97,12 @@ def new_user(request, firebase_user_id):
         return JsonResponse(response.data, status=201)
     return JsonResponse({}, status=404)
 
+
+@api_view(['GET'])
+@permission_classes([IsUserLoggedIn])
 def permissions_list(request):
     if request.method == 'GET':
         permissionsList = Permission.objects.all()
         permissionSerializer = PermissionSerializer(permissionsList, many=True)
         return JsonResponse(permissionSerializer.data, safe=False)
-
-    if request.method == 'POST':
-        data = JSONParser.parse(request.data)
-        serializer = PermissionSerializer(data=data)
-
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        else:
-            return JsonResponse(serializer.errors, status=400)
+    return JsonResponse({request.data}, status=404)

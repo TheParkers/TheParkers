@@ -2,8 +2,10 @@
     Model: users app
 '''
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group, Permission
 
-class User(models.Model):
+
+class User(AbstractBaseUser,PermissionsMixin):
     '''
     Model: User
     tpk_firebaseid: maxlenth=100
@@ -29,27 +31,10 @@ class User(models.Model):
     is_anonymous = False
     is_authenticated = False
 
-class Permission(models.Model):
-    permissionName = models.CharField(max_length=100)
-    permissionDesc = models.CharField(max_length=255)
-    def __str__(self):
-        return self.permissionName
-
-class Role(models.Model):
-    roleName = models.CharField(max_length=100)
-    roleDesc = models.CharField(max_length=255)
-    def __str__(self):
-        return self.roleName
-
-class UserRole(models.Model):
-    roleName = models.CharField(max_length=100)
-    userName = models.CharField(max_length=100)
-    def __str__(self):
-        return self.roleName
-
-class RolePermission(models.Model):
-    roleID = models.IntegerField()
-    permissionID = models.IntegerField()
-    permissionApplied = models.BinaryField()
-    def __str__(self):
-        return self.roleID
+'''
+    Create user roles
+'''
+superuser_role, created = Group.objects.get_or_create(name='SUPERUSER')
+tenant_role, created = Group.objects.get_or_create(name='TENANT')
+landlord_role, created = Group.objects.get_or_create(name='LANDLORD')
+viewer_role, created = Group.objects.get_or_create(name='VIEWER')
