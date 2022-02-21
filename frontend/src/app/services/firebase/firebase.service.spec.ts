@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IonicModule, Platform } from '@ionic/angular';
-import { of, sample, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environment } from 'src/environments/environment.dev';
 import firebase from 'firebase/compat/app';
@@ -11,12 +11,10 @@ import { FirebaseService } from './firebase.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { AuthService } from '../auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 describe('FirebaseService', () => {
   let service: FirebaseService;
   let mockAuthService: any;
-  let mockUserState: any;
   let authService: any;
   let paltformService: any;
   beforeEach(() => {
