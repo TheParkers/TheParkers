@@ -7,6 +7,7 @@ import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
 import { Router } from '@angular/router';
 import { LocalStorageModel } from 'src/app/models';
+import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,6 @@ export class FirebaseService{
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
