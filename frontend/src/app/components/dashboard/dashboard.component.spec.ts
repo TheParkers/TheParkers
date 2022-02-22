@@ -10,8 +10,11 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
+import { of } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { User } from 'src/app/models';
 import { FirebaseService } from 'src/app/services';
+import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment.dev';
 
 import { DashboardComponent } from './dashboard.component';
@@ -21,6 +24,7 @@ describe('DashboardComponent', () => {
   let fixture: ComponentFixture<DashboardComponent>;
   let mockFirebaseService: any;
   let mockActionSheetService: any;
+  let mockUserService:any;
   let mockActionServiceConfig = {
     cssClass: 'my-custom-class',
     translucent: false,
@@ -89,14 +93,14 @@ describe('DashboardComponent', () => {
   });
 
   it('test action control sheet', async () => {
-      let actualbuttons = environment.actionSheetConfig(null).buttons
-      expect(actualbuttons.length).toEqual(mockActionServiceConfig.buttons.length)
-      actualbuttons.forEach( (element, index) => {
-          expect(element.data).toEqual(mockActionServiceConfig.buttons[index].data)
-          expect(element.icon).toEqual(mockActionServiceConfig.buttons[index].icon)
-          expect(element.id).toEqual(mockActionServiceConfig.buttons[index].id)
-          expect(element.role).toEqual(mockActionServiceConfig.buttons[index].role)
-          expect(element.text).toEqual(mockActionServiceConfig.buttons[index].text)
-      });
+    let actualbuttons = environment.actionSheetConfig(null).buttons
+    expect(actualbuttons.length).toEqual(mockActionServiceConfig.buttons.length)
+    actualbuttons.forEach( (element, index) => {
+        expect(element.data).toEqual(mockActionServiceConfig.buttons[index].data)
+        expect(element.icon).toEqual(mockActionServiceConfig.buttons[index].icon)
+        expect(element.id).toEqual(mockActionServiceConfig.buttons[index].id)
+        expect(element.role).toEqual(mockActionServiceConfig.buttons[index].role)
+        expect(element.text).toEqual(mockActionServiceConfig.buttons[index].text)
+    });
   });
 });

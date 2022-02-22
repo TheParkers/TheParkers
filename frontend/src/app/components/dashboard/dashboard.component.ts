@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services';
+import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment.dev';
 
 @Component({
@@ -8,9 +9,11 @@ import { environment } from 'src/environments/environment.dev';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent{
+export class DashboardComponent {
 
-  constructor(private actionSheetCtrl: ActionSheetController, private firebaseService: FirebaseService) {}
+  constructor(private actionSheetCtrl: ActionSheetController, 
+              private firebaseService: FirebaseService
+              ) {}
 
    /* istanbul ignore next */
   public async presentActionSheet() {
