@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
+    'guardian',
 ]
 
 MIDDLEWARE = [
@@ -203,3 +204,8 @@ LOGGING = {
         },
     },
 }
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
+)
