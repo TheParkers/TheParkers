@@ -7,7 +7,7 @@ import { FirebaseService } from '..';
 })
 
 export class PreLoaderService {
-  constructor(private loadingController: LoadingController, private firebaseService: FirebaseService) {}
+  constructor(private loadingController: LoadingController) {}
 
   presentLoader() {
     this.loadingController.create({
@@ -23,7 +23,6 @@ export class PreLoaderService {
         console.log('Loader closed!', response);
     }).catch((err) => {
         console.log('Error occured : ', err);
-        this.firebaseService.clearAuthStates();
     });
 }
 }
