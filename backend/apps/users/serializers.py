@@ -21,4 +21,3 @@ class UserResponseSerializer(serializers.ModelSerializer):
         model = User
         fields = ['tpk_name', 'tpk_email', 'tpk_photoUrl']
         app_label = 'User'
-        
