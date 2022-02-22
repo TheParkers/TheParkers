@@ -9,14 +9,11 @@ import { environment } from 'src/environments/environment.dev';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService
               ) {}
-
-  ngOnInit() {
-  }
 
    /* istanbul ignore next */
   public async presentActionSheet() {
