@@ -1,36 +1,28 @@
+from sys import maxsize
 from django.db import models
-from apps.users.models import User
-from django.core.validators import MaxValueValidator, MinValueValidator
-from apps.maps.models import ParkerMap
+from django.utils import timezone
 
 class ParkingSpaceFeatures(models.Model):
-    tpk_has_car_charging = models.BooleanField(default=False)
-    tpk_has_car_wash = models.BooleanField(default=False)
-    tpk_has_indoor_parking = models.BooleanField(default=False)
+    has_car_charging = models.BooleanField(default=False)
+    has_car_wash = models.BooleanField(default=False)
+    has_indoor_parking = models.BooleanField(default=False)
 
 class ParkingSpace(models.Model):
-    tpk_user =  models.ForeignKey(User,
-                on_delete=models.CASCADE,
-                related_name='user',
-                null=True, blank=True)
-    tpk_ps_location = models.OneToOneField(ParkerMap,
-                on_delete=models.CASCADE,
-                related_name='tpk_ps_location')
-    tpk_rating = models.PositiveSmallIntegerField(default=1,
-                validators=[MinValueValidator(1), MaxValueValidator(5)])
-    tpk_description = models.TextField(max_length=500)
-    tpk_parking_area = models.FloatField()
-    tpk_has_features = models.BooleanField(default=False)
-    tpk_vehicle_capacity = models.IntegerField()
-    tpk_parking_features = models.OneToOneField(ParkingSpaceFeatures,
+    parking_area = models.FloatField()
+    #TODO need to link userID who has valid permissions for registering their parking space.
+    has_features = models.BooleanField(default=False)
+    vehicle_capacity = models.IntegerField()
+    address = models.CharField(max_length=1000)
+    city = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    area_code = models.CharField(max_length=20)
+    #create index to search based on area_code faster.
+    # our pricing model will use this code to figure out the pricing to select.
+    lat = models.FloatField()
+    long = models.FloatField()
+    parking_features = models.OneToOneField(ParkingSpaceFeatures,
                         blank=True, null=True, on_delete=models.CASCADE,
-                        related_name="tpk_parking_features")
-    tpk_created_on = models.DateTimeField(auto_now_add=True)
-    tpk_last_booked = models.DateTimeField()
-    tpk_is_booked = models.BooleanField(default=False)
-
-class ParkingSpaceImages(models.Model):
-    tpk_parkingspace = models.ForeignKey(ParkingSpace,
-                    related_name='tpk_parkingspace_images',
-                    on_delete=models.CASCADE, null=True)
-    tpk_image = models.ImageField()
+                        related_name="parking_features")
+    created_on = models.DateTimeField(auto_now_add=True)
+    last_booked = models.DateTimeField()
+    is_booked = models.BooleanField(default=False)
