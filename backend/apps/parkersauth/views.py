@@ -57,7 +57,7 @@ def getSignedUser(request):
         return JsonResponse({}, status=400)
     try:
         signeduser = ParkerUser.objects.get(tpk_email=payload['tpk_email'])
-        response = UserResponseSerializer(signeduser, many=False).data
+        response = {"user": UserResponseSerializer(signeduser, many=False).data }
         return JsonResponse(response, status=status.HTTP_200_OK)
     except ParkerUser.DoesNotExist:
         return JsonResponse({}, status=401)
