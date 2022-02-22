@@ -6,4 +6,5 @@ from . import views
 
 urlpatterns = [
     path('signin/', views.sign_in),
+    path('signin/user', views.getSignedUser),
 ]

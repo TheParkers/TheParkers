@@ -9,25 +9,11 @@ import { environment } from 'src/environments/environment.dev';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
   constructor(private actionSheetCtrl: ActionSheetController, 
-              private firebaseService: FirebaseService,
-              private userService: UserService 
-              ) 
-  {
-  }
-
-  ngOnInit() {
-    this.userService.getuserbyemail(this.firebaseService.authUser?.tpk_email).subscribe({
-      next: (user) => {
-          console.log('User service call', user)
-      },
-      error: (error) => {
-          console.log("Dashboard: Error in get user by id")
-      }
-    })
-  }
+              private firebaseService: FirebaseService
+              ) {}
 
    /* istanbul ignore next */
   public async presentActionSheet() {
