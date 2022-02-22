@@ -2,7 +2,7 @@
     Serializer: user app
 '''
 from rest_framework import serializers
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group, Permission
 from .models import User#, Permission
 
 class UserSerializer(serializers.ModelSerializer):
@@ -31,3 +31,12 @@ class PermissionSerializer(serializers.ModelSerializer):
         model = Permission
         fields = ['name', 'codename']
         app_label = 'Permission'
+
+class RoleSerializer(serializers.ModelSerializer):
+    '''
+    Serializer: Generic Role
+    '''
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+        app_label = 'Role'

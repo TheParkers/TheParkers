@@ -3,17 +3,15 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
 from rest_framework.response import Response
 from .models import User
-from .serializers import UserResponseSerializer, PermissionSerializer
-from django.contrib.auth.models import Permission
+from .serializers import UserResponseSerializer, PermissionSerializer, RoleSerializer
+from django.contrib.auth.models import Group, Permission
 
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes#, permission_required
-from rest_framework import status
+from rest_framework import status, viewsets, permissions
 
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
 from apps.users.services import firebase
-from .models import User
-from .serializers import UserResponseSerializer
 
 @api_view(['GET'])
 @permission_classes([IsUserLoggedIn])
@@ -102,7 +100,36 @@ def new_user(request, firebase_user_id):
 @permission_classes([IsUserLoggedIn])
 def permissions_list(request):
     if request.method == 'GET':
-        permissionsList = Permission.objects.all()
-        permissionSerializer = PermissionSerializer(permissionsList, many=True)
-        return JsonResponse(permissionSerializer.data, safe=False)
+        permissionsUser = Permission.objects.filter(user = request.user)
+
+        # Permissions that the user has via a group/role
+        permissionsRole = Permission.objects.filter(group__user = request.user)
+
+        permissionsSerialized = PermissionSerializer(permissionsUser.union(permissionsRole), many=True)
+        return JsonResponse(permissionsSerialized.data, safe=False)
+
+    return JsonResponse({request.data}, status=404)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsUserLoggedIn])
+def roles_list(request, role):
+    if request.method == 'GET':
+        rolesList = Group.objects.filter(user = request.user)
+        roleSerializer = RoleSerializer(rolesList, many=True)
+        return JsonResponse(roleSerializer.data, safe=False)
+
+    if request.method == 'PUT':
+        user_role = Group.objects.get(name=role)
+        user_role.user_set.add(request.user)
+        rolesList = Group.objects.filter(user = request.user)
+        roleSerializer = RoleSerializer(rolesList, many=True)
+        return JsonResponse(roleSerializer.data, status=201)
+
+    if request.method == 'DELETE':
+        user_role = Group.objects.get(name=role)
+        user_role.user_set.remove(request.user)
+        rolesList = Group.objects.filter(user = request.user)
+        roleSerializer = RoleSerializer(rolesList, many=True)
+        return JsonResponse(roleSerializer.data, status=status.HTTP_202_ACCEPTED)
+
     return JsonResponse({request.data}, status=404)
