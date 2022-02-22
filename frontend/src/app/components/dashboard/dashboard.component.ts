@@ -15,9 +15,6 @@ export class DashboardComponent {
               private firebaseService: FirebaseService
               ) {}
 
-  ngOnInit() {
-  }
-
    /* istanbul ignore next */
   public async presentActionSheet() {
     const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService));
