@@ -6,6 +6,7 @@ from rest_framework import serializers
 
 from apps.parkingspace.models import ParkingSpace
 from .models import User
+from django.contrib.auth.models import Group, Permission
 
 class UserSerializer(serializers.ModelSerializer):
     '''
@@ -32,3 +33,21 @@ class UserResponseSerializer(serializers.ModelSerializer):
         model = User
         fields = ['tpk_name', 'tpk_email', 'tpk_photoUrl']
         app_label = 'User'
+
+class PermissionSerializer(serializers.ModelSerializer):
+    '''
+    Serializer: Generic Permission
+    '''
+    class Meta:
+        model = Permission
+        fields = ['name', 'codename']
+        app_label = 'Permission'
+
+class RoleSerializer(serializers.ModelSerializer):
+    '''
+    Serializer: Generic Role
+    '''
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+        app_label = 'Role'
