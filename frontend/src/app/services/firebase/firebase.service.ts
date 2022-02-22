@@ -12,7 +12,7 @@ import { of, throwError } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService implements OnInit{
+export class FirebaseService{
   authState: any = null;
   authUser: any = null;
   constructor(public auth: AngularFireAuth, 
@@ -21,8 +21,7 @@ export class FirebaseService implements OnInit{
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-   }
-  ngOnInit(): void {
+
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
@@ -39,7 +38,7 @@ export class FirebaseService implements OnInit{
           }
         })
       }
-  }
+    }
 
   get getAuthState() {
       return this.authState
