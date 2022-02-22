@@ -21,6 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { LocalStorageModel } from 'src/app/models';
+import { UserDetails } from 'src/app/models/responses/user';
 
 describe('FirebaseService', () => {
   let service: FirebaseService;
@@ -54,7 +56,7 @@ describe('FirebaseService', () => {
                                                                    'sendPasswordResetEmail',
                                                                    'signInWithCredential'
                                                                   ])},
-        { provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker'])},
+        { provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker', 'getSignedInUser'])},
         { provide: Platform, useValue: jasmine.createSpyObj(['is'])},
         { provide: LocalStorageService, useValue: jasmine.createSpyObj(['getItem', 'setItem','removeItem'])},
         FirebaseService
@@ -65,14 +67,30 @@ describe('FirebaseService', () => {
       emailVerified: true,
       uid: 'sample'
     }
+    let authUser: UserDetails = {
+                        tpk_email: "testemail",
+                        tpk_name: "test name", 
+                        tpk_photoUrl: "test photo"
+                      }
+    
     mockAuthService = TestBed.inject(AngularFireAuth)
     authService = TestBed.inject(AuthService)
     platformService = TestBed.inject(Platform)
     mockLcocalStorageService = TestBed.inject(LocalStorageService)
-    Object.defineProperty(mockAuthService, 'authState', { get: () => of(mockAuthState) })
+    Object.defineProperty(mockAuthService, 'authState', {get: () => of(mockAuthState) })
     service = TestBed.inject(FirebaseService)
-
+    authService.getSignedInUser.and.returnValue(of(authUser))
+    window.localStorage.setItem(LocalStorageModel.autheticationToken, 'testtoken')
     
+  });
+
+  it('Test service initialization', () => {
+    service.authUser = {}
+    expect(service.authState).toBeTruthy()
+    expect(service.isAuthenticatedWithFirebase).toBeTruthy()
+    expect(service.isEmailVerified).toBeTruthy()
+    expect(service.currentUserId).toEqual('sample')
+    expect(service).toBeTruthy()
   });
 
   it('Test isAuthenticatedWithParker true case', () => {
@@ -82,6 +100,7 @@ describe('FirebaseService', () => {
   });
 
   it('Test isAuthenticatedWithParker false case', () => {
+    mockLcocalStorageService.getItem.and.returnValue(null)
     expect(service.isAuthenticatedWithParker).toBeFalsy();
 });
 
@@ -99,18 +118,10 @@ describe('FirebaseService', () => {
     expect(service.capacitorGoogleLogin).toHaveBeenCalledTimes(1)
   });
 
-  it('Test service initialization', () => {
-      expect(service.authState).toBeTruthy()
-      expect(service.isAuthenticatedWithFirebase).toBeTruthy()
-      expect(service.isEmailVerified).toBeTruthy()
-      expect(service.currentUserId).toEqual('sample')
-      expect(service).toBeTruthy();
-  });
-
   it('Test service initialization failure', () => {
+    mockLcocalStorageService.getItem.and.returnValue(null)
     spyOnProperty(service, 'getAuthState').and.returnValue(null)
     expect(service.isAuthenticatedWithFirebase).toBeFalsy()
-    expect(service.isAuthenticatedWithParker).toBeFalsy()
     expect(service.isEmailVerified).toBeFalsy()
     expect(service.currentUserId).toBeNull()
     expect(service).toBeTruthy();

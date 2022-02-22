@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment.dev";
 import { catchError, Observable, of } from 'rxjs';
 import { FirebaseToken , ParkerSinginResponse} from '../../models';
+import { UserDetails } from 'src/app/models/responses/user';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +29,10 @@ export class AuthService {
     .pipe(
       catchError(this.handleError('Login user to parker', requestObj))
     )
+  }
+
+  getSignedInUser(): Observable<UserDetails> {
+    return this.http.get<UserDetails>(environment.apiServer+environment.apiUrls.user.userDetails);
   }
 
   private handleError<T>(operation:any , result?: T) {

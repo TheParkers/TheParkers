@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService {
+export class FirebaseService{
   authState: any = null;
   authUser: any = null;
   constructor(public auth: AngularFireAuth, 
@@ -20,11 +20,24 @@ export class FirebaseService {
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-      this.auth.authState.subscribe(authState => {
-          this.authState = authState
-      });
-      this.localStorageService = localStorageService;
-   }
+
+    this.auth.authState.subscribe(authState => {
+      this.authState = authState
+    });
+    let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
+      if (parker_token)
+      {
+        this.parkerAuth.getSignedInUser().subscribe({
+          next: response => {
+              this.authUser = response
+          },
+          error: (error) => {
+            console.log('Firebase service init failed: User not authorised', error)
+            this.localStorageService.removeItem(LocalStorageModel.autheticationToken)
+          }
+        })
+      }
+    }
 
   get getAuthState() {
       return this.authState
@@ -35,14 +48,15 @@ export class FirebaseService {
   }
 
   get isAuthenticatedWithFirebase() {
-      return this.getAuthState != null;
+      return this.authUser != null;
   }
 
   get isAuthenticatedWithParker() {
-      console.log(this.localStorageService.getItem(LocalStorageModel.autheticationToken))
-      return this.localStorageService.getItem(LocalStorageModel.autheticationToken) != null;
+    let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
+      if (parker_token)
+          return true
+      return false
   }
-
   get isEmailVerified(): boolean {
       return this.isAuthenticatedWithFirebase ? this.authState.emailVerified : false;
   }
