@@ -7,11 +7,12 @@ import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
 import { LocalStorageModel } from 'src/app/models';
 import { Router } from '@angular/router';
+import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseService{
+export class FirebaseService implements OnInit{
   authState: any = null;
   authUser: any = null;
   constructor(public auth: AngularFireAuth, 
@@ -20,7 +21,8 @@ export class FirebaseService{
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-
+   }
+  ngOnInit(): void {
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
@@ -37,7 +39,7 @@ export class FirebaseService{
           }
         })
       }
-    }
+  }
 
   get getAuthState() {
       return this.authState
