@@ -30,5 +30,6 @@ class User(PermissionsMixin):
     is_anonymous = False
     is_authenticated = False
 
-    #overwrite password column
+    #overwrite columns to meet guardian depends
     password = models.CharField(max_length=100, null=True, default=False)
+    is_superuser = models.BooleanField(default=False)
