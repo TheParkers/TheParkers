@@ -4,7 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-class User(PermissionsMixin):
+class User(AbstractBaseUser,PermissionsMixin):
     '''
     Model: User
     tpk_firebaseid: maxlenth=100
@@ -26,10 +26,9 @@ class User(PermissionsMixin):
     tpk_photoUrl = models.CharField(max_length=500, default="NA")
     tpk_isdeleted = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-
-    is_anonymous = False
-    is_authenticated = False
-
     #overwrite columns to meet guardian depends
     password = models.CharField(max_length=100, null=True, default=False)
     is_superuser = models.BooleanField(default=False)
+    
+    is_anonymous = False
+    is_authenticated = False
