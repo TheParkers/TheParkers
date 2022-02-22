@@ -44,7 +44,7 @@ describe('HomeComponent', () => {
                 MatDatepickerModule
               ],
       providers: [
-          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout']) },
+          { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login', 'logout', 'isAuthenticatedWithParker']) },
           { provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) }
       ]
     }).compileComponents();
@@ -59,6 +59,12 @@ describe('HomeComponent', () => {
 
   it('should create component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Test user already parker authenticated', () => {
+    mockFirebaseService.isAuthenticatedWithParker.and.returnValue(true)
+    expect(component).toBeTruthy();
+    expect(routerService.navigate).toHaveBeenCalledWith(['/dashboard'])
   });
 
   it('Test login success', () => {

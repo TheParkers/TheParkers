@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from "../../../environments/environment.dev";
 import { catchError, Observable, of } from 'rxjs';
-import { FirebaseToken } from '../models/requests/firebasetoken';
-import { ParkerSinginResponse } from '../models/responses/user';
+import { FirebaseToken , ParkerSinginResponse} from '../../models';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +15,7 @@ export class AuthService {
     const requestObj: FirebaseToken = {
       "tpk_firebaseid": token
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: token
-      })
-    }
-    return this.http.put<FirebaseToken>(environment.apiServer+environment.apiUrls.registerUser+userid, requestObj, httpOptions)
+    return this.http.put<FirebaseToken>(environment.apiServer+environment.apiUrls.registerUser+userid, requestObj)
     .pipe(
       catchError(this.handleError('Register user to parker', requestObj))
     )
@@ -31,13 +24,7 @@ export class AuthService {
     const requestObj: FirebaseToken = {
       "tpk_firebaseid": token
     }
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        Authorization: token
-      })
-    }
-    return this.http.post<FirebaseToken>(environment.apiServer+environment.apiUrls.loginUser, requestObj, httpOptions)
+    return this.http.post<FirebaseToken>(environment.apiServer+environment.apiUrls.loginUser, requestObj)
     .pipe(
       catchError(this.handleError('Login user to parker', requestObj))
     )

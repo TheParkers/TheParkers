@@ -2,3 +2,45 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* global styles for actionsheet */ 
+.my-custom-class {
+    --background: white;
+    --backdrop-opacity: 0.1;
+    
+  }
+
+.text-align-center {
+    text-align: center;
+  }
+
+.header-logo{
+    width: 30px;
+    height: 30px;
+}
+
+.header-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* Navbar styles */   
+:root {
+	--ion-color-new: #f8ede0;
+	--ion-color-new-rgb: 0, 102, 0;
+	--ion-color-new-contrast: #ffffff;
+	--ion-color-new-contrast-rgb: 255, 255, 255;
+	--ion-color-new-shade: #005a00;
+	--ion-color-new-tint: #1a751a;
+}
+
+.ion-color-new {
+	--ion-color-base: var(--ion-color-new);
+	--ion-color-base-rgb: var(--ion-color-new-rgb);
+	--ion-color-contrast: var(--ion-color-new-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-new-contrast-rgb);
+	--ion-color-shade: var(--ion-color-new-shade);
+	--ion-color-tint: var(--ion-color-new-tint);
+}

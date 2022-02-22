@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { IonicModule, Platform } from '@ionic/angular';
-import { of, sample, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { environment } from 'src/environments/environment.dev';
 import firebase from 'firebase/compat/app';
@@ -11,14 +11,23 @@ import { FirebaseService } from './firebase.service';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { AuthService } from '../auth/auth.service';
 import { HttpClientModule } from '@angular/common/http';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { LocalStorageService } from '..';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 describe('FirebaseService', () => {
   let service: FirebaseService;
   let mockAuthService: any;
-  let mockUserState: any;
   let authService: any;
-  let paltformService: any;
+  let platformService: any;
+  let mockLcocalStorageService: any;
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [BrowserDynamicTestingModule, 
@@ -26,6 +35,16 @@ describe('FirebaseService', () => {
         AppRoutingModule,
         HttpClientModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
+        FormsModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDatepickerModule
       ],
       providers: [
         { provide: AngularFireAuth, useValue: jasmine.createSpyObj(['signInWithPopup',
@@ -37,6 +56,7 @@ describe('FirebaseService', () => {
                                                                   ])},
         { provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker'])},
         { provide: Platform, useValue: jasmine.createSpyObj(['is'])},
+        { provide: LocalStorageService, useValue: jasmine.createSpyObj(['getItem', 'setItem','removeItem'])},
         FirebaseService
       ]
     });
@@ -47,7 +67,8 @@ describe('FirebaseService', () => {
     }
     mockAuthService = TestBed.inject(AngularFireAuth)
     authService = TestBed.inject(AuthService)
-    paltformService = TestBed.inject(Platform)
+    platformService = TestBed.inject(Platform)
+    mockLcocalStorageService = TestBed.inject(LocalStorageService)
     Object.defineProperty(mockAuthService, 'authState', { get: () => of(mockAuthState) })
     service = TestBed.inject(FirebaseService)
 
@@ -56,6 +77,7 @@ describe('FirebaseService', () => {
 
   it('Test isAuthenticatedWithParker true case', () => {
       service.authUser = 'test'
+      mockLcocalStorageService.getItem.and.returnValue("test")
       expect(service.isAuthenticatedWithParker).toBeTruthy()
   });
 
@@ -64,14 +86,14 @@ describe('FirebaseService', () => {
 });
 
   it('Test successful login for non capacitor app', () => {
-    paltformService.is.and.returnValue(false)
+    platformService.is.and.returnValue(false)
     spyOn(service, 'googlelogin')
     service.login()
     expect(service.googlelogin).toHaveBeenCalledTimes(1)
   });
 
   it('Test successful login for capacitor app', () => {
-    paltformService.is.and.returnValue(true)
+    platformService.is.and.returnValue(true)
     spyOn(service, 'capacitorGoogleLogin')
     service.login()
     expect(service.capacitorGoogleLogin).toHaveBeenCalledTimes(1)
@@ -88,6 +110,7 @@ describe('FirebaseService', () => {
   it('Test service initialization failure', () => {
     spyOnProperty(service, 'getAuthState').and.returnValue(null)
     expect(service.isAuthenticatedWithFirebase).toBeFalsy()
+    expect(service.isAuthenticatedWithParker).toBeFalsy()
     expect(service.isEmailVerified).toBeFalsy()
     expect(service.currentUserId).toBeNull()
     expect(service).toBeTruthy();

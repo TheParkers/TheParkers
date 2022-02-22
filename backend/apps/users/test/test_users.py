@@ -89,7 +89,7 @@ class TestUserModel(APITestCase):
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission') 
     def test_delete(self, mockPerm):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
-        resp = self.client.delete('/users/testid')
+        resp = self.client.delete('/users/test_email@test.com')
         updated_testuser_3 = User.objects.get(tpk_email="test_email@test.com")
         self.assertTrue(updated_testuser_3.tpk_isdeleted)
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
