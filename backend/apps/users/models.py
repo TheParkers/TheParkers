@@ -4,7 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-class User(AbstractBaseUser,PermissionsMixin):
+class User(AbstractBaseUser, PermissionsMixin):
     '''
     Model: User
     tpk_firebaseid: maxlenth=100
@@ -27,7 +27,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     tpk_isdeleted = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     #overwrite columns to meet guardian depends
-    password = models.CharField(max_length=100, null=True, default=False)
+    password = models.CharField(blank=True, max_length=100, null=True)
     is_superuser = models.BooleanField(default=False)
     last_login = models.DateTimeField(blank=True, null=True)
 
