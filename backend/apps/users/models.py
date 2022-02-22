@@ -4,7 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-class User(AbstractBaseUser,PermissionsMixin):
+class User(PermissionsMixin):
     '''
     Model: User
     tpk_firebaseid: maxlenth=100
@@ -29,3 +29,6 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     is_anonymous = False
     is_authenticated = False
+
+    #overwrite password column
+    password = models.CharField(max_length=100, null=True, default=False)
