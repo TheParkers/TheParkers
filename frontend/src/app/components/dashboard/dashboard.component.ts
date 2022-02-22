@@ -12,21 +12,10 @@ import { environment } from 'src/environments/environment.dev';
 export class DashboardComponent implements OnInit {
 
   constructor(private actionSheetCtrl: ActionSheetController, 
-              private firebaseService: FirebaseService,
-              private userService: UserService 
-              ) 
-  {
-  }
+              private firebaseService: FirebaseService
+              ) {}
 
   ngOnInit() {
-    this.userService.getuserbyemail(this.firebaseService.authUser?.tpk_email).subscribe({
-      next: (user) => {
-          console.log('User service call', user)
-      },
-      error: (error) => {
-          console.log("Dashboard: Error in get user by id")
-      }
-    })
   }
 
    /* istanbul ignore next */
