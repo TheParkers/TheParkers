@@ -2,19 +2,25 @@ from re import S
 from unittest.mock import patch
 from django.http import JsonResponse
 
-from ..models import User
-from ..serializers import UserResponseSerializer, UserSerializer
+from apps.users.models import User
+from apps.users.serializers import UserResponseSerializer, UserSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
 
 class TestUserModel(APITestCase):
-    client = APIRequestFactory()
+
     @patch('apps.users.models.User.objects')
     def setUp(self, mockUser):
-        sampleuser_1 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
+        sampleuser_1 = User.objects.create(tpk_firebaseid="testid",
+                        tpk_name="test",
+                        tpk_email="test_email@test.com")
 
+    @patch('apps.users.models.User.objects.get')
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
-    def test_get(self, mockPerm):
+    def test_get(self, mockPerm, mockUser):
+        mockUser.return_value = User.objects.create(tpk_firebaseid="testid",
+                                tpk_name="test",
+                                tpk_email="test_email@test.com")
         response = self.client.get('/users')
 
         # assert response code.
@@ -27,6 +33,7 @@ class TestUserModel(APITestCase):
         if serializer.is_valid():
             users_json = JsonResponse(serializer.data, safe=False)
             self.assertJSONEqual(users_json, response.content)
+
 
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.models.User.objects.get')      

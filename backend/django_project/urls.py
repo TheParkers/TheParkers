@@ -18,6 +18,7 @@ from django.urls import path, include
 urlpatterns = [
     path('', include('apps.users.urls')),
     path('', include('apps.parkersauth.urls')),
-    path('', include('apps.maps.urls'))
+    path('', include('apps.maps.urls')),
+    path('', include('apps.parkingspace.urls'))
 ]
 
