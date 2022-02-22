@@ -1,17 +1,18 @@
-from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from rest_framework.parsers import JSONParser
-from rest_framework.response import Response
+'''
+APIViews: users
+'''
+from django.http import JsonResponse
+
+from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework import status
+
+from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
+from apps.users.services import firebase
 from .models import User
 from .serializers import UserResponseSerializer, PermissionSerializer, RoleSerializer
 from django.contrib.auth.models import Group, Permission
 
-from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework import status, viewsets, permissions
-
-from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
-from apps.users.services import firebase
 #from .permissions import assignPermissionsToRoles
 
 #assignPermissionsToRoles()
@@ -98,7 +99,6 @@ def new_user(request, firebase_user_id):
         response = UserResponseSerializer(new_parker_user, many=False)
         return JsonResponse(response.data, status=201)
     return JsonResponse({}, status=404)
-
 
 @api_view(['GET'])
 @permission_classes([IsUserLoggedIn])

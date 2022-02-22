@@ -3,7 +3,7 @@
 '''
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
-from .models import User#, Permission
+from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
     '''

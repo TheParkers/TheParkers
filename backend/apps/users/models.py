@@ -2,8 +2,7 @@
     Model: users app
 '''
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group, Permission
-
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 class User(AbstractBaseUser,PermissionsMixin):
     '''
@@ -30,4 +29,3 @@ class User(AbstractBaseUser,PermissionsMixin):
 
     is_anonymous = False
     is_authenticated = False
-
