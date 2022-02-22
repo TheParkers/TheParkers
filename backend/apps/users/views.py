@@ -12,6 +12,9 @@ from rest_framework import status, viewsets, permissions
 
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
 from apps.users.services import firebase
+#from .permissions import assignPermissionsToRoles
+
+#assignPermissionsToRoles()
 
 @api_view(['GET'])
 @permission_classes([IsUserLoggedIn])

@@ -31,10 +31,3 @@ class User(AbstractBaseUser,PermissionsMixin):
     is_anonymous = False
     is_authenticated = False
 
-'''
-    Create user roles
-'''
-superuser_role, created = Group.objects.get_or_create(name='SUPERUSER')
-tenant_role, created = Group.objects.get_or_create(name='TENANT')
-landlord_role, created = Group.objects.get_or_create(name='LANDLORD')
-viewer_role, created = Group.objects.get_or_create(name='VIEWER')
