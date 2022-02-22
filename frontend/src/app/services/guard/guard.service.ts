@@ -12,7 +12,6 @@ export class GuardService implements CanActivate {
 
   public canActivate(): UrlTree|boolean 
     {
-      console.log('guard service', this.firebaseService.isAuthenticatedWithParker)
       if (this.firebaseService.isAuthenticatedWithParker)
       {
          return true
