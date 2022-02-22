@@ -18,7 +18,8 @@ export const environment = {
     registerUser: '/users/register/',
     loginUser: '/signin/',
     user: {
-        userbyid: '/users/'
+        userbyid: '/users/',
+        userDetails:'/signin/user'
     }
   },
   actionSheetConfig: (service: any)=> {
