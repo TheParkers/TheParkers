@@ -74,8 +74,7 @@ describe('DashboardComponent', () => {
       declarations: [ DashboardComponent ],
       providers: [
         { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
-        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])},
-        { provide: UserService, useValue: jasmine.createSpyObj('UserService', ['getuserbyemail'])}
+        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])}
       ]
     })
     .compileComponents();
@@ -85,15 +84,7 @@ describe('DashboardComponent', () => {
     fixture = TestBed.createComponent(DashboardComponent);
     mockFirebaseService = TestBed.inject(FirebaseService);
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockUserService = TestBed.inject(UserService);
     component = fixture.componentInstance;
-    let smpleUser:User = {
-      tpk_email: "testemail",
-      tpk_firebaseid: "testid",
-      tpk_name: "name",
-      tpk_photoUrl: "url"
-    } 
-    mockUserService.getuserbyemail.and.returnValue(of(smpleUser))
     fixture.detectChanges();
   });
 
