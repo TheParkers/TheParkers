@@ -4,7 +4,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
-class User(models.Model):
+class User(AbstractBaseUser, PermissionsMixin):
     '''
     Model: User
     tpk_firebaseid: maxlenth=100
