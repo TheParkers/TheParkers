@@ -136,6 +136,4 @@ def roles_list(request, firebase_user_id):
         remove_user_role.user_set.remove(request_user)
         roles_listed = Group.objects.filter(user = request_user)
         role_serializer = RoleSerializer(roles_listed, many=True)
-        return JsonResponse(role_serializer.data, status=status.HTTP_202_ACCEPTED)
-    return JsonResponse({request.data}, status=404)
-    
+        return JsonResponse(role_serializer.data, safe=False, status=status.HTTP_202_ACCEPTED)
