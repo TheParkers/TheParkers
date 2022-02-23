@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission
 
 from apps.users.models import User
-from apps.users.serializers import UserResponseSerializer, UserSerializer, PermissionSerializer, RoleSerializer
+from apps.users.serializers import PermissionSerializer, RoleSerializer
 from rest_framework.test import APITestCase, APIRequestFactory
 from rest_framework import status
 from apps.users.permissions import assign_permissions_to_roles
