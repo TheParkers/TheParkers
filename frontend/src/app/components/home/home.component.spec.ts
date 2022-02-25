@@ -16,7 +16,7 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
 import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 import { SearchParkingComponent } from '..';
-
+import { ParkersHeaderComponent } from '../parkers-header/parkers-header.component'
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
@@ -27,7 +27,7 @@ describe('HomeComponent', () => {
   let routerService: any;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, SearchParkingComponent ],
+      declarations: [ HomeComponent, SearchParkingComponent, ParkersHeaderComponent ],
       imports: [BrowserDynamicTestingModule, 
                 IonicModule.forRoot(), 
                 AppRoutingModule,

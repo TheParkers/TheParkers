@@ -14,6 +14,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+import { AgmCoreModule, GoogleMapsScriptProtocol } from '@agm/core';
 
 
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
@@ -26,6 +29,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserService } from './services/user/user.service';
+import { ParkingsListComponent } from './components/parkings-list/parkings-list.component';
+import { ParkersHeaderComponent } from './components/parkers-header/parkers-header.component';
+import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
 
 
 @NgModule({
@@ -34,6 +40,9 @@ import { UserService } from './services/user/user.service';
     DashboardComponent,
     AppComponent,
     HomeComponent,
+    ParkingsListComponent,
+    ParkersHeaderComponent,
+    ParkingSpaceDescComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +50,10 @@ import { UserService } from './services/user/user.service';
     HttpClientModule,
     IonicModule.forRoot({
       animated: true
+    }),
+    AgmCoreModule.forRoot({
+      protocol: GoogleMapsScriptProtocol.HTTPS,
+      apiKey: environment.googleMapsApiKey
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
@@ -52,7 +65,8 @@ import { UserService } from './services/user/user.service';
     MatIconModule,
     MatCardModule,
     MatButtonModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },

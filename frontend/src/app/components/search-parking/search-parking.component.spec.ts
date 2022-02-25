@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 import { SearchParkingComponent } from './search-parking.component';
 
@@ -8,7 +9,8 @@ describe('SearchParkingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SearchParkingComponent ]
+      declarations: [ SearchParkingComponent ],
+      providers: [{ provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) }]
     })
     .compileComponents();
   });

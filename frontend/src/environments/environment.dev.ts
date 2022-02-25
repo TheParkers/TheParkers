@@ -4,6 +4,7 @@
 /* istanbul ignore next */
 export const environment = {
   production: false,
+  googleMapsApiKey : "AIzaSyC7f6VxBkezW4ZuPqHYaY_KW-4wEv7lS68",
   firebaseConfig: {
     apiKey: "AIzaSyAdrl7xM1APVmZwrBm1iXISqkD9YGkj3sA",
     authDomain: "theparkers-59b45.firebaseapp.com",
