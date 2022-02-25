@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'guardian',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
