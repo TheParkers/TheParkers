@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
               private firebaseService: FirebaseService,
               private parkerAuth: AuthService
               ) {}
-
+              
   async ngOnInit() {
     this.parkerAuth.getSignedInUser().subscribe({
       next: response => {
