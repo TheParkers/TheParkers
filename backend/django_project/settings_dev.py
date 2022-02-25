@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.maps',
     'apps.parkersauth',
-<<<<<<< HEAD
     'apps.parkingspace',
     'apps.pricing',
     'rest_framework',
@@ -58,13 +57,11 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'guardian',
     'django_filters'
-=======
     'apps.dashboard'
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     
->>>>>>> d6b1376b313e00a270f644dd60bfda3e556aa299
 ]
 
 MIDDLEWARE = [
