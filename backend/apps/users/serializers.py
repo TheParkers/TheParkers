@@ -1,9 +1,9 @@
 '''
     Serializer: user app
 '''
+from django.contrib.auth.models import Group, Permission
 from rest_framework import serializers
 from .models import User
-from django.contrib.auth.models import Group, Permission
 
 class UserSerializer(serializers.ModelSerializer):
     '''
