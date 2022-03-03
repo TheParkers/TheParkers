@@ -1,13 +1,15 @@
 Django
-mysql-connector-python
 django-cors-headers
 djangorestframework
+djangorestframework-gis
 djangorestframework-simplejwt
 requests
 pyrebase4
 
 # Dev dependencies
+psycopg2
 coverage
 pylint
 pylint-django
 django-guardian
+Pillow

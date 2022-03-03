@@ -55,6 +55,9 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v2
 
+      - name: install libraries to support postgreSQL DB.
+        run: xargs sudo apt-get install -y < backend/packages.txt && sudo ldconfig
+
       - name: install python dependencies
         run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
@@ -65,7 +68,7 @@ jobs:
         run: |
             cd backend
             python3 manage.py check
-            python3 manage.py makemigrations
+            python3 manage.py makemigrations users maps parkingspace parkersauth pricing
             python manage.py migrate
   
       - name: run unit tests 

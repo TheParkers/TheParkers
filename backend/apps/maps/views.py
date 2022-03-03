@@ -55,8 +55,8 @@ def mod_maps(request, parker_map_id):
             return JsonResponse({}, status=404)
 
     if request.method == 'GET':
-        serializer = MapSerializer(parker_map)
-        return JsonResponse(serializer.data)
+        serializer = MapSerializer(parker_map, many=False)
+        return JsonResponse(serializer.data, safe=False)
 
     if request.method == 'PUT':
         data = JSONParser().parse(request)
