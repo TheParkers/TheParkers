@@ -16,3 +16,4 @@ coverage
 pylint
 pylint-django
 django-guardian
+psycopg2
