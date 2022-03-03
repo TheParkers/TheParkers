@@ -12,8 +12,8 @@ requests
 pyrebase4
 
 # Dev dependencies
+psycopg2
 coverage
 pylint
 pylint-django
 django-guardian
-psycopg2
