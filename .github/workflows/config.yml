@@ -55,11 +55,11 @@ jobs:
       - name: setup Python
         uses: actions/setup-python@v2
 
-      - name: install python dependencies
-        run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
-
       - name: install libraries to support postgreSQL DB.
         run: sudo apt-get update && sudo apt-get upgrade && xargs sudo apt-get install -y < backend/packages.txt
+
+      - name: install python dependencies
+        run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
       - name: check lint
         run: cd backend && pylint --fail-under=8  --load-plugins pylint_django --ignore test apps 
