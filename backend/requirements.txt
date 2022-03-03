@@ -12,3 +12,4 @@ coverage
 pylint
 pylint-django
 django-guardian
+Pillow
