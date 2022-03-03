@@ -1,3 +1,5 @@
+binutils
+libproj-dev
 libpq-dev
 libgdal-dev
 gdal-bin

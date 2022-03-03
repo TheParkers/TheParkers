@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-python@v2
 
       - name: install libraries to support postgreSQL DB.
-        run: sudo apt-get update && sudo apt-get upgrade && xargs sudo apt-get install -y < backend/packages.txt
+        run: xargs sudo apt-get install -y < backend/packages.txt && sudo ldconfig
 
       - name: install python dependencies
         run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
