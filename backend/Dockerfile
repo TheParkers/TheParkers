@@ -7,4 +7,6 @@ RUN apt-get update -y && apt-get install -y build-essential
 WORKDIR /
 COPY . .
 RUN pip install -r requirements.txt
+RUN xargs sudo apt-get install -y < packages.txt
+RUN sudo ldconfig
 CMD python manage.py runserver --settings=${env} --insecure 0.0.0.0:4200
