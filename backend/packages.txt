@@ -3,3 +3,4 @@ libgdal-dev
 gdal-bin
 python3-gdal
 postgresql-client
+python3-dev

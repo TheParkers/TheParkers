@@ -1,9 +1,4 @@
 Django
-libpq-dev
-python3-dev
-psycopg
-gdal-bin
-libgdal-dev
 django-cors-headers
 djangorestframework
 djangorestframework-gis
