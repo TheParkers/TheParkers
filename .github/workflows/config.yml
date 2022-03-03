@@ -68,7 +68,7 @@ jobs:
         run: |
             cd backend
             python3 manage.py check
-            python3 manage.py makemigrations
+            python3 manage.py makemigrations users maps parkingspace parkersauth pricing
             python manage.py migrate
   
       - name: run unit tests 
