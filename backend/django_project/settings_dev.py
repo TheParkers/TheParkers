@@ -90,10 +90,9 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'theparkersdev',
-        'USER': 'theparkersdev',
-        'PASSWORD': 'theparkersdev123',
-        'HOST': '34.130.6.135',
-        'PORT': '5432',
+        'USER': 'theparkers',
+        'PASSWORD': 'theparkers',
+        'HOST': '35.223.58.152',
     }
 }
 

@@ -1,0 +1,6 @@
+libpq-dev
+libgdal-dev
+gdal-bin
+psycopg2
+python3-gdal
+postgresql-client
