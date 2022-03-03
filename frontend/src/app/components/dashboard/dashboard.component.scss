@@ -8,3 +8,23 @@
     align-items: center;
     justify-content: center;
   }
+
+  ion-avatar img  {
+    width:70% !important;
+    height : 70% !important;
+    margin-top: 8px;
+  }
+
+  .add-parking-map-icon {
+    width: 14%;
+  }
+
+  .rent-parking-car-icon {
+    width: 24%;
+  }
+
+  .corner-border {
+    border-radius: 8px;
+    margin: 1px;
+    min-height: 20px;
+}
