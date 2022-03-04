@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { AuthService, FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
@@ -12,15 +13,16 @@ export class DashboardComponent {
   dashboard_user: any;
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
-              private parkerAuth: AuthService
+              private parkerAuth: AuthService,
+              private routerService: Router
               ) 
               {
-                console.log(this.parkerAuth)
                 this.parkerAuth.getSignedInUser().subscribe({
                   next: response => {
                     this.dashboard_user = response.user
                   },
                   error: (error) => {
+                    this.routerService.navigate(['/home'])
                     console.log('get user failed in dashboard', error)
                   }
                 })
