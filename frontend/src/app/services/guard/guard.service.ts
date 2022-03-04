@@ -16,6 +16,6 @@ export class GuardService implements CanActivate {
       {
          return true
       }
-      return this.router.parseUrl('/');
+      return this.router.parseUrl('/home');
     }
 }
