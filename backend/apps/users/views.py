@@ -4,7 +4,6 @@ APIViews: users
 from django.http import JsonResponse
 from django.contrib.auth.models import Group, Permission
 
-from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework import status

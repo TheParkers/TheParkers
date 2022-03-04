@@ -1,6 +1,4 @@
-from sys import maxsize
 from django.db import models
-from django.utils import timezone
 
 class ParkingSpaceFeatures(models.Model):
     has_car_charging = models.BooleanField(default=False)

@@ -1,7 +1,6 @@
 '''
 APIViews: auth
 '''
-import json
 from django.http import JsonResponse
 import jwt
 from django.conf import settings
