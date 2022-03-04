@@ -16,7 +16,6 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     if(this.firebase.isAuthenticatedWithParker)
     {
-      console.log('here')
       this.router.navigate(['/dashboard'])
     }
           

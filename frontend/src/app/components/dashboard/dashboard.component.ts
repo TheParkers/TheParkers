@@ -13,17 +13,22 @@ export class DashboardComponent implements OnInit {
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
               private parkerAuth: AuthService
-              ) {}
+              ) 
+              {
+                console.log(this.parkerAuth)
+                this.parkerAuth.getSignedInUser().subscribe({
+                  next: response => {
+                    
+                    this.dashboard_user = response.user
+                  },
+                  error: (error) => {
+                    console.log('get user failed in dashboard', error)
+                  }
+                })
+              }
               
   async ngOnInit() {
-    this.parkerAuth.getSignedInUser().subscribe({
-      next: response => {
-        this.dashboard_user = response
-      },
-      error: (error) => {
-        console.log('get y=user failed in dashboard', error)
-      }
-    })
+   
   }
 
    /* istanbul ignore next */

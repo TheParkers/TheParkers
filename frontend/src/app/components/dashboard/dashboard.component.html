@@ -1,11 +1,11 @@
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="dashboard_user" [fullscreen]="true">
     <ion-toolbar color="new">
         <ion-buttons slot="start">
           <ion-menu-button color="dark" (click)="presentActionSheet()" auto-hide="false"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="primary">
           <ion-avatar>
-              <img src="{{dashboard_user.tpk_photoUrl}}">
+              <img *ngIf="dashboard_user" [src]="dashboard_user.tpk_photoUrl">
           </ion-avatar>
         </ion-buttons>
         <ion-title color="dark">
