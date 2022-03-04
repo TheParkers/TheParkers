@@ -14,12 +14,12 @@ const routes: Routes = [
     children: [
       // Home Url
       {
-        path: '',
+        path: 'home',
         component: HomeComponent
       },
       // Dashboard urls
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
         canActivate: [GuardService],
       },
