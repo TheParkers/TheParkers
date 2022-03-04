@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.dev';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   dashboard_user: any;
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
@@ -18,7 +18,6 @@ export class DashboardComponent implements OnInit {
                 console.log(this.parkerAuth)
                 this.parkerAuth.getSignedInUser().subscribe({
                   next: response => {
-                    
                     this.dashboard_user = response.user
                   },
                   error: (error) => {
@@ -26,10 +25,6 @@ export class DashboardComponent implements OnInit {
                   }
                 })
               }
-              
-  async ngOnInit() {
-   
-  }
 
    /* istanbul ignore next */
   public async presentActionSheet() {
