@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActionSheetController } from '@ionic/angular';
 import { AuthService, FirebaseService } from 'src/app/services';
-import { UserService } from 'src/app/services/user/user.service';
 import { environment } from 'src/environments/environment.dev';
 
 @Component({
@@ -14,19 +13,17 @@ export class DashboardComponent implements OnInit {
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
               private parkerAuth: AuthService
-              ) {
-                
-              }
+              ) {}
+
   async ngOnInit() {
     this.parkerAuth.getSignedInUser().subscribe({
       next: response => {
-          this.dashboard_user = response
+        this.dashboard_user = response
       },
       error: (error) => {
         console.log('get y=user failed in dashboard', error)
       }
     })
-    
   }
 
    /* istanbul ignore next */
