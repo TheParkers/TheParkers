@@ -9,16 +9,15 @@ import { FirebaseService } from 'src/app/services';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private firebase: FirebaseService,
+  constructor(public firebase: FirebaseService,
     private router: Router){
       
   }
   ngOnInit(): void {
     if(this.firebase.isAuthenticatedWithParker)
     {
-      this.router.navigate(['/dashboard'])
-    }
-          
+      this.router.navigate(['/'])
+    }   
   }
       
   login() {
@@ -26,10 +25,4 @@ export class HomeComponent implements OnInit {
         console.log('login user success from home')
     })
   }
-  
-  logout() {
-    this.firebase.logout();
-    this.router.navigate(['/home'])
-  }
-
 }

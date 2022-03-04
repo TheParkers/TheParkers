@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { FirebaseService } from '..';
 
 @Injectable({
   providedIn: 'root'

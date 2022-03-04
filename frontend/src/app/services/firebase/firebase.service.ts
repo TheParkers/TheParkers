@@ -37,6 +37,9 @@ export class FirebaseService{
           }
         })
       }
+      else{
+        this.router.navigate(['/home'])
+      }
     }
 
   get getAuthState() {
@@ -68,7 +71,7 @@ export class FirebaseService{
     this.authState = null;
     this.authUser = null;
     this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
-    this.router.navigate(['/'])
+    this.router.navigate(['/home'])
   }
 
   SignUp(email: string, password: string) {
@@ -175,7 +178,7 @@ export class FirebaseService{
                 next: response => {
                   console.log('Login first time user to parker successful', user)
                   this.authUser = response.user
-                  this.router.navigate(['/dashboard'])
+                  this.router.navigate(['/'])
                 },
                 error: error => {
                   console.error(error)
@@ -192,7 +195,7 @@ export class FirebaseService{
               console.log('Login user to parker successful', response.user)
               this.localStorageService.setItem(LocalStorageModel.autheticationToken, response.parker_token)
               this.authUser = response.user
-              this.router.navigate(['/dashboard'])
+              this.router.navigate(['/'])
             },
             error: error => {
               console.error('Login user to parker',error)

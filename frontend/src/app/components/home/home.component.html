@@ -1,5 +1,5 @@
 <app-parkers-header></app-parkers-header> 
-  <ion-content [fullscreen]="true">
+  <ion-content *ngIf="!this.firebase.isAuthenticatedWithParker" [fullscreen]="true">
     <div class="img-background">
       <div class="overlay">
         <ion-grid class="container-grid">
