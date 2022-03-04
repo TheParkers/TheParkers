@@ -7,7 +7,6 @@ import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
 import { Router } from '@angular/router';
 import { LocalStorageModel } from 'src/app/models';
-import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +32,7 @@ export class FirebaseService{
           },
           error: (error) => {
             console.log('Firebase service init failed: User not authorised', error)
-            this.localStorageService.removeItem(LocalStorageModel.autheticationToken)
+            this.clearAuthStates() 
           }
         })
       }
@@ -71,7 +70,6 @@ export class FirebaseService{
     this.authState = null;
     this.authUser = null;
     this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
-    this.router.navigate(['/home'])
   }
 
   SignUp(email: string, password: string) {
@@ -214,6 +212,7 @@ export class FirebaseService{
       success => {
         console.log('Logout success', success);
         this.clearAuthStates();
+        this.router.navigate(['/home'])
       })
       .catch(err => {
         console.log('Error in logout');

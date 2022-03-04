@@ -10,7 +10,8 @@ export class PreLoaderService {
 
   presentLoader() {
     this.loadingController.create({
-        message: 'Loading...'
+        message: 'Loading...',
+        duration: 200
     }).then((response) => {
         response.present().then( ()=> {
             console.log('Preloader loaded successfully')

@@ -46,7 +46,7 @@ describe('DashboardComponent', () => {
         console.log('Rentals clicked');
       }
     }, {
-      text: 'Profile',
+      text: 'Logout',
       icon: 'person-circle-outline',
       data: 'Data value',
       handler: () => {
