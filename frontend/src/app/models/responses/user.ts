@@ -6,9 +6,11 @@ export interface User {
   }
 
 export interface UserDetails {
+  user:{
     tpk_name: string;
     tpk_email: string;
     tpk_photoUrl: string;
+  }
 }
 
 
