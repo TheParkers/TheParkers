@@ -11,36 +11,25 @@ const routes: Routes = [
   {
     path: '',
     component: AppComponent,
-    pathMatch: 'full',
     children: [
+      // Home Url
       {
-        path: '', // child route path
+        path: '',
+        component: HomeComponent
+      },
+      // Dashboard urls
+      {
+        path: 'dashboard',
         component: DashboardComponent,
         canActivate: [GuardService],
       },
-    ]
-    
-  },
-  // Dashboard urls
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    canActivate: [GuardService],
-    pathMatch: 'full'
-  },
-  // Home Url
-  {
-    path: 'home',
-    component: HomeComponent,
-    pathMatch: 'full'
-  },
-  // Parking space Urls
-  {
-    path: 'parkings', // child route path
-    component: ParkingsListComponent,
-    //canActivate: [GuardService],
-    pathMatch: 'full'
-  },
+      // Parking space Urls
+      {
+        path: 'parkings', // child route path
+        component: ParkingsListComponent,
+        //canActivate: [GuardService],
+      }
+    ]},
 ];
 
 @NgModule({
