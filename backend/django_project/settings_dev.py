@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'django.contrib.gis',
+    'django.contrib.gis.db.backends.postgis',
     # Our own apps:
     'apps.users',
     'apps.maps',
@@ -56,6 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
+    'rest_framework_gis',
     'guardian',
     'django_filters'
     
@@ -87,13 +90,15 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'mysql.connector.django',
-        'NAME': 'TheParkersDev',
-        'USER': 'TestUser',
-        'PASSWORD': '',
-        'HOST': '34.124.120.210',
-        'PORT': '',  
+        'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'theparkersdev',
+        'USER': 'theparkers',
+        'PASSWORD': 'theparkers',
+        'HOST': '35.223.58.152',
+        'TEST': {
+            'NAME': 'theparkerstestdb',
+        },
     }
 }
 

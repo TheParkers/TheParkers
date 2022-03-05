@@ -1,12 +1,12 @@
-<ion-content [fullscreen]="true">
+<ion-content *ngIf="dashboard_user" [fullscreen]="true">
     <ion-toolbar color="new">
         <ion-buttons slot="start">
           <ion-menu-button color="dark" (click)="presentActionSheet()" auto-hide="false"></ion-menu-button>
         </ion-buttons>
         <ion-buttons slot="primary">
-          <ion-button>
-            <ion-icon  color="dark" slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-          </ion-button>
+          <ion-avatar>
+              <img *ngIf="dashboard_user" [src]="dashboard_user.tpk_photoUrl">
+          </ion-avatar>
         </ion-buttons>
         <ion-title color="dark">
             <ion-grid>
@@ -21,4 +21,54 @@
             </ion-grid>
           </ion-title>
       </ion-toolbar>
+
+
+      <ion-grid>
+        <ion-row>
+          <ion-col class="parker_blue corner-border">
+            <ion-col size="2">
+              <img class="add-parking-map-icon" src="../../assets/images/park-map.png">
+            </ion-col>
+            <ion-col>
+                <span style="font-size: 15px; font-weight: bold;"> Add new parking </span>
+            </ion-col>
+          </ion-col>
+          <ion-col class="parker_blue corner-border">
+            <ion-col>
+              <img class="rent-parking-car-icon" src="../../assets/images/car-rental.png">
+            </ion-col>
+            <ion-col>
+                <span style="font-size: 15px; font-weight: bold;"> Rent parkings </span>
+              </ion-col>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <app-search-parking></app-search-parking>
+
+
+
+
+      <ion-tabs>
+        <ion-tab-bar slot="bottom">
+          <ion-tab-button tab="myspaces">
+            <ion-icon name="map"></ion-icon>
+            <ion-label>My Spaces</ion-label>
+            <ion-badge>6</ion-badge>
+          </ion-tab-button>
+      
+          <ion-tab-button tab="bookings">
+            <ion-icon name="car-sport"></ion-icon>
+            <ion-label>Bookings</ion-label>
+            <ion-badge>3</ion-badge>
+          </ion-tab-button>
+      
+          <ion-tab-button tab="rentals">
+            <ion-icon name="bookmark"></ion-icon>
+            <ion-label>Rentals</ion-label>
+            <ion-badge>10</ion-badge>
+          </ion-tab-button>
+        </ion-tab-bar>
+      </ion-tabs>
 </ion-content>

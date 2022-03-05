@@ -36,7 +36,7 @@ class TestUserModel(APITestCase):
 
 
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
-    @patch('apps.users.models.User.objects.get')      
+    @patch('apps.users.models.User.objects.get')
     def test_get_one(self, mockUser, mockPerm):
         testuser_3 = User.objects.create(tpk_firebaseid="testid", tpk_name="test", tpk_email="test_email@test.com") 
         mockUser.return_value = testuser_3

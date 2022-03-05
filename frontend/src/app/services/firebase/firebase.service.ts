@@ -5,8 +5,8 @@ import firebase from 'firebase/compat/app';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
-import { LocalStorageModel } from 'src/app/models';
 import { Router } from '@angular/router';
+import { LocalStorageModel } from 'src/app/models';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,6 @@ export class FirebaseService{
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
@@ -33,9 +32,12 @@ export class FirebaseService{
           },
           error: (error) => {
             console.log('Firebase service init failed: User not authorised', error)
-            this.localStorageService.removeItem(LocalStorageModel.autheticationToken)
+            this.clearAuthStates() 
           }
         })
+      }
+      else{
+        this.router.navigate(['/home'])
       }
     }
 
@@ -68,7 +70,6 @@ export class FirebaseService{
     this.authState = null;
     this.authUser = null;
     this.localStorageService.removeItem(LocalStorageModel.autheticationToken);
-    this.router.navigate(['/'])
   }
 
   SignUp(email: string, password: string) {
@@ -175,7 +176,7 @@ export class FirebaseService{
                 next: response => {
                   console.log('Login first time user to parker successful', user)
                   this.authUser = response.user
-                  this.router.navigate(['/dashboard'])
+                  this.router.navigate(['/'])
                 },
                 error: error => {
                   console.error(error)
@@ -192,7 +193,7 @@ export class FirebaseService{
               console.log('Login user to parker successful', response.user)
               this.localStorageService.setItem(LocalStorageModel.autheticationToken, response.parker_token)
               this.authUser = response.user
-              this.router.navigate(['/dashboard'])
+              this.router.navigate(['/'])
             },
             error: error => {
               console.error('Login user to parker',error)
@@ -211,6 +212,7 @@ export class FirebaseService{
       success => {
         console.log('Logout success', success);
         this.clearAuthStates();
+        this.router.navigate(['/home'])
       })
       .catch(err => {
         console.log('Error in logout');

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import { FirebaseService } from 'src/app/services';
-import { UserService } from 'src/app/services/user/user.service';
+import { AuthService, FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 
 @Component({
@@ -10,13 +10,27 @@ import { environment } from 'src/environments/environment.dev';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-
+  dashboard_user: any;
   constructor(private actionSheetCtrl: ActionSheetController, 
-              private firebaseService: FirebaseService
-              ) {}
+              private firebaseService: FirebaseService,
+              private parkerAuth: AuthService,
+              private routerService: Router
+              ) 
+              {
+                this.parkerAuth.getSignedInUser().subscribe({
+                  next: response => {
+                    this.dashboard_user = response.user
+                  },
+                  error: (error) => {
+                    this.routerService.navigate(['/home'])
+                    console.log('get user failed in dashboard', error)
+                  }
+                })
+              }
 
    /* istanbul ignore next */
   public async presentActionSheet() {
+    console.log('inside action sheet',  this.firebaseService.authUser)
     const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService));
     console.log(actionSheet)
     await actionSheet.present();
