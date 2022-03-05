@@ -52,15 +52,12 @@ INSTALLED_APPS = [
     'apps.parkersauth',
     'apps.parkingspace',
     'apps.pricing',
+    'apps.dashboard',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'guardian',
     'django_filters'
-    'apps.dashboard'
-    'rest_framework',
-    'rest_framework_simplejwt',
-    'rest_framework.authtoken',
     
 ]
 

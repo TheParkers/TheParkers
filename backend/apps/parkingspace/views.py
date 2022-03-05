@@ -26,13 +26,11 @@ def parkingspace_list(request):
     '''
     if request.method == 'GET':
         parking_spaces = ParkingSpace.objects.all()
-        paginator = PageNumberPagination()
-        paginator.page_size = 5
 
         filterset = ParkingSpaceFilter(request.GET, queryset=parking_spaces)
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
         serializer = ParkingSpaceSerializer(filterset.qs, many=True)
-        return JsonResponse(paginator.get_paginated_response(serializer.data), safe=False)
+        return JsonResponse(serializer.data, safe=False)
     return JsonResponse({request.data}, status=404)
     
