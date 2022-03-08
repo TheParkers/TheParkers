@@ -61,12 +61,6 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Test user already parker authenticated', () => {
-    mockFirebaseService.isAuthenticatedWithParker.and.returnValue(true)
-    expect(component).toBeTruthy();
-    expect(routerService.navigate).toHaveBeenCalledWith(['/'])
-  });
-
   it('Test login success', () => {
     routerService.navigate.and.returnValue('/')
     mockFirebaseService.login.and.returnValue(Promise.resolve({}))

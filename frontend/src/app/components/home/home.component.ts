@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { Component } from '@angular/core';
 import { FirebaseService } from 'src/app/services';
 
 @Component({
@@ -8,16 +6,9 @@ import { FirebaseService } from 'src/app/services';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-  constructor(public firebase: FirebaseService,
-    private router: Router){
+export class HomeComponent {
+  constructor(public firebase: FirebaseService){
       
-  }
-  ngOnInit(): void {
-    if(this.firebase.isAuthenticatedWithParker)
-    {
-      this.router.navigate(['/'])
-    }   
   }
       
   login() {
