@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
@@ -24,7 +24,7 @@ export class FirebaseService{
       this.authState = authState
     });
     let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
-      if (parker_token)
+      if (parker_token && this.router.url != '/home')
       {
         this.parkerAuth.getSignedInUser().subscribe({
           next: response => {
@@ -37,7 +37,7 @@ export class FirebaseService{
         })
       }
       else{
-        this.router.navigate(['/home'])
+        this.clearAuthStates()
       }
     }
 
