@@ -71,10 +71,8 @@ describe('DashboardComponent', () => {
         MatDatepickerModule
       ],
       providers: [
-        { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
-        { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', ['getSignedInUser'])},
+        { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout', 'getAuthUser'])},
         { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])},
-        { provide: PreLoaderService, useValue: jasmine.createSpyObj('PreLoaderService', ['presentLoader', 'dismissLoader'])}
       ],
       declarations: [ DashboardComponent ]
     })
@@ -83,9 +81,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(of({}))
+    mockFirebaseService.getAuthUser.and.returnValue(of({}))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -120,9 +117,8 @@ describe('DashboardComponent', () => {
       }
     }
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(of(testResponse))
+    mockFirebaseService.getAuthUser.and.returnValue(of(testResponse))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -135,16 +131,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(throwError(() => {}))
+    mockFirebaseService.getAuthUser.and.returnValue(throwError(() => {}))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.dashboard_user).toBeFalsy()
-  });
-
-  it('should create while get signedin User failure', async () => {
-    expect(component).toBeTruthy();
   });
 });
