@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { AuthService, FirebaseService } from 'src/app/services';
+import { AuthService, FirebaseService, PreLoaderService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 import { UserDetails } from 'src/app/models/responses/user'
 import { DashboardComponent } from './dashboard.component';
@@ -71,9 +71,8 @@ describe('DashboardComponent', () => {
         MatDatepickerModule
       ],
       providers: [
-        { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
-        { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', ['getSignedInUser'])},
-        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])}
+        { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout', 'getAuthUser'])},
+        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])},
       ],
       declarations: [ DashboardComponent ]
     })
@@ -82,9 +81,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(of({}))
+    mockFirebaseService.getAuthUser.and.returnValue(of({}))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -119,9 +117,8 @@ describe('DashboardComponent', () => {
       }
     }
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(of(testResponse))
+    mockFirebaseService.getAuthUser.and.returnValue(of(testResponse))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -134,16 +131,11 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     mockFirebaseService = TestBed.inject(FirebaseService);
-    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
-    mockParkerService.getSignedInUser.and.returnValue(throwError(() => {}))
+    mockFirebaseService.getAuthUser.and.returnValue(throwError(() => {}))
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
     expect(component.dashboard_user).toBeFalsy()
-  });
-
-  it('should create while get signedin User failure', async () => {
-    expect(component).toBeTruthy();
   });
 });
