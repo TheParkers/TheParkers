@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import { AuthService, FirebaseService, PreLoaderService } from 'src/app/services';
+import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 
 @Component({
