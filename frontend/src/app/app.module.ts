@@ -15,8 +15,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AgmCoreModule, GoogleMapsScriptProtocol } from '@agm/core';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 
 
 import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
@@ -32,6 +34,7 @@ import { UserService } from './services/user/user.service';
 import { ParkingsListComponent } from './components/parkings-list/parkings-list.component';
 import { ParkersHeaderComponent } from './components/parkers-header/parkers-header.component';
 import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
+import { AddParkingComponent } from './components/add-parking/add-parking.component';
 
 
 @NgModule({
@@ -43,6 +46,7 @@ import { ParkingSpaceDescComponent } from './components/parking-space-desc/parki
     ParkingsListComponent,
     ParkersHeaderComponent,
     ParkingSpaceDescComponent,
+    AddParkingComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ import { ParkingSpaceDescComponent } from './components/parking-space-desc/parki
     }),
     AgmCoreModule.forRoot({
       protocol: GoogleMapsScriptProtocol.HTTPS,
-      apiKey: environment.googleMapsApiKey
+      apiKey: environment.googleMapsApiKey,
+      libraries: ['places']
     }),
     AngularFireModule.initializeApp(environment.firebaseConfig),
     FormsModule,
@@ -66,7 +71,9 @@ import { ParkingSpaceDescComponent } from './components/parking-space-desc/parki
     MatCardModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatGoogleMapsAutocompleteModule,
+    MatCheckboxModule
   ],
   providers: [
     { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: false } },
