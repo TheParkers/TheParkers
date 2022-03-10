@@ -2,23 +2,23 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment.dev';
 import { catchError, Observable, of } from 'rxjs';
-import { bookingspaceDetails } from 'src/app/models/requests';
+import { bookingspace } from 'src/app/models/requests/bookingspace';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookingService {
+export class BookingService{
 
   constructor(private http: HttpClient) { }
 
   createBooking(): Observable<any> {
-    const samplebookingSpace: bookingspaceDetails = {
+    const samplebookingSpace: bookingspace = {
       "tpk_parkingspace": 2,
-      "tpk_book_start_datetime" : 31,
-      "tpk_book_end_datetime": 31,
-      "tpk_firebaseid": 4
+      "tpk_book_start_datetime" : new Date(),
+      "tpk_book_end_datetime": new Date(),
+      "tpk_firebaseid": "4"
       }
-    return this.http.post<bookingspaceDetails>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
+    return this.http.post<bookingspace>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
     .pipe(
       catchError(this.handleError('Create booking', samplebookingSpace))
     )
