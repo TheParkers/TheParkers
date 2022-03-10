@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { environment } from 'src/environments/environment.dev';
 import { catchError, Observable, of } from 'rxjs';
-import { bookingspaceDetails } from 'src/app/models/requests;
+import { bookingspaceDetails } from 'src/app/models/requests';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class BookingService {
       }
     return this.http.post<bookingspaceDetails>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
     .pipe(
-      catchError(this.handleError('Register user to parker', samplebookingSpace))
+      catchError(this.handleError('Create booking', samplebookingSpace))
     )
   }
   private handleError<T>(operation:any , result?: T) {
