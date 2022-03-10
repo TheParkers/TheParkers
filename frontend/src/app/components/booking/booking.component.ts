@@ -9,7 +9,7 @@ import { BookingService } from 'src/app/services/booking';
 export class BookingComponent {
 
   constructor(public bookings: BookingService ) {
-
+    
 
   }
  
