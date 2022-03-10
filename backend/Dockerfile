@@ -1,5 +1,5 @@
 FROM python:3
-ENV env="django_project.settings_dev"
+ENV env="django_project.settings_stage"
 ENV HOST 0.0.0.0
 ENV PORT 4200
 
