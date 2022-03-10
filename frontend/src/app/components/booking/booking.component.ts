@@ -14,8 +14,7 @@ export class BookingComponent {
   }
  
   booking() {
-    this.bookings.createBooking().then( () => {
-        console.log('booking success from app')
-    })
+    this.bookings.createBooking();
   }
+  
 }
