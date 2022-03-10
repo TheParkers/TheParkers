@@ -137,3 +137,6 @@ def roles_list(request, firebase_user_id):
         roles_listed = Group.objects.filter(user = request_user)
         role_serializer = RoleSerializer(roles_listed, many=True)
         return JsonResponse(role_serializer.data, safe=False, status=status.HTTP_202_ACCEPTED)
+
+    return JsonResponse({}, status=404)
+    

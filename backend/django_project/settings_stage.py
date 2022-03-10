@@ -54,15 +54,12 @@ INSTALLED_APPS = [
     'apps.parkersauth',
     'apps.parkingspace',
     'apps.pricing',
-    'apps.dashboard',
     'apps.booking',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'rest_framework_gis',
     'guardian',
-    'django_filters'
-    
 ]
 
 MIDDLEWARE = [
@@ -93,7 +90,7 @@ REST_FRAMEWORK = {
 DATABASES = {
         'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'theparkersdev',
+        'NAME': 'theparkersstage',
         'USER': 'theparkers',
         'PASSWORD': 'theparkers',
         'HOST': '35.223.58.152',

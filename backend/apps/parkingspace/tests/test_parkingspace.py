@@ -59,9 +59,9 @@ class TestParkingSpaceModel(APITestCase):
         '''
         test_get_one: Test get one parking space.
         '''
-        response = self.client.get('/parking/2/')
+        response = self.client.get('/parking/9/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        parkingspace = ParkingSpace.objects.get(pk=2)
+        parkingspace = ParkingSpace.objects.get(pk=9)
         serializer = ParkingSpaceSerializer(parkingspace)
         #note that the get returns queryset, so we are using many=True.
         ps_json_resp = JsonResponse(serializer.data, safe=False)
@@ -132,7 +132,7 @@ class TestParkingSpaceModel(APITestCase):
         '''
         test_delete: delete a parking space
         '''
-        resp = self.client.delete('/parking/8/')
+        resp = self.client.delete('/parking/15/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
     
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
