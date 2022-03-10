@@ -11,16 +11,16 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
-  createBooking(token: string, userid: string): Observable<any> {
-    const requestObj: bookingspaceDetails = {
-      "tpk_parkingspace": 2;
-      "tpk_book_start_datetime" : 
-      "tpk_book_end_datetime": 
-      "tpk_firebaseid": userid
+  createBooking(): Observable<any> {
+    const samplebookingSpace: bookingspaceDetails = {
+      "tpk_parkingspace": 2,
+      "tpk_book_start_datetime" : 31,
+      "tpk_book_end_datetime": 31,
+      "tpk_firebaseid": 4
       }
-    return this.http.put<bookingspaceDetails>(environment.apiServer+environment.apiUrls.bookingspace, requestObj)
+    return this.http.post<bookingspaceDetails>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
     .pipe(
-      catchError(this.handleError('Register user to parker', requestObj))
+      catchError(this.handleError('Register user to parker', samplebookingSpace))
     )
   }
   private handleError<T>(operation:any , result?: T) {
