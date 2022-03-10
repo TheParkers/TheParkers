@@ -134,3 +134,15 @@ class TestParkingSpaceModel(APITestCase):
         '''
         resp = self.client.delete('/parking/8/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
+    
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
+    def test_filter_parking_area(self, mock_perm, mock_service):
+        response = self.client.get('/parking?tpk_parking_area=400')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        parkingspace = ParkingSpace.objects.get(pk=3)
+        serializer = ParkingSpaceSerializer(parkingspace)
+        #note that the get returns queryset, so we are using many=True.
+        ps_json_resp = JsonResponse(serializer.data, safe=False)
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+                            str(ps_json_resp.content, encoding='utf8'))
