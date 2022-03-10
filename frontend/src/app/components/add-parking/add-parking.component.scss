@@ -1,0 +1,60 @@
+.add-parking-container{
+  background-color: lightgray;
+}
+.search-parking-button{
+    display:block;
+    margin:0.6rem 0;
+    text-transform: initial;
+}
+.form-container{
+    background-color: white;
+    //opacity: 80%;
+    padding: 1rem 2rem;
+    margin: 1rem auto;
+    width: 90%;
+    border-radius: 1rem;
+}
+mat-form-field{
+  width: 100%;
+}
+.search-parking{
+  margin:1rem;
+}
+.parking-map{
+  width:100%;
+  height:200px;
+}
+mat-card{
+  margin-bottom: 1rem;
+  h3{
+    font-weight: 600;
+  }
+}
+.image-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.form-heading{
+  text-align:center;
+  font-size:1.5rem;
+  padding:1rem;
+  font-weight: 600;
+}
+.list-parking{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}

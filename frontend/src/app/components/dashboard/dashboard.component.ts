@@ -39,4 +39,8 @@ export class DashboardComponent {
     console.log('onDidDismiss resolved with role and data', role, data);
   }
 
+  public navigateToAddParking(){
+    this.router.navigateByUrl('/addParking');
+  }
+
 }
