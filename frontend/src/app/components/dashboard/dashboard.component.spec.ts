@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from '@angular/fire/compat';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -10,11 +11,9 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { User } from 'src/app/models';
-import { FirebaseService } from 'src/app/services';
-import { UserService } from 'src/app/services/user/user.service';
+import { AuthService, FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 
 import { DashboardComponent } from './dashboard.component';
@@ -25,6 +24,7 @@ describe('DashboardComponent', () => {
   let mockFirebaseService: any;
   let mockActionSheetService: any;
   let mockUserService:any;
+  let mockParkerService:any;
   let mockActionServiceConfig = {
     cssClass: 'my-custom-class',
     translucent: false,
@@ -58,6 +58,7 @@ describe('DashboardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BrowserDynamicTestingModule, 
+        AngularFireModule.initializeApp(environment.firebaseConfig),
         IonicModule.forRoot(), 
         AppRoutingModule,
         FormsModule,
@@ -74,6 +75,7 @@ describe('DashboardComponent', () => {
       declarations: [ DashboardComponent ],
       providers: [
         { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
+        { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', ['getSignedInUser'])},
         { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])}
       ]
     })
@@ -83,12 +85,19 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardComponent);
     mockFirebaseService = TestBed.inject(FirebaseService);
+    mockParkerService = TestBed.inject(AuthService)
     mockActionSheetService = TestBed.inject(ActionSheetController);
+    mockParkerService.getSignedInUser.and.returnValue(of({}))
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should create while get signedin User failure', () => {
+    mockParkerService.getSignedInUser.and.returnValue(throwError(() => {}))
     expect(component).toBeTruthy();
   });
 

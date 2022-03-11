@@ -5,8 +5,9 @@ import firebase from 'firebase/compat/app';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
-import { LocalStorageModel } from 'src/app/models';
 import { Router } from '@angular/router';
+import { LocalStorageModel } from 'src/app/models';
+import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,6 @@ export class FirebaseService{
               private localStorageService : LocalStorageService,
               private router: Router
               ) {
-
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
