@@ -24,7 +24,13 @@ export class AuthService {
     const requestObj: FirebaseToken = {
       "tpk_firebaseid": token
     }
-    return this.http.post<FirebaseToken>(environment.apiServer+environment.apiUrls.loginUser, requestObj)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      }),
+      credentials: 'same-origin'
+    }
+    return this.http.post<FirebaseToken>(environment.apiServer+environment.apiUrls.loginUser, requestObj, httpOptions)
     .pipe(
       catchError(this.handleError('Login user to parker', requestObj))
     )
