@@ -25,7 +25,7 @@ export class FirebaseService{
       this.authState = authState
     });
     let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
-      if (parker_token)
+      if (parker_token && this.router.url != '/home')
       {
         this.parkerAuth.getSignedInUser().subscribe({
           next: response => {
