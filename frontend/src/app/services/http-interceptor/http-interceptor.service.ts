@@ -13,11 +13,11 @@ import { PreloaderComponent } from 'src/app/components/pre-loader/pre-loader.com
 export class HttpInterceptorService implements HttpInterceptor {
   localStorageService: LocalStorageService;
 
-  constructor(localStorageService: LocalStorageService, preloaderComponent: PreloaderComponent) { 
+  constructor(localStorageService: LocalStorageService, public preloaderComponent: PreloaderComponent) { 
     this.localStorageService = localStorageService
   }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.preloaderComponent.presentLoading();
+    this.preloaderComponent.presentLoading()
 
     const jwtToken = this.localStorageService.getItem(LocalStorageModel.autheticationToken);
     const isParkersUrl = request.url.startsWith(environment.apiServer);
