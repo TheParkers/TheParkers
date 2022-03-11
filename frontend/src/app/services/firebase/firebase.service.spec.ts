@@ -56,7 +56,7 @@ describe('FirebaseService', () => {
                                                                    'sendPasswordResetEmail',
                                                                    'signInWithCredential'
                                                                   ])},
-        { provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker', 'getSignedInUser'])},
+        { provide: AuthService, useValue: jasmine.createSpyObj(['registerUserToParker', 'loginUserToParker', 'getSignedInUser', 'getSignedInUser'])},
         { provide: Platform, useValue: jasmine.createSpyObj(['is'])},
         { provide: LocalStorageService, useValue: jasmine.createSpyObj(['getItem', 'setItem','removeItem'])},
         FirebaseService
@@ -88,10 +88,6 @@ describe('FirebaseService', () => {
 
   it('Test service initialization', () => {
     service.authUser = {}
-    expect(service.authState).toBeTruthy()
-    expect(service.isAuthenticatedWithFirebase).toBeTruthy()
-    expect(service.isEmailVerified).toBeTruthy()
-    expect(service.currentUserId).toEqual('sample')
     expect(service).toBeTruthy()
   });
 
@@ -444,8 +440,9 @@ describe('FirebaseService', () => {
     }
     mockAuthService.signInWithEmailAndPassword.and.returnValue(Promise.resolve(sampleResponse))
     authService.loginUserToParker.and.returnValue(throwError(() => {}))
+    authService.getSignedInUser.and.returnValue()
     service.signIn("test@gmail.com","s")
-    expect(service.getAuthUser).toBeFalsy()
+    expect(service.getAuthUser()).toBeFalsy()
   });
 
   it('Test successful login with email when fag is not false', () => {

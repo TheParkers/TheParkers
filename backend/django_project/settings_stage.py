@@ -90,7 +90,7 @@ REST_FRAMEWORK = {
 DATABASES = {
         'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'theparkersdev',
+        'NAME': 'theparkersstage',
         'USER': 'theparkers',
         'PASSWORD': 'theparkers',
         'HOST': '35.223.58.152',

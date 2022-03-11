@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/auth.service';
 import firebase from 'firebase/compat/app';
@@ -23,30 +23,15 @@ export class FirebaseService{
     this.auth.authState.subscribe(authState => {
       this.authState = authState
     });
-    let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
-      if (parker_token)
-      {
-        this.parkerAuth.getSignedInUser().subscribe({
-          next: response => {
-              this.authUser = response
-          },
-          error: (error) => {
-            console.log('Firebase service init failed: User not authorised', error)
-            this.clearAuthStates() 
-          }
-        })
-      }
-      else{
-        this.router.navigate(['/home'])
-      }
-    }
+  }
+  
 
   get getAuthState() {
       return this.authState
   }
 
-  get getAuthUser() {
-      return this.authUser
+  getAuthUser() {
+      return this.parkerAuth.getSignedInUser()
   }
 
   get isAuthenticatedWithFirebase() {
@@ -122,7 +107,8 @@ export class FirebaseService{
       });
     })
     .catch(err => {
-    console.log('Something is wrong in SignIn:'); 
+      console.log('Something is wrong in SignIn:',err);
+      this.clearAuthStates() 
     });
   }
 
@@ -175,6 +161,7 @@ export class FirebaseService{
               .subscribe({ 
                 next: response => {
                   console.log('Login first time user to parker successful', user)
+                  this.localStorageService.setItem(LocalStorageModel.autheticationToken, response.parker_token)
                   this.authUser = response.user
                   this.router.navigate(['/'])
                 },

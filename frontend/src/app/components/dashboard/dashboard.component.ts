@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
-import { AuthService, FirebaseService } from 'src/app/services';
+import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 
 @Component({
@@ -13,17 +13,17 @@ export class DashboardComponent {
   dashboard_user: any;
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
-              private parkerAuth: AuthService,
-              private routerService: Router
+              private router: Router
               ) 
               {
-                this.parkerAuth.getSignedInUser().subscribe({
-                  next: response => {
-                    this.dashboard_user = response.user
+                this.firebaseService.getAuthUser().subscribe({
+                  next: response  => {
+                      this.dashboard_user = response.user
                   },
-                  error: (error) => {
-                    this.routerService.navigate(['/home'])
-                    console.log('get user failed in dashboard', error)
+                  error: error => {
+                    this.firebaseService.clearAuthStates()
+                    console.log("Error in get signed user, dashboard", error)
+                    this.router.navigate(['/home'])
                   }
                 })
               }
@@ -37,6 +37,10 @@ export class DashboardComponent {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  public navigateToAddParking(){
+    this.router.navigateByUrl('/addParking');
   }
 
 }
