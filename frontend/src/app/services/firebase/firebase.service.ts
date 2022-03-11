@@ -161,6 +161,7 @@ export class FirebaseService{
               .subscribe({ 
                 next: response => {
                   console.log('Login first time user to parker successful', user)
+                  this.localStorageService.setItem(LocalStorageModel.autheticationToken, response.parker_token)
                   this.authUser = response.user
                   this.router.navigate(['/'])
                 },
