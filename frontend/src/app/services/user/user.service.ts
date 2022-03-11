@@ -15,7 +15,8 @@ export class UserService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-      })
+      }),
+      withCredentials: true
     }
     return this.http.get<User>(
                     environment.apiServer+environment.apiUrls.user.userbyid+id, 
