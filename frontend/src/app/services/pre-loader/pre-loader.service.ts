@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { FirebaseService } from '..';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class PreLoaderService {
-  constructor( public loadingController: LoadingController) {
-    
-  }
+  constructor(private loadingController: LoadingController, private firebaseService: FirebaseService) {}
 
   presentLoader() {
     this.loadingController.create({
@@ -22,6 +21,7 @@ export class PreLoaderService {
         console.log('Loader closed!', response);
     }).catch((err) => {
         console.log('Error occured : ', err);
+        this.firebaseService.clearAuthStates();
     });
 }
 }
