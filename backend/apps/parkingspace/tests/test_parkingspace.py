@@ -10,6 +10,7 @@ from apps.parkingspace.serializers import ParkingSpaceSerializer
 from rest_framework.test import APITestCase
 from rest_framework import status
 from django.utils import timezone
+import json
 
 class TestParkingSpaceModel(APITestCase):
 
@@ -65,9 +66,11 @@ class TestParkingSpaceModel(APITestCase):
         '''
         test_get_one: Test get one parking space.
         '''
-        response = self.client.get('/parking/9/')
+        get_resp = json.loads(self.client.get('/parking').content)
+        id = get_resp[0]['id']
+        response = self.client.get('/parking/'+ str(id) +'/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        parkingspace = ParkingSpace.objects.get(pk=9)
+        parkingspace = ParkingSpace.objects.get(pk=id)
         serializer = ParkingSpaceSerializer(parkingspace)
         #note that the get returns queryset, so we are using many=True.
         ps_json_resp = JsonResponse(serializer.data, safe=False)
@@ -144,7 +147,8 @@ class TestParkingSpaceModel(APITestCase):
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_put_then_delete(self, mock_perm, mock_service):
         '''
-        test_delete: delete a parking space
+        test_delete: delete a parking space.
         '''
-        resp = self.client.delete('/parking/15/')
+        get_resp = json.loads(self.client.get('/parking').content)
+        resp = self.client.delete('/parking/'+ str(get_resp[0]['id']) + '/')
         self.assertEqual(resp.status_code, status.HTTP_202_ACCEPTED)
