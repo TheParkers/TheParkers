@@ -212,6 +212,7 @@ export class FirebaseService{
       success => {
         console.log('Logout success', success);
         this.clearAuthStates();
+        this.router.navigate(['/home'])
       })
       .catch(err => {
         console.log('Error in logout');
