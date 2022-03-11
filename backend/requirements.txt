@@ -10,3 +10,4 @@ pyrebase4
 coverage
 pylint
 pylint-django
+django-guardian

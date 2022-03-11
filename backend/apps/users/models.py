@@ -2,6 +2,7 @@
     Model: users app
 '''
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 class User(models.Model):
     '''
@@ -25,6 +26,10 @@ class User(models.Model):
     tpk_photoUrl = models.CharField(max_length=500, default="NA")
     tpk_isdeleted = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    #overwrite columns to meet guardian depends
+    password = models.CharField(blank=True, max_length=100, null=True)
+    is_superuser = models.BooleanField(default=False)
+    last_login = models.DateTimeField(blank=True, null=True)
 
     is_anonymous = False
     is_authenticated = False
