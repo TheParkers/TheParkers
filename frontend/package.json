@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^3.0.0-beta.0",
     "@angular-eslint/builder": "^13.1.0",
     "@angular-eslint/eslint-plugin": "^13.1.0",
     "@angular-eslint/schematics": "^13.1.0",
