@@ -13,7 +13,7 @@ export const environment = {
     appId: "1:111997111938:web:39e0c8e1909756dcde6e9b",
     measurementId: "G-S566XNQGE2"
   },
-  apiServer: 'http://localhost:8000',
+  apiServer: 'https://parkersdev-api-nixgrdwaba-ue.a.run.app',
   apiUrls: {
     registerUser: '/users/register/',
     loginUser: '/signin/',
