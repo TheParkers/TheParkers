@@ -13,14 +13,7 @@ export class UserService {
   }
   
   getuserbyemail(id:any): Observable<User> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      }),
-      withCredentials: true
-    }
     return this.http.get<User>(
-                    environment.apiServer+environment.apiUrls.user.userbyid+id, 
-                    httpOptions)
+                    environment.apiServer+environment.apiUrls.user.userbyid+id)
   } 
 }
