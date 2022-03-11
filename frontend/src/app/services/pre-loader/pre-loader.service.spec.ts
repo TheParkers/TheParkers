@@ -40,8 +40,7 @@ describe('PreLoaderService', () => {
         MatDatepickerModule
       ],
       providers: [
-        {provide: LoadingController, useValue: jasmine.createSpyObj(['create', 'dismiss'])},
-        {provide: FirebaseService, useValue: jasmine.createSpyObj(['clearAuthStates'])}
+        {provide: LoadingController, useValue: jasmine.createSpyObj(['create', 'dismiss'])}
       ]
     });
     service = TestBed.inject(PreLoaderService);

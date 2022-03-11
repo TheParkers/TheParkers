@@ -7,7 +7,6 @@ import { Platform } from '@ionic/angular';
 import { LocalStorageService } from '..';
 import { LocalStorageModel } from 'src/app/models';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
