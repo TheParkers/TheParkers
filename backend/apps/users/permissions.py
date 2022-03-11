@@ -9,7 +9,7 @@ def assign_permissions_to_roles():
     Group.objects.get_or_create(name='TENANT')
     Group.objects.get_or_create(name='LANDLORD')
     Group.objects.get_or_create(name='VIEWER')
-    
+
     #Assign Permissions to roles
     # all permissions to superuser
     super_user = Group.objects.get(name='SUPERUSER')

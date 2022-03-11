@@ -1,11 +1,9 @@
 # Create your views here.
 from django.http import JsonResponse
-
-from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.parsers import JSONParser
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
-
 from apps.users.models import User
 from .models import BookingItems
 from .serializers import BookingSerializer
@@ -28,7 +26,8 @@ def booking_list(request, firebase_user_id):
                 return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
             print(serializer.errors)
         except:
-            return JsonResponse({'error': 'Booking overlaps with existing one.'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse({'error': 'Booking overlaps with existing one.'}, 
+                                status=status.HTTP_400_BAD_REQUEST)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     return JsonResponse({request.data}, status=status.HTTP_400_BAD_REQUEST)
@@ -37,7 +36,8 @@ def booking_list(request, firebase_user_id):
 @permission_classes([IsUserLoggedIn])
 def booking_modify(request, firebase_user_id, tpk_booking_id):
     try:
-        booking = BookingItems.objects.get(pk=tpk_booking_id)
+        request_user = User.objects.get(tpk_firebaseid = firebase_user_id)
+        booking = BookingItems.objects.get(pk=tpk_booking_id,tpk_booking_user = request_user)
     except BookingItems.DoesNotExist:
         return JsonResponse({'error': 'Booking not found.'},
                             status=status.HTTP_404_NOT_FOUND)
@@ -58,9 +58,9 @@ def booking_modify(request, firebase_user_id, tpk_booking_id):
         serializer = BookingSerializer(booking, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+            return JsonResponse(serializer.data,status=status.HTTP_201_CREATED)
         print(serializer.errors)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return JsonResponse(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
     if request.method == 'DELETE':
         booking.delete()
