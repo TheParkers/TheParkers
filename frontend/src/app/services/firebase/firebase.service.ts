@@ -39,6 +39,7 @@ export class FirebaseService {
   }
 
   get isAuthenticatedWithParker() {
+      console.log(this.localStorageService.getItem(LocalStorageModel.autheticationToken))
       return this.localStorageService.getItem(LocalStorageModel.autheticationToken) != null;
   }
 

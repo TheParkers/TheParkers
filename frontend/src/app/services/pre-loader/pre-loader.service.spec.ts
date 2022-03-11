@@ -1,10 +1,17 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IonicModule, LoadingController } from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { LocalStorageModel } from 'src/app/models';
 import { FirebaseService } from '..';
 
 import { PreLoaderService } from './pre-loader.service';
@@ -19,7 +26,18 @@ describe('PreLoaderService', () => {
         BrowserDynamicTestingModule, 
         IonicModule.forRoot(), 
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        BrowserDynamicTestingModule, 
+        FormsModule,
+        ReactiveFormsModule,
+        MatNativeDateModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatCardModule,
+        MatButtonModule,
+        MatDatepickerModule
       ],
       providers: [
         {provide: LoadingController, useValue: jasmine.createSpyObj(['create', 'dismiss'])},
@@ -36,7 +54,12 @@ describe('PreLoaderService', () => {
   });
 
   it('test present loader create success', () => {
-    mockLoadingCtrl.create.and.returnValue(Promise.resolve("test response"))
+    let testHtmlElement = {
+        present: () => {
+          return Promise.resolve({})
+        },
+    }
+    mockLoadingCtrl.create.and.returnValue(Promise.resolve(testHtmlElement))
     service.presentLoader()
     expect(service).toBeTruthy();
   });
