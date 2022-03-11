@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.dev';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models';
-import { FirebaseService } from '..';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +12,13 @@ export class UserService {
   }
   
   getuserbyemail(id:any): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+      })
+    }
     return this.http.get<User>(
-                    environment.apiServer+environment.apiUrls.user.userbyid+id)
+                    environment.apiServer+environment.apiUrls.user.userbyid+id, 
+                    httpOptions)
   } 
 }
