@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.maps',
     'apps.parkersauth',
+    'apps.parkingspace',
+    'apps.pricing',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
