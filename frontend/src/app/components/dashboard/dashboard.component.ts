@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   {
   }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.userService.getuserbyemail(this.firebaseService.authUser?.tpk_email).subscribe({
       next: (user) => {
           console.log('User service call', user)
