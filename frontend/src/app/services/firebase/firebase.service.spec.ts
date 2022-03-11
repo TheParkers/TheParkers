@@ -68,10 +68,12 @@ describe('FirebaseService', () => {
       uid: 'sample'
     }
     let authUser: UserDetails = {
+                    user:{
                         tpk_email: "testemail",
                         tpk_name: "test name", 
                         tpk_photoUrl: "test photo"
                       }
+                    }
     
     mockAuthService = TestBed.inject(AngularFireAuth)
     authService = TestBed.inject(AuthService)
