@@ -45,7 +45,6 @@ describe('PreLoaderService', () => {
     });
     service = TestBed.inject(PreLoaderService);
     mockLoadingCtrl = TestBed.inject(LoadingController);
-    mockFirebaseService = TestBed.inject(FirebaseService);
   });
 
   it('should be created', () => {
