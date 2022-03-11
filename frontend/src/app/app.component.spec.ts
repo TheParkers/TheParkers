@@ -10,7 +10,6 @@ describe('AppComponent', () => {
 
     TestBed.configureTestingModule({
       providers: [
-        {provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['login']) }
       ],
       declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

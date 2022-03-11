@@ -25,7 +25,7 @@ export class FirebaseService{
       this.authState = authState
     });
     let parker_token = this.localStorageService.getItem(LocalStorageModel.autheticationToken)
-      if (parker_token && this.router.url != '/home')
+      if (parker_token)
       {
         this.parkerAuth.getSignedInUser().subscribe({
           next: response => {
@@ -36,6 +36,9 @@ export class FirebaseService{
             this.localStorageService.removeItem(LocalStorageModel.autheticationToken)
           }
         })
+      }
+      else{
+        this.router.navigate(['/home'])
       }
     }
 

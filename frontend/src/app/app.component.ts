@@ -7,5 +7,5 @@ import { FirebaseService } from './services';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private firebaseService: FirebaseService) {}
+  constructor() {}
 }
