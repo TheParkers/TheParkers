@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ActionSheetController, IonicModule } from '@ionic/angular';
 import { of, throwError } from 'rxjs';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { AuthService, FirebaseService } from 'src/app/services';
+import { AuthService, FirebaseService, PreLoaderService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 import { UserDetails } from 'src/app/models/responses/user'
 import { DashboardComponent } from './dashboard.component';
@@ -73,7 +73,8 @@ describe('DashboardComponent', () => {
       providers: [
         { provide: FirebaseService, useValue: jasmine.createSpyObj('FirebaseService', ['logout'])},
         { provide: AuthService, useValue: jasmine.createSpyObj('AuthService', ['getSignedInUser'])},
-        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])}
+        { provide: ActionSheetController, useValue: jasmine.createSpyObj('ActionSheetController', ['create'])},
+        { provide: PreLoaderService, useValue: jasmine.createSpyObj('PreLoaderService', ['presentLoader', 'dismissLoader'])}
       ],
       declarations: [ DashboardComponent ]
     })

@@ -88,10 +88,8 @@ describe('FirebaseService', () => {
 
   it('Test service initialization', () => {
     service.authUser = {}
-    expect(service.authState).toBeTruthy()
+    expect(service.authState).toBeFalsy()
     expect(service.isAuthenticatedWithFirebase).toBeTruthy()
-    expect(service.isEmailVerified).toBeTruthy()
-    expect(service.currentUserId).toEqual('sample')
     expect(service).toBeTruthy()
   });
 
