@@ -31,7 +31,6 @@ def users_list(request):
 @api_view(['GET', 'DELETE'])
 @permission_classes([IsUserLoggedIn])
 def user_mod(request, firebase_user_id):
-    print(request.COOKIES)
     '''
     API: users/<str:pk>
     urlparam: pk
