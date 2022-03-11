@@ -5,7 +5,7 @@ import { finalize } from "rxjs/operators";
 import { LocalStorageModel } from 'src/app/models';
 import { environment } from 'src/environments/environment.dev';
 import { LocalStorageService } from '..';
-import { PreloaderComponent } from 'src/app/components/pre-loader/pre-loader.component';
+import { PreLoaderService } from '..';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,11 @@ import { PreloaderComponent } from 'src/app/components/pre-loader/pre-loader.com
 export class HttpInterceptorService implements HttpInterceptor {
   localStorageService: LocalStorageService;
 
-  constructor(localStorageService: LocalStorageService, public preloaderComponent: PreloaderComponent) { 
+  constructor(localStorageService: LocalStorageService, public preLoaderService: PreLoaderService) { 
     this.localStorageService = localStorageService
   }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.preloaderComponent.presentLoading()
+    this.preLoaderService.presentLoader()
 
     const jwtToken = this.localStorageService.getItem(LocalStorageModel.autheticationToken);
     const isParkersUrl = request.url.startsWith(environment.apiServer);
@@ -29,6 +29,8 @@ export class HttpInterceptorService implements HttpInterceptor {
     request = request.clone({
       setHeaders: { 'Content-Type': 'application/json' }
     });
-    return next.handle(request);
+    return next.handle(request).pipe(
+            finalize(() => this.preLoaderService.dismissLoader())
+        );
   }
 }
