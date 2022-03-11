@@ -1,4 +1,4 @@
-import { HttpHandler, HttpRequest } from '@angular/common/http';
+import { HttpRequest } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Observable, Observer, sample } from 'rxjs';
 import { ParkerSinginResponse } from 'src/app/models';
@@ -49,7 +49,12 @@ describe('HttpInterceptorService', () => {
     mockLocalStorageService.getItem.and.returnValue('test');
     let testoutput = service.intercept(sampleHttpRequest, next)
     expect(service).toBeTruthy();
-    console.log(testoutput)
+    testoutput.subscribe({
+      next: (response) => {
+        expect(response).toBeTruthy()
+        console.log("obervable object",response)
+      }
+    })
   });
 
   it('Test intercept with url not starting with api url', () => {
@@ -74,7 +79,12 @@ describe('HttpInterceptorService', () => {
     mockLocalStorageService.getItem.and.returnValue('test');
     let testoutput = service.intercept(sampleHttpRequest, next)
     expect(service).toBeTruthy();
-    console.log(testoutput)
+    testoutput.subscribe({
+      next: (response) => {
+        expect(response).toBeTruthy()
+        console.log("obervable object",response)
+      }
+    })
   });
 
   it('Test intercept with no auth token', () => {
