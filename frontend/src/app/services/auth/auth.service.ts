@@ -33,8 +33,8 @@ export class AuthService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        Authorization: token
-      })
+      }),
+      credentials: 'same-origin'
     }
     return this.http.post<FirebaseToken>(environment.apiServer+environment.apiUrls.loginUser, requestObj, httpOptions)
     .pipe(
