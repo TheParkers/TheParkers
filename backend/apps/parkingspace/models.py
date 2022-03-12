@@ -1,4 +1,3 @@
-from tkinter import E
 from django.db import models
 from apps.users.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator

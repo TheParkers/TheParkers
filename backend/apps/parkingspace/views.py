@@ -33,6 +33,7 @@ def parkingspace_list(request):
         filterset = ParkingSpaceFilter(request.GET, queryset=parking_spaces)
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
+        print(filterset.qs)
         serializer = ParkingSpaceSerializer(filterset.qs, many=True)
         return JsonResponse(serializer.data, safe=False)
 

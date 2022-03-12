@@ -20,7 +20,6 @@ urlpatterns = [
     path('', include('apps.parkersauth.urls')),
     path('', include('apps.maps.urls')),
     path('', include('apps.parkingspace.urls')),
-    path('', include('apps.dashboard.urls'))
     path('', include('apps.booking.urls')),
 ]
 
