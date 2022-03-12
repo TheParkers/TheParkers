@@ -41,18 +41,17 @@ class ParkingSpaceSerializer(serializers.ModelSerializer):
         return response
 
     def create(self, validated_data):
-        parkingspace_location_data = validated_data.pop('tpk_ps_location')
-        parkingspace_features_data = validated_data.pop('tpk_parking_features')
         parkingspace_user_data = validated_data.pop('tpk_user')
-        parkingspace_image_data = validated_data.pop('tpk_parkingspace_images')
-        validated_data['tpk_ps_location'] = ParkerMap.objects.create(**parkingspace_location_data)
-        validated_data['tpk_parking_features'] = ParkingSpaceFeatures.objects.create(**parkingspace_features_data)
         if parkingspace_user_data:
             tpk_user = get_object_or_404(User, **parkingspace_user_data)
             validated_data['tpk_user'] = tpk_user
+        parkingspace_location_data = validated_data.pop('tpk_ps_location')
+        parkingspace_features_data = validated_data.pop('tpk_parking_features')
+        parkingspace_image_data = validated_data.pop('tpk_parkingspace_images')
+        validated_data['tpk_ps_location'] = ParkerMap.objects.create(**parkingspace_location_data)
+        validated_data['tpk_parking_features'] = ParkingSpaceFeatures.objects.create(**parkingspace_features_data)
 
         parkingspace = ParkingSpace.objects.create(**validated_data)
-
         parkingspace_images_list = []
         for image in parkingspace_image_data:
             parkingspace_images_list.append(ParkingSpaceImages.objects.create(tpk_parkingspace=parkingspace, **image))
