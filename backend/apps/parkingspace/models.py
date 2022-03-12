@@ -22,6 +22,8 @@ class ParkingSpace(models.Model):
     tpk_rating = models.PositiveSmallIntegerField(default=1,
                 validators=[MinValueValidator(1), MaxValueValidator(5)])
     tpk_description = models.TextField(max_length=500)
+    tpk_access_information = models.TextField(max_length=500, default="NA")
+    tpk_price_per_hour = models.FloatField(default=2.0)
     tpk_parking_area = models.FloatField()
     tpk_has_features = models.BooleanField(default=False)
     tpk_vehicle_capacity = models.IntegerField()
@@ -33,14 +35,7 @@ class ParkingSpace(models.Model):
     tpk_is_booked = models.BooleanField(default=False)
 
 class ParkingSpaceImages(models.Model):
+    tpk_base64_image = models.TextField(null=True, blank=True)
     tpk_parkingspace = models.ForeignKey(ParkingSpace,
                     related_name='tpk_parkingspace_images',
-                    on_delete=models.CASCADE, null=True)
-    tpk_image = models.ImageField()
-
-
-
-
-
-
-
+                    on_delete=models.CASCADE, null=True, blank=True)
