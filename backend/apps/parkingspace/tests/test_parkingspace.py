@@ -37,7 +37,7 @@ class TestParkingSpaceModel(APITestCase):
         #note, other fields for map location are being defaulted.
         #you can provide the fields in create func as comma separated key values pair.
         map_location = ParkerMap.objects.create(location=Point(43.47620, -80.54525))
-        map_location2 = ParkerMap.objects.create(location=Point(43.47720, -80.54625))
+        map_location2 = ParkerMap.objects.create(location=Point(43.47720, -80.54625),city = "London")
 
         mockParkingSpace.return_value = ParkingSpace.objects.create(tpk_parking_area = 100,
                                         tpk_has_features = True, tpk_vehicle_capacity = 1,
@@ -173,16 +173,24 @@ class TestParkingSpaceModel(APITestCase):
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_filter_parking_area(self, mock_perm, mock_service):
-        response = self.client.get('/parking?tpk_parking_area=400')
-        parkingspace = ParkingSpace.objects.get(tpk_parking_area = 500)
-        serializer = ParkingSpaceSerializer(parkingspace)
-        # print(serializer.data,"\n\n")
-        # print(response.content)
+        response = self.client.get('/parking?tpk_parking_area__gte=400')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         parkingspace = ParkingSpace.objects.get(tpk_parking_area = 500)
-        # print(parkingspace)
-        # serializer = ParkingSpaceSerializer(parkingspace)
-        # #note that the get returns queryset, so we are using many=True.
-        # ps_json_resp = JsonResponse(serializer.data, safe=False)
-        # self.assertJSONEqual(str(response.content, encoding='utf8'),
-        #                     str(ps_json_resp.content, encoding='utf8'))
+        serializer = ParkingSpaceSerializer(parkingspace)
+        #note that the get returns queryset, so we are using many=True.
+        ps_json_resp = JsonResponse(serializer.data, safe=False)
+        self.assertJSONEqual(str(response.content, encoding='utf8').strip('[]'),
+                            str(ps_json_resp.content, encoding='utf8'))
+    
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
+    def test_filter_city(self, mock_perm, mock_service):
+        response = self.client.get('/parking?tpk_ps_location__city__iexact=london')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        parkingspace = ParkingSpace.objects.get(tpk_parking_area = 500)
+        serializer = ParkingSpaceSerializer(parkingspace)
+        #note that the get returns queryset, so we are using many=True.
+        ps_json_resp = JsonResponse(serializer.data, safe=False)
+        self.assertJSONEqual(str(response.content, encoding='utf8').strip('[]'),
+                            str(ps_json_resp.content, encoding='utf8'))
+    

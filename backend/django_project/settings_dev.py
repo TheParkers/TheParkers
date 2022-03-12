@@ -98,7 +98,7 @@ DATABASES = {
         'PASSWORD': 'theparkers',
         'HOST': '35.223.58.152',
         'TEST': {
-            'NAME': 'theparkerstestdb',
+            'NAME': 'theparkerstestdb1',
         },
     }
 }

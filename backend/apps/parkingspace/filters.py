@@ -2,6 +2,8 @@ from django_filters import rest_framework as filters
 from .models import ParkingSpace
 
 class ParkingSpaceFilter(filters.FilterSet):
+
+    
     class Meta:
         model = ParkingSpace
         fields = {

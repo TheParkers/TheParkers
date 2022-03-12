@@ -28,12 +28,12 @@ def parkingspace_list(request):
     success response: list<parkingspaces>
     """
     if request.method == 'GET':
-        parking_spaces = ParkingSpace.objects.all()
+        # parking_spaces = ParkingSpace.objects.all()
 
-        filterset = ParkingSpaceFilter(request.GET, queryset=parking_spaces)
+        filterset = ParkingSpaceFilter(request.GET, queryset=ParkingSpace.objects.all())
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
-        print(filterset.qs)
+        # print(filterset.qs)
         serializer = ParkingSpaceSerializer(filterset.qs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
