@@ -51,6 +51,7 @@ import { BookingComponent } from './components/booking/booking.component';
 	BookingComponent,
     AddParkingComponent
   ],
+  entryComponents: [BookingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

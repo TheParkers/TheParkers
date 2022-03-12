@@ -2,11 +2,11 @@
     <ion-toolbar>
       <ion-title>Booking Details</ion-title>
       <ion-buttons slot="end">
-        <ion-button color="danger" (click)="close()">Close</ion-button>
+        <ion-button  (click)="close()">Close</ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content fullscreen>
+  <ion-content fullscreen class="ion-padding">
         <ion-item>
             <ion-label>
             <h2>Parking Space</h2>
@@ -33,7 +33,7 @@
         </ion-item>
         <ion-item>
             <ion-col text-center>
-                <ion-button color = "success" (click)="booking()">Confirm Booking</ion-button>
+                <ion-button expand= "block" color = "success" (click)="booking()" class="ion-margin-top">Confirm Booking</ion-button>
             </ion-col>
         </ion-item>
    </ion-content>
