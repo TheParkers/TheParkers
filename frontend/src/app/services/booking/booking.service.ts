@@ -11,12 +11,12 @@ export class BookingService{
 
   constructor(private http: HttpClient) { }
 
-  createBooking(): Observable<any> {
+  createBooking(tpk_parkingspace: any, tpk_book_start_datetime: any,tpk_book_end_datetime: any, tpk_firebaseid: any): Observable<any> {
     const samplebookingSpace: bookingspace = {
-      "tpk_parkingspace": 2,
-      "tpk_book_start_datetime" : new Date(),
-      "tpk_book_end_datetime": new Date(),
-      "tpk_firebaseid": "4"
+      "tpk_parkingspace": tpk_parkingspace,
+      "tpk_book_start_datetime" :tpk_book_start_datetime,
+      "tpk_book_end_datetime": tpk_book_end_datetime,
+      "tpk_firebaseid": tpk_firebaseid
       }
     return this.http.post<bookingspace>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
     .pipe(

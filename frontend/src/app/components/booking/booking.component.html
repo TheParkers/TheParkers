@@ -1,0 +1,39 @@
+ <ion-header translucent>
+    <ion-toolbar>
+      <ion-title>Booking Details</ion-title>
+      <ion-buttons slot="end">
+        <ion-button color="danger" (click)="close()">Close</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content fullscreen>
+        <ion-item>
+            <ion-label>
+            <h2>Parking Space</h2>
+            <p> {{tpk_parkingspace}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+            <h2>Parking Space</h2>
+            <p> {{tpk_parkingspace}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+            <h2>Booking Start Date</h2>
+            <p> {{tpk_book_start_datetime}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+            <h2>Booking End Date</h2>
+            <p> {{tpk_book_end_datetime}}</p>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-col text-center>
+                <ion-button color = "success" (click)="booking()">Confirm Booking</ion-button>
+            </ion-col>
+        </ion-item>
+   </ion-content>

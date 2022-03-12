@@ -37,7 +37,7 @@ describe('BookingService', () => {
     let tpk_book_end_datetime = 31
     let tpk_firebaseid =4
     http.post.and.returnValue(of({}))
-    service.createBooking()
+    service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime, tpk_firebaseid )
   });
 
   it('test creatBooking failure', () => {
@@ -48,7 +48,7 @@ describe('BookingService', () => {
     let tpk_firebaseid =4
     let errorResponse: any
     http.post.and.returnValue(throwError(() => errorResponse))
-    let response = service.createBooking()
+    let response = service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime, tpk_firebaseid )
     response.subscribe( error => {
       expect(error).toEqual(errorResponse)
     });

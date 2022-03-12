@@ -18,7 +18,10 @@
                     <ion-row>{{parkingSpace.address}}</ion-row>
                     <ion-row>{{parkingSpace.city}}, {{parkingSpace.area_code}}</ion-row>
                 </ion-col>
-                <ion-button color="success"> Book Now </ion-button>
+                <div id="container">
+                    <ion-button color = "success" (click)="initModal()">Book Now</ion-button>
+                    <p *ngIf="modalDataResponse">{{modalDataResponse}}</p>
+                </div>
             </ion-row>
             <ion-row>
                 <div class="desc-heading">Parking Description</div>
