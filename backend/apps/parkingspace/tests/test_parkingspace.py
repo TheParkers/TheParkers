@@ -173,6 +173,9 @@ class TestParkingSpaceModel(APITestCase):
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_filter_parking_area(self, mock_perm, mock_service):
+         '''
+        test_filter_parking_area: Filter parking area
+        '''
         response = self.client.get('/parking?tpk_parking_area__gte=400')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         parkingspace = ParkingSpace.objects.get(tpk_parking_area = 500)
@@ -185,6 +188,9 @@ class TestParkingSpaceModel(APITestCase):
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_filter_city(self, mock_perm, mock_service):
+        '''
+        test_filter_city: Filter based on city
+        '''
         response = self.client.get('/parking?tpk_ps_location__city__iexact=london')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         parkingspace = ParkingSpace.objects.get(tpk_parking_area = 500)
