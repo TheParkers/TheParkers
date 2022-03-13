@@ -1,3 +1,6 @@
+'''
+model for booking
+'''
 from django.contrib.postgres.constraints import ExclusionConstraint
 from django.contrib.postgres.fields import (
     DateTimeRangeField,
@@ -15,9 +18,9 @@ class TsTzRange(Func):
     output_field = DateTimeRangeField()
 
 class BookingItems(models.Model):
-    tpk_parkingspace = models.ForeignKey(ParkingSpace, related_name='tpk_parkingspace', 
+    tpk_parkingspace = models.ForeignKey(ParkingSpace, related_name='tpk_parkingspace',
                                         on_delete=models.CASCADE, null=True, blank=True)
-    tpk_booking_user = models.ForeignKey(User, on_delete=models.CASCADE, 
+    tpk_booking_user = models.ForeignKey(User, on_delete=models.CASCADE,
                                         related_name='tpk_user', null=True, blank=True)
     tpk_book_start_datetime = models.DateTimeField()
     tpk_book_end_datetime = models.DateTimeField()
@@ -29,7 +32,7 @@ class BookingItems(models.Model):
             ExclusionConstraint(
                 name='exclude_overlapping_booking',
                 expressions=(
-                    (TsTzRange('tpk_book_start_datetime', 'tpk_book_end_datetime', 
+                    (TsTzRange('tpk_book_start_datetime', 'tpk_book_end_datetime',
                             RangeBoundary()), RangeOperators.OVERLAPS),
                     ('tpk_parkingspace', RangeOperators.EQUAL),
                 ),

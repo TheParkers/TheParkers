@@ -11,6 +11,9 @@ from .serializers import BookingSerializer
 @api_view(['GET', 'POST'])
 @permission_classes([IsUserLoggedIn])
 def booking_list(request, firebase_user_id):
+    '''
+    Get View
+    '''
     if request.method == 'GET':
         request_user = User.objects.get(tpk_firebaseid = firebase_user_id)
         bookings = BookingItems.objects.filter(tpk_booking_user = request_user)
@@ -26,7 +29,7 @@ def booking_list(request, firebase_user_id):
                 return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
             print(serializer.errors)
         except:
-            return JsonResponse({'error': 'Booking overlaps with existing one.'}, 
+            return JsonResponse({'error': 'Booking overlaps with existing one.'},
                                 status=status.HTTP_400_BAD_REQUEST)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
