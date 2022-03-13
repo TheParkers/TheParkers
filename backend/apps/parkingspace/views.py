@@ -22,7 +22,7 @@ from dateutil import parser
 @permission_classes([IsUserLoggedIn])
 def parkingspace_list(request):
     """
-    API: parkingspace_list
+    API: parkingspace_list and filter
     payload: {
     }
     success response: list<parkingspaces>
