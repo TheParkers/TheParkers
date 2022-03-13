@@ -147,13 +147,16 @@ class TestParkingSpaceModel(APITestCase):
         test_post_from_non_existing_user: test negative scenario
         '''
         file = "R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEA11=="
-        parking_space = {"tpk_parking_features": {"tpk_parking_features_id": 2, "tpk_has_car_charging": True,
+        parking_space = {"tpk_parking_features": {"tpk_parking_features_id": 2,
+                        "tpk_has_car_charging": True,
                         "tpk_has_car_wash": False, "tpk_has_indoor_parking": False},
                         "tpk_ps_location": {"ps_location_id": 3, 'type': 'Feature',
                         'geometry': {'type': 'Point', 'coordinates': [11.0, 11.0]},
-                        'properties': {}}, "tpk_rating": 1, "tpk_description": "very good parking space",
+                        'properties': {}}, "tpk_rating": 1,
+                        "tpk_description": "very good parking space",
                         "tpk_parking_area": 100.0, "tpk_has_features": True,
-                        "tpk_vehicle_capacity": 1, "tpk_created_on": "2021-02-25T16:19:57.377092Z",
+                        "tpk_vehicle_capacity": 1,
+                        "tpk_created_on": "2021-02-25T16:19:57.377092Z",
                         "tpk_last_booked": "2022-02-25T16:19:57.376731Z",
                         "tpk_is_booked": False, "tpk_user": {"tpk_firebaseid": "1234"},
                         "tpk_parkingspace_images": [{"id": 3, "tpk_base64_image": file}]}

@@ -28,11 +28,11 @@ class BookingSerializer(serializers.ModelSerializer):
         return new_booking
 
     def update(self, instance, validated_data):
-        instance.tpk_book_start_datetime = validated_data.get('tpk_book_start_datetime', 
+        instance.tpk_book_start_datetime = validated_data.get('tpk_book_start_datetime',
                                                             instance.tpk_book_start_datetime)
-        instance.tpk_book_end_datetime = validated_data.get('tpk_book_end_datetime', 
+        instance.tpk_book_end_datetime = validated_data.get('tpk_book_end_datetime',
                                                             instance.tpk_book_end_datetime)
         #instance.tpk_hourly_rate = validated_data.get('tpk_hourly_rate', instance.tpk_hourly_rate)
-        instance.tpk_book_cancelled = validated_data.get('tpk_book_cancelled', 
+        instance.tpk_book_cancelled = validated_data.get('tpk_book_cancelled',
                                                             instance.tpk_book_cancelled)
         return instance
