@@ -14,6 +14,9 @@ from apps.parkingspace.models import ParkingSpace
 
 # Create your models here.
 class TsTzRange(Func):
+    '''
+    Function
+    '''
     function = 'TSTZRANGE'
     output_field = DateTimeRangeField()
 

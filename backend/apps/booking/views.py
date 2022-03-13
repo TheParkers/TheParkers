@@ -1,4 +1,6 @@
-# Create your views here.
+'''
+Views
+'''
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
