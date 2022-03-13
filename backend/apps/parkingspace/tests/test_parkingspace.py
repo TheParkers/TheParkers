@@ -1,3 +1,6 @@
+'''
+Tests for this app
+'''
 from unittest.mock import patch
 from django.http import JsonResponse
 from django.contrib.gis.geos import Point
@@ -13,7 +16,9 @@ from django.utils import timezone
 import json
 
 class TestParkingSpaceModel(APITestCase):
-
+    '''
+    Tests for this app
+    '''
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.models.User.objects.get')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
@@ -191,7 +196,7 @@ class TestParkingSpaceModel(APITestCase):
         ps_json_resp = JsonResponse(serializer.data, safe=False)
         self.assertJSONEqual(str(response.content, encoding='utf8').strip('[]'),
                             str(ps_json_resp.content, encoding='utf8'))
-    
+
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_filter_city(self, mock_perm, mock_service):
@@ -206,4 +211,3 @@ class TestParkingSpaceModel(APITestCase):
         ps_json_resp = JsonResponse(serializer.data, safe=False)
         self.assertJSONEqual(str(response.content, encoding='utf8').strip('[]'),
                             str(ps_json_resp.content, encoding='utf8'))
-    
