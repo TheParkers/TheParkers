@@ -13,8 +13,8 @@ from .serializers import ParkingSpaceSerializer
 from .filters import ParkingSpaceFilter
 from django_filters.utils import translate_validation
 from rest_framework.pagination import PageNumberPagination
-
-
+from apps.booking.models import BookingItems
+from dateutil import parser
 
 #currently only logged in users can get and post.
 #TODO separate api view get and post according to perms
@@ -28,12 +28,29 @@ def parkingspace_list(request):
     success response: list<parkingspaces>
     """
     if request.method == 'GET':
-        # parking_spaces = ParkingSpace.objects.all()
+        queryset = ParkingSpace.objects.all()
+        tpk_book_start_datetime = request.GET.getlist('tpk_book_start_datetime')
+        tpk_book_end_datetime = request.GET.getlist('tpk_book_end_datetime')
+        if tpk_book_start_datetime:
+            tpk_book_start_datetime = tpk_book_start_datetime[0]
+        if tpk_book_end_datetime:
+            tpk_book_end_datetime = tpk_book_end_datetime[0]
+        if tpk_book_end_datetime and tpk_book_start_datetime:
+            tpk_book_start_datetime = parser.parse(tpk_book_start_datetime)
+            tpk_book_end_datetime = parser.parse(tpk_book_end_datetime)
+            start_time_overlapping_bookings_qs = BookingItems.objects.filter(
+                                              tpk_book_start_datetime__lte=tpk_book_start_datetime).filter(
+                                              tpk_book_end_datetime__gte=tpk_book_start_datetime)
+            end_time_overlapping_bookings_qs = BookingItems.objects.filter(
+                                            tpk_book_start_datetime__lte=tpk_book_end_datetime).filter(
+                                            tpk_book_end_datetime__gte=tpk_book_end_datetime)
+            bookings_qs = start_time_overlapping_bookings_qs.union(end_time_overlapping_bookings_qs)
+            ids = [booking.tpk_parkingspace_id for booking in bookings_qs]
+            queryset = queryset.exclude(id__in=ids)
 
-        filterset = ParkingSpaceFilter(request.GET, queryset=ParkingSpace.objects.all())
+        filterset = ParkingSpaceFilter(request.GET, queryset=queryset)
         if not filterset.is_valid():
             raise translate_validation(filterset.errors)
-        # print(filterset.qs)
         serializer = ParkingSpaceSerializer(filterset.qs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
