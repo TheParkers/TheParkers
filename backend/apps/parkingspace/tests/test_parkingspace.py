@@ -173,7 +173,7 @@ class TestParkingSpaceModel(APITestCase):
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
     def test_filter_parking_area(self, mock_perm, mock_service):
-         '''
+        '''
         test_filter_parking_area: Filter parking area
         '''
         response = self.client.get('/parking?tpk_parking_area__gte=400')
