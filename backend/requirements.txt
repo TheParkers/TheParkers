@@ -5,6 +5,7 @@ djangorestframework-gis
 djangorestframework-simplejwt
 requests
 pyrebase4
+django-filter
 
 # Dev dependencies
 psycopg2

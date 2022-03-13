@@ -10,6 +10,11 @@ from rest_framework.parsers import JSONParser
 from apps.parkersauth.permissions.isuserloggedin import IsUserLoggedIn
 from .models import ParkingSpace, ParkingSpaceImages
 from .serializers import ParkingSpaceSerializer
+from .filters import ParkingSpaceFilter
+from django_filters.utils import translate_validation
+from rest_framework.pagination import PageNumberPagination
+
+
 
 #currently only logged in users can get and post.
 #TODO separate api view get and post according to perms
@@ -23,8 +28,13 @@ def parkingspace_list(request):
     success response: list<parkingspaces>
     """
     if request.method == 'GET':
-        parking_spaces = ParkingSpace.objects.all()
-        serializer = ParkingSpaceSerializer(parking_spaces, many=True)
+        # parking_spaces = ParkingSpace.objects.all()
+
+        filterset = ParkingSpaceFilter(request.GET, queryset=ParkingSpace.objects.all())
+        if not filterset.is_valid():
+            raise translate_validation(filterset.errors)
+        # print(filterset.qs)
+        serializer = ParkingSpaceSerializer(filterset.qs, many=True)
         return JsonResponse(serializer.data, safe=False)
 
     """
