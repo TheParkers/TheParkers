@@ -42,7 +42,9 @@ class TestParkingSpaceModel(APITestCase):
         #note, other fields for map location are being defaulted.
         #you can provide the fields in create func as comma separated key values pair.
         map_location = ParkerMap.objects.create(location=Point(43.47620, -80.54525))
-        map_location2 = ParkerMap.objects.create(location=Point(43.47720, -80.54625),city = "London")
+        map_location2 = ParkerMap.objects.create(
+                        location=Point(43.47720, -80.54625),
+                        city = "London")
 
         mockParkingSpace.return_value = ParkingSpace.objects.create(tpk_parking_area = 100,
                                         tpk_has_features = True, tpk_vehicle_capacity = 1,
@@ -62,10 +64,12 @@ class TestParkingSpaceModel(APITestCase):
                                         tpk_is_booked = False,
                                         tpk_user = user_2)
 
-        parkingspace_image_1 = ParkingSpaceImages.objects.create(tpk_parkingspace=mockParkingSpace.return_value,
-                                                                tpk_base64_image=file)
-        parkingspace_image_2 = ParkingSpaceImages.objects.create(tpk_parkingspace=mockParkingSpace.return_value,
-                                                                tpk_base64_image=file)
+        parkingspace_image_1 = ParkingSpaceImages.objects.create(
+                               tpk_parkingspace=mockParkingSpace.return_value,
+                               tpk_base64_image=file)
+        parkingspace_image_2 = ParkingSpaceImages.objects.create(
+                               tpk_parkingspace=mockParkingSpace.return_value,
+                               tpk_base64_image=file)
         parkingspace_images = [parkingspace_image_1, parkingspace_image_2]
         mockParkingSpace.return_value.tpk_parkingspace_images.set(parkingspace_images)
 
@@ -114,9 +118,11 @@ class TestParkingSpaceModel(APITestCase):
                         "tpk_ps_location": {"ps_location_id": 3, 'type': 'Feature',
                         'geometry': {'type': 'Point', 'coordinates': [11.0, 11.0]},
                         'properties': {}},
-                        "tpk_rating": 1, "tpk_description": "very good parking space",
+                        "tpk_rating": 1,
+                        "tpk_description": "very good parking space",
                         "tpk_parking_area": 100.0, "tpk_has_features": True,
-                        "tpk_vehicle_capacity": 1, "tpk_created_on": "2021-02-25T16:19:57.377092Z",
+                        "tpk_vehicle_capacity": 1,
+                        "tpk_created_on": "2021-02-25T16:19:57.377092Z",
                         "tpk_last_booked": "2022-02-25T16:19:57.376731Z",
                         "tpk_is_booked": False,
                         "tpk_user": {"tpk_firebaseid": "test_firebase_id"},

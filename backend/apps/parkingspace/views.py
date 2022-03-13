@@ -39,12 +39,15 @@ def parkingspace_list(request):
             tpk_book_start_datetime = parser.parse(tpk_book_start_datetime)
             tpk_book_end_datetime = parser.parse(tpk_book_end_datetime)
             start_time_overlapping_bookings_qs = BookingItems.objects.filter(
-                                              tpk_book_start_datetime__lte=tpk_book_start_datetime).filter(
+                                              tpk_book_start_datetime__lte=
+                                              tpk_book_start_datetime).filter(
                                               tpk_book_end_datetime__gte=tpk_book_start_datetime)
             end_time_overlapping_bookings_qs = BookingItems.objects.filter(
-                                            tpk_book_start_datetime__lte=tpk_book_end_datetime).filter(
+                                            tpk_book_start_datetime__lte=
+                                            tpk_book_end_datetime).filter(
                                             tpk_book_end_datetime__gte=tpk_book_end_datetime)
-            bookings_qs = start_time_overlapping_bookings_qs.union(end_time_overlapping_bookings_qs)
+            bookings_qs = start_time_overlapping_bookings_qs.union(
+                          end_time_overlapping_bookings_qs)
             ids = [booking.tpk_parkingspace_id for booking in bookings_qs]
             queryset = queryset.exclude(id__in=ids)
 
