@@ -115,7 +115,8 @@ class TestParkingSpaceModel(APITestCase):
                         "tpk_last_booked": "2022-02-25T16:19:57.376731Z",
                         "tpk_is_booked": False,
                         "tpk_user": {"tpk_firebaseid": "test_firebase_id"},
-                        "tpk_parkingspace_images": [{"id": 3, "tpk_base64_image": file}, {"id": 4, "tpk_base64_image": file}]}
+                        "tpk_parkingspace_images": [{"id": 3, "tpk_base64_image": file},
+                        {"id": 4, "tpk_base64_image": file}]}
         resp = self.client.post('/parking', parking_space, format='json')
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
 
