@@ -14,7 +14,8 @@ from .filters import ParkingSpaceFilter
 from django_filters.utils import translate_validation
 from rest_framework.pagination import PageNumberPagination
 from apps.booking.models import BookingItems
-from dateutil import parser
+from datetime import datetime as dt
+from django.utils import timezone
 
 #currently only logged in users can get and post.
 #TODO separate api view get and post according to perms
@@ -36,8 +37,12 @@ def parkingspace_list(request):
         if tpk_book_end_datetime:
             tpk_book_end_datetime = tpk_book_end_datetime[0]
         if tpk_book_end_datetime and tpk_book_start_datetime:
-            tpk_book_start_datetime = parser.parse(tpk_book_start_datetime)
-            tpk_book_end_datetime = parser.parse(tpk_book_end_datetime)
+            #the format is unixtimestamp.
+            #we convert it back to the tz aware datetime.
+            tpk_book_start_datetime = dt.utcfromtimestamp(int(tpk_book_start_datetime)).replace(
+                                      tzinfo=timezone.utc)
+            tpk_book_end_datetime   = dt.utcfromtimestamp(int(tpk_book_end_datetime)).replace(
+                                      tzinfo=timezone.utc)
             start_time_overlapping_bookings_qs = BookingItems.objects.filter(
                                               tpk_book_start_datetime__lte=
                                               tpk_book_start_datetime).filter(
