@@ -39,9 +39,9 @@ def parkingspace_list(request):
         if tpk_book_end_datetime and tpk_book_start_datetime:
             #the format is unixtimestamp.
             #we convert it back to the tz aware datetime.
-            tpk_book_start_datetime = dt.utcfromtimestamp(tpk_book_start_datetime).replace(
+            tpk_book_start_datetime = dt.utcfromtimestamp(int(tpk_book_start_datetime)).replace(
                                       tzinfo=timezone.utc)
-            tpk_book_end_datetime   = dt.utcfromtimestamp(tpk_book_end_datetime).replace(
+            tpk_book_end_datetime   = dt.utcfromtimestamp(int(tpk_book_end_datetime)).replace(
                                       tzinfo=timezone.utc)
             start_time_overlapping_bookings_qs = BookingItems.objects.filter(
                                               tpk_book_start_datetime__lte=
