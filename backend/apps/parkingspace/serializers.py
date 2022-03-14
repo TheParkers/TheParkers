@@ -35,11 +35,15 @@ class ParkingSpaceSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['tpk_parking_features'] = ParkingSpaceFeaturesSerializer(instance.tpk_parking_features).data
-        response['tpk_ps_location'] = MapSerializer(instance.tpk_ps_location).data
-        response['tpk_user'] = UserSerializer(instance.tpk_user).data['tpk_firebaseid']
-        response['tpk_parkingspace_images'] = ParkingSpaceImageSerializer(instance.tpk_parkingspace_images, 
-                                                                          many=True).data
+        response['tpk_parking_features'] = ParkingSpaceFeaturesSerializer(
+                                           instance.tpk_parking_features).data
+        response['tpk_ps_location'] = MapSerializer(
+                                      instance.tpk_ps_location).data
+        response['tpk_user'] = UserSerializer(
+                               instance.tpk_user).data['tpk_firebaseid']
+        response['tpk_parkingspace_images'] = ParkingSpaceImageSerializer(
+                                              instance.tpk_parkingspace_images, 
+                                              many=True).data
         return response
 
     def create(self, validated_data):
