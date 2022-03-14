@@ -14,4 +14,3 @@ pylint
 pylint-django
 django-guardian
 Pillow
-python-dateutil
