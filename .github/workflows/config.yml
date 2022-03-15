@@ -62,7 +62,7 @@ jobs:
         run: python3 -m pip install --upgrade pip && pip install -r backend/requirements.txt
       
       - name: check lint
-        run: cd backend && pylint --fail-under=8  --load-plugins pylint_django --ignore test apps 
+        run: cd backend && pylint --fail-under=8  --load-plugins pylint_django --ignore test apps
 
       - name: check django sanity
         run: |
@@ -70,8 +70,8 @@ jobs:
             python3 manage.py check --settings=django_project.settings_stage 
             python3 manage.py makemigrations --settings=django_project.settings_stage
             python manage.py migrate --settings=django_project.settings_stage
-  
-      - name: run unit tests 
+
+      - name: run unit tests
         run: |
             cd backend
             coverage run  --omit=*/venv/*,*/migrations/*,*/test/*,*/admin.py,*/__init__.py --source='apps' manage.py test --noinput
