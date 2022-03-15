@@ -4,12 +4,13 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { IonicModule } from '@ionic/angular';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { of, throwError } from 'rxjs';
-import { BookingService } from './booking.service';
+import {BookingService} from './booking.service';
 
 
 describe('BookingService', () => {
   let service: BookingService;
   let http: any;
+  
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [BrowserDynamicTestingModule, 
@@ -35,9 +36,8 @@ describe('BookingService', () => {
     let tpk_parkingspace = 2
     let tpk_book_start_datetime = 31
     let tpk_book_end_datetime = 31
-    let tpk_firebaseid =4
     http.post.and.returnValue(of({}))
-    service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime, tpk_firebaseid )
+    service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime)
   });
 
   it('test creatBooking failure', () => {
@@ -45,10 +45,9 @@ describe('BookingService', () => {
     let tpk_parkingspace = 2
     let tpk_book_start_datetime = 31
     let tpk_book_end_datetime = 31
-    let tpk_firebaseid =4
     let errorResponse: any
     http.post.and.returnValue(throwError(() => errorResponse))
-    let response = service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime, tpk_firebaseid )
+    let response = service.createBooking(tpk_parkingspace, tpk_book_start_datetime, tpk_book_end_datetime )
     response.subscribe( error => {
       expect(error).toEqual(errorResponse)
     });
