@@ -67,7 +67,7 @@ jobs:
       - name: check django sanity
         run: |
             cd backend
-            python3 manage.py check --settings=django_project.settings_stage
+            python3 manage.py check --settings=django_project.settings_stage 
             python3 manage.py makemigrations --settings=django_project.settings_stage
             python manage.py migrate --settings=django_project.settings_stage
 
