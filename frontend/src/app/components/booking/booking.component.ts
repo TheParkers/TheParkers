@@ -8,26 +8,35 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
 })
-export class BookingComponent {
-      @Input() tpk_parkingspace: any;
-      @Input() tpk_book_start_datetime: any;
-      @Input() tpk_book_end_datetime: any;
-      @Input() tpk_firebaseid: any;
+
+export class BookingComponent 
+{
+  @Input() 
+  parkingSpace: any;
+  @Input() 
+  tpk_book_start_datetime: any;
+  @Input() 
+  tpk_book_end_datetime: any;
 
 
   constructor( private modalCtr: ModalController, public bookings: BookingService) {
+
   }
   
 
-  async close() {
+  async close() 
+  {
     await this.modalCtr.dismiss();
   }
-  booking() {
-    this.bookings.createBooking(this.tpk_parkingspace,
+  booking() 
+  {
+    this.bookings.createBooking(
+      this.parkingSpace,
       this.tpk_book_start_datetime,
-      this.tpk_book_end_datetime,
-      this.tpk_firebaseid);
-      this.modalCtr.dismiss("Booking Successfull");
+      this.tpk_book_end_datetime
+    );
+    this.modalCtr.dismiss();
+    alert("Booking Succesfull, Thanks!");
   }
   
 }
