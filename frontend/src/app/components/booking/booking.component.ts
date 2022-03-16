@@ -31,7 +31,7 @@ export class BookingComponent
   booking() 
   {
     this.bookings.createBooking(
-      this.parkingSpace,
+      this.parkingSpace.id,
       this.tpk_book_start_datetime,
       this.tpk_book_end_datetime
     );

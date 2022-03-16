@@ -18,20 +18,22 @@ export class BookingService{
     ) 
     { }
 
-  createBooking(tpk_parkingspace: any, tpk_book_start_datetime: any,tpk_book_end_datetime: any): Observable<any> {
+  createBooking(tpk_parkingspaceId: any, tpk_book_start_datetime: any,tpk_book_end_datetime: any) {
     const samplebookingSpace: bookingspace = {
-      "tpk_parkingspace": tpk_parkingspace,
+      "tpk_parkingspace": tpk_parkingspaceId,
       "tpk_book_start_datetime" :tpk_book_start_datetime,
       "tpk_book_end_datetime": tpk_book_end_datetime,
       "tpk_booking_user": {
-        "tpk_firebaseid": this.firebaseobj.getAuthState.tpk_firebaseid
-      }
+      "tpk_firebaseid": "4"
+        }
       }
       console.log(samplebookingSpace);
-      return this.http.post<bookingspace>(environment.apiServer+environment.apiUrls.bookingspace, samplebookingSpace)
-    .pipe(
-      catchError(this.handleError('Create booking', samplebookingSpace))
-    )
+      this.http.post<bookingspace>(environment.apiServer+"/users/" +"4" +"/booking", samplebookingSpace).subscribe(  (data) => {
+        console.log('booking', data);}
+        )
+    //.pipe(
+      //catchError(this.handleError('Create booking', samplebookingSpace))
+    //)
   }
   private handleError<T>(operation:any , result?: T) {
     return (error: any): Observable<any> => {
