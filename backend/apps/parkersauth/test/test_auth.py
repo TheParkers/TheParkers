@@ -45,16 +45,17 @@ class TestAuthModule(APITestCase):
         mockUser.return_value = test_user 
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
         self.assertEqual(resp.status_code, 200)
-    
+
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('rest_framework_simplejwt.tokens.RefreshToken')
-    def testGetSignedInUserWithInvalidToken(self, mockJWT):
+    def testGetSignedInUserWithInvalidToken(self, mockJWT, mockAuth):
         test_user = User()
         test_user.tpk_email = "test_email"
         test_user.is_active = True
         auth_headers = {}
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
         self.assertEqual(resp.status_code, 400)
-
+    
     @patch('rest_framework_simplejwt.tokens.RefreshToken')   
     @patch('apps.users.models.User.objects.get')
     def testGetSignedInUserWithInvalidUser(self, mockUser, mockJWT):
