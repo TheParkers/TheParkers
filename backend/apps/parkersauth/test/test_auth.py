@@ -1,4 +1,3 @@
-from django.db import models
 from rest_framework.test import APITestCase, APIRequestFactory
 from unittest.mock import patch
 from rest_framework import status
@@ -16,7 +15,7 @@ class TestAuthModule(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        mockUsers.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False}
+        mockUsers.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False, 'tpk_firebaseid': "testid"}
         Object = lambda **kwargs: type("Object", (), kwargs)
         person = Object(access_token = "test token")
         mockToken.return_value = person
@@ -34,3 +33,44 @@ class TestAuthModule(APITestCase):
                                     "test", "photoUrl": "test"}]}]}
         resp = self.client.post("/signin/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn')
+    @patch('apps.users.models.User.objects.get')
+    def testGetSignedInUser(self, mockUser, mockPerm):
+        test_user = User()
+        test_user.tpk_email = "test_email"
+        test_user.is_active = True
+        token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3NTQyNTYzLCJpYXQiOjE2NDc1Mzg5NjMsImp0aSI6IjA4ZmY2MTgyNjNhODRlMWJiM2FhOTQzMWI3MDgyOWY0IiwidHBrX2VtYWlsIjoiZGlndTM1QGdtYWlsLmNvbSJ9.rH7L_PDVbqNqTHnn6lv_scDotru4VH6fP45IPTSNnwM"
+        auth_headers = {'HTTP_AUTHORIZATION': token}
+        mockUser.return_value = test_user 
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
+        self.assertEqual(resp.status_code, 401)
+
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('rest_framework_simplejwt.tokens.RefreshToken')
+    def testGetSignedInUserWithInvalidToken(self, mockJWT, mockAuth):
+        test_user = User()
+        test_user.tpk_email = "test_email"
+        test_user.is_active = True
+        auth_headers = {}
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
+        self.assertEqual(resp.status_code, 400)
+    
+    @patch('rest_framework_simplejwt.tokens.RefreshToken')   
+    @patch('apps.users.models.User.objects.get')
+    def testGetSignedInUserWithInvalidUser(self, mockUser, mockJWT):
+        test_user = User.DoesNotExist
+        token = "Bearer eyJ0eXAiOJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3NTQyNTYzLCJpYXQiOjE2NDc1Mzg5NjMsImp0aSI6IjA4ZmY2MTgyNjNhODRlMWJiM2FhOTQzMWI3MDgyOWY0IiwidHBrX2VtYWlsIjoiZGlndTM1QGdtYWlsLmNvbSJ9.rH7L_PDVbqNqTHnn6lv_scDotru4VH6fP45IPTSNnwM"
+        auth_headers = {'HTTP_AUTHORIZATION': token}
+        mockUser.return_value = test_user
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
+        self.assertEqual(resp.status_code, 401)
+    
+    @patch('apps.users.models.User.objects.get')
+    def testGetSignedInUserAsAnonymous(self, mockUser):
+        test_user = User.DoesNotExist
+        auth_headers = {}
+        mockUser.return_value = test_user
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
+        self.assertEqual(resp.status_code, 401)
