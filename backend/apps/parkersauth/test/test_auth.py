@@ -1,3 +1,4 @@
+import base64
 from django.db import models
 from rest_framework.test import APITestCase, APIRequestFactory
 from unittest.mock import patch
@@ -33,4 +34,11 @@ class TestAuthModule(APITestCase):
                                     "email": None, "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         resp = self.client.post("/signin/", {"tpk_firebaseid": "token"}, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+    
+    @patch('apps.users.models.User.objects.get')   
+    def testGetSignedInUser(self, mockUser):
+        auth_headers = {'HTTP_AUTHORIZATION': 'Bearer ' + base64.b64encode({'tpk_email': 'test@email.com'}),}
+        mockUser.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False, 'tpk_firebaseid': "testid"}
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
