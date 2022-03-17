@@ -38,7 +38,7 @@ class TestAuthModule(APITestCase):
     
     @patch('apps.users.models.User.objects.get')   
     def testGetSignedInUser(self, mockUser):
-        auth_headers = {'HTTP_AUTHORIZATION': 'Bearer ' + base64.b64encode({'tpk_email': 'test@email.com'}),}
+        auth_headers = {'HTTP_AUTHORIZATION': 'Bearer ' + base64.b64encode("{'tpk_email': 'test@email.com'}"),}
         mockUser.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False, 'tpk_firebaseid': "testid"}
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
