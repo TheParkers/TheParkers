@@ -54,12 +54,15 @@ INSTALLED_APPS = [
     'apps.parkersauth',
     'apps.parkingspace',
     'apps.pricing',
+    'apps.dashboard',
     'apps.booking',
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'rest_framework_gis',
     'guardian',
+    'django_filters'
+    
 ]
 
 MIDDLEWARE = [
@@ -95,7 +98,7 @@ DATABASES = {
         'PASSWORD': 'theparkers',
         'HOST': '35.223.58.152',
         'TEST': {
-            'NAME': 'theparkerstestdb',
+            'NAME': 'theparkerstestdb1',
         },
     }
 }

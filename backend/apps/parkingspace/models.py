@@ -3,6 +3,8 @@ from apps.users.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from apps.maps.models import ParkerMap
 
+
+
 class ParkingSpaceFeatures(models.Model):
     tpk_has_car_charging = models.BooleanField(default=False)
     tpk_has_car_wash = models.BooleanField(default=False)

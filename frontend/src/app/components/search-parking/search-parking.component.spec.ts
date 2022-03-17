@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 
@@ -9,6 +10,7 @@ describe('SearchParkingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [ SearchParkingComponent ],
       providers: [{ provide: Router, useValue: jasmine.createSpyObj('Router', ['navigate']) }]
     })
