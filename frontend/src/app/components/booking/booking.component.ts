@@ -34,9 +34,12 @@ export class BookingComponent
       this.parkingSpace.id,
       this.tpk_book_start_datetime,
       this.tpk_book_end_datetime
-    );
+    ).subscribe( () => {
+        console.log('Booking successful');
+        alert("Booking Succesfull, Thanks!");
+    })
     this.modalCtr.dismiss();
-    alert("Booking Succesfull, Thanks!");
+    
   }
   
 }

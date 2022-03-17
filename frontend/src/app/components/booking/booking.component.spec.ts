@@ -2,18 +2,21 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalController } from '@ionic/angular';
 import { BookingComponent } from './booking.component';
 import { BookingService } from 'src/app/services';
+import { AngularDelegate } from '@ionic/angular';
 
 describe('BookingComponent', () => {
   let component: BookingComponent;
   let bookingservice: BookingService
   let modalctrl: ModalController
+  let angdelegate: AngularDelegate
   let fixture: ComponentFixture<BookingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       providers: [
           { provide: BookingService, useValue: jasmine.createSpyObj('BookingService', ['createBooking']) },
-            ModalController
+            ModalController,
+            AngularDelegate
       ],
       declarations: [ BookingComponent ]
     })
@@ -23,8 +26,10 @@ describe('BookingComponent', () => {
   beforeEach(() => {
     bookingservice = TestBed.inject(BookingService);
     modalctrl = TestBed.inject(ModalController);
+    angdelegate = TestBed.inject(AngularDelegate);
     fixture = TestBed.createComponent(BookingComponent);
     component = fixture.componentInstance;
+    component.parkingSpace = {parking_features:{}}
     fixture.detectChanges();
   });
 

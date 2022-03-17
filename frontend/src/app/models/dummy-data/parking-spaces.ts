@@ -1,4 +1,5 @@
 export const spaces = [{
+    id: 1,
     parking_area : 100,
     has_features : true,
     vehicle_capacity : 1,
@@ -19,6 +20,7 @@ export const spaces = [{
     price: 15,
     images:[]
 },{
+    id: 2,
     parking_area : 100,
     has_features : true,
     vehicle_capacity : 1,
@@ -40,6 +42,7 @@ export const spaces = [{
     images:[]
 },
 {
+    id: 3,
     parking_area : 100,
     has_features : true,
     vehicle_capacity : 1,
