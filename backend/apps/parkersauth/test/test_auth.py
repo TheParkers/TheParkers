@@ -65,3 +65,11 @@ class TestAuthModule(APITestCase):
         mockUser.return_value = test_user
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
         self.assertEqual(resp.status_code, 401)
+    
+    @patch('apps.users.models.User.objects.get')
+    def testGetSignedInUserAsAnonymous(self, mockUser):
+        test_user = User.DoesNotExist
+        auth_headers = {}
+        mockUser.return_value = test_user
+        resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
+        self.assertEqual(resp.status_code, 401)
