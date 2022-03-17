@@ -16,7 +16,7 @@ class TestAuthModule(APITestCase):
         mockService.return_value = {"users":[{"providerUserInfo":[{"rawId": "PutUser_1",  
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
-        mockUsers.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False}
+        mockUsers.return_value = {"tpk_email": "test", "tpk_name": "testname", "tpk_isdeleted": False, 'tpk_firebaseid': "testid"}
         Object = lambda **kwargs: type("Object", (), kwargs)
         person = Object(access_token = "test token")
         mockToken.return_value = person
