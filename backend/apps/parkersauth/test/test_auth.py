@@ -34,9 +34,10 @@ class TestAuthModule(APITestCase):
         resp = self.client.post("/signin/", {"tpk_firebaseid": "token"}, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
     
-    @patch('rest_framework_simplejwt.tokens.RefreshToken')   
+    
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn')
     @patch('apps.users.models.User.objects.get')
-    def testGetSignedInUser(self, mockUser, mockJWT):
+    def testGetSignedInUser(self, mockUser, mockPerm):
         test_user = User()
         test_user.tpk_email = "test_email"
         test_user.is_active = True
@@ -44,7 +45,7 @@ class TestAuthModule(APITestCase):
         auth_headers = {'HTTP_AUTHORIZATION': token}
         mockUser.return_value = test_user 
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
-        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp.status_code, 401)
 
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     @patch('rest_framework_simplejwt.tokens.RefreshToken')
