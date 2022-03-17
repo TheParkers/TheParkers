@@ -8,6 +8,8 @@ import { ParkingSpaceDescComponent } from './parking-space-desc.component';
 
 describe('ParkingSpaceDescComponent', () => {
   let component: ParkingSpaceDescComponent;
+  let modalCtr: ModalController;
+  let angdelegate: AngularDelegate;
   let fixture: ComponentFixture<ParkingSpaceDescComponent>;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
