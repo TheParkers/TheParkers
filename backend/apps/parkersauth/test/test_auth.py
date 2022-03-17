@@ -58,7 +58,7 @@ class TestAuthModule(APITestCase):
     @patch('rest_framework_simplejwt.tokens.RefreshToken')   
     @patch('apps.users.models.User.objects.get')
     def testGetSignedInUserWithInvalidUser(self, mockUser, mockJWT):
-        test_user = User.DoesNotExist()
+        test_user = User.DoesNotExist
         token = "Bearer eyJ0eXAiOJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjQ3NTQyNTYzLCJpYXQiOjE2NDc1Mzg5NjMsImp0aSI6IjA4ZmY2MTgyNjNhODRlMWJiM2FhOTQzMWI3MDgyOWY0IiwidHBrX2VtYWlsIjoiZGlndTM1QGdtYWlsLmNvbSJ9.rH7L_PDVbqNqTHnn6lv_scDotru4VH6fP45IPTSNnwM"
         auth_headers = {'HTTP_AUTHORIZATION': token}
         mockUser.return_value = test_user
