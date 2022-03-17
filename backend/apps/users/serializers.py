@@ -30,7 +30,7 @@ class UserResponseSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         model = User
-        fields = ['tpk_name', 'tpk_email', 'tpk_photoUrl']
+        fields = ['tpk_name', 'tpk_email', 'tpk_photoUrl', 'tpk_firebaseid']
         app_label = 'User'
 
 class PermissionSerializer(serializers.ModelSerializer):
