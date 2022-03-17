@@ -27,12 +27,7 @@ export class ParkingSpaceDescComponent{
       presentingElement: await this.modalCtrl.getTop() 
     });
 
-     modal.onDidDismiss().then((modalDataResponse) => {
-       if (modalDataResponse !== null) {
-         this.modalDataResponse = modalDataResponse.data;
-         console.log('Modal Sent Data : '+ modalDataResponse.data);
-       }
-     });
+     
 
     return await modal.present();
   }

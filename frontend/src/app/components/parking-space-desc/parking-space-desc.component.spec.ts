@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularDelegate } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
+import { BookingComponent } from '../booking/booking.component';
 import { ParkingSpaceDescComponent } from './parking-space-desc.component';
 
 describe('ParkingSpaceDescComponent', () => {
@@ -35,4 +36,12 @@ describe('ParkingSpaceDescComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+   
+  it('Test modal create', () => {
+    component.initModal([]); 
+  });
+   
+  
+
+
 });

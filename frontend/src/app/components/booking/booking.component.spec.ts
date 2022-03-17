@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { BookingComponent } from './booking.component';
 import { BookingService } from 'src/app/services';
 import { AngularDelegate } from '@ionic/angular';
+import { bookingspace } from '../../models/requests/bookingspace'
 
 describe('BookingComponent', () => {
   let component: BookingComponent;
@@ -32,8 +33,13 @@ describe('BookingComponent', () => {
     component.parkingSpace = {parking_features:{}}
     fixture.detectChanges();
   });
-
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Test close success', () =>
+   {
+    modalctrl.dismiss()
+    component.close()
   });
 });
