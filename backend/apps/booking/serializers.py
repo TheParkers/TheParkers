@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 from apps.users.models import User
 from apps.users.serializers import UserSerializer
 from apps.parkingspace.models import ParkingSpace
+from apps.parkingspace.serializers import ParkingSpaceSerializer
 from .models import BookingItems
 
 class BookingSerializer(serializers.ModelSerializer):
@@ -16,6 +17,12 @@ class BookingSerializer(serializers.ModelSerializer):
         model = BookingItems
         fields = '__all__'
         read_only_fields = ('tpk_booking_user', 'tpk_parkingspace')
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['tpk_parkingspace'] = ParkingSpaceSerializer(
+                                           instance.tpk_parkingspace).data
+        return response
 
     def create(self, validated_data):
         book_user_data = validated_data.pop('tpk_booking_user')

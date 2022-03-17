@@ -37,6 +37,7 @@ import { ParkersHeaderComponent } from './components/parkers-header/parkers-head
 import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
 import { BookingComponent } from './components/booking/booking.component';
+import { ParkingsService } from './services/parkings/parkings.service';
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import { BookingComponent } from './components/booking/booking.component';
     UserService,
     LocalStorageService,
     PreLoaderService,
-	BookingService
+	  BookingService,
+    ParkingsService
   ],
   bootstrap: [AppComponent]
 })
