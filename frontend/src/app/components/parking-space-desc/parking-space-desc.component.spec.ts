@@ -38,7 +38,8 @@ describe('ParkingSpaceDescComponent', () => {
   });
    
   it('Test modal create', () => {
-    component.initModal([]); 
+    component.initModal([]);
+    expect(component).toBeTruthy();
   });
    
   

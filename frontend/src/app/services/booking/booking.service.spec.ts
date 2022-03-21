@@ -48,7 +48,7 @@ describe('BookingService', () => {
 
   it('test creatBooking failure', () => {
     
-    let tpk_parkingspace = 2
+    let tpk_parkingspace = "2"
     let tpk_book_start_datetime = 31
     let tpk_book_end_datetime = 31
     let errorResponse: any
@@ -58,10 +58,5 @@ describe('BookingService', () => {
       tpk_parkingspace, 
       tpk_book_start_datetime, 
       tpk_book_end_datetime )
-    //response.subscribe( error => 
-      //{
-       // expect(error).toBe('errorResponse')
-      //}
-    //);
   });
 });
