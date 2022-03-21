@@ -16,16 +16,19 @@ export class ParkingSpaceDescComponent{
   constructor(public modalCtrl: ModalController) { }
 
   async initModal(parkingSpace : any) {
-    const modal = await this.modalCtrl.create({
-      component: BookingComponent,
-      componentProps: {
-        "parkingSpace": parkingSpace,
-        "tpk_book_start_datetime" : new Date(),
-        "tpk_book_end_datetime" : new Date(),
-      },
-      swipeToClose: true,
-      presentingElement: await this.modalCtrl.getTop() 
-    });
+    const modal = await this.modalCtrl.create(
+      {
+        component: BookingComponent,
+        componentProps: 
+        {
+          "parkingSpace": parkingSpace,
+          "tpk_book_start_datetime" : new Date(),
+          "tpk_book_end_datetime" : new Date(),
+        },
+        swipeToClose: true,
+        presentingElement: await this.modalCtrl.getTop() 
+      }
+    );
 
      
 

@@ -21,14 +21,18 @@ export class BookingService{
       "tpk_parkingspace": tpk_parkingspaceId,
       "tpk_book_start_datetime" :tpk_book_start_datetime,
       "tpk_book_end_datetime": tpk_book_end_datetime,
-      "tpk_booking_user": {
-      "tpk_firebaseid": "4"
+      "tpk_booking_user": 
+        {
+          "tpk_firebaseid": "4"
         }
       }
-      this.http.post(environment.apiServer+"/users/" +"4" +"/booking", samplebookingSpace).subscribe((data)=>{
-        alert("Booking Successfull, Thanks!")
-        console.log("Booking Successfull", data)
-      })
+      this.http.post(environment.apiServer+"/users/" +"4" +"/booking", samplebookingSpace).
+      subscribe((data)=>
+        {
+          alert("Booking Successfull, Thanks!")
+          console.log("Booking Successfull", data)
+        }
+      )
       
   }
  }

@@ -45,8 +45,9 @@ describe('BookingComponent', () => {
 
   it('Test booking', () =>
    {
-    bookingservice.createBooking(1,new Date, new Date)
-    expect(bookingservice).toBeTruthy();
-    component.booking()
-  });
+      bookingservice.createBooking(1,new Date, new Date)
+      expect(bookingservice).toBeTruthy();
+      component.booking()
+   }
+  );
 });
