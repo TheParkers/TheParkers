@@ -71,7 +71,8 @@ describe('FirebaseService', () => {
                     user:{
                         tpk_email: "testemail",
                         tpk_name: "test name", 
-                        tpk_photoUrl: "test photo"
+                        tpk_photoUrl: "test photo",
+                        tpk_firebaseid: "testId"
                       }
                     }
     
