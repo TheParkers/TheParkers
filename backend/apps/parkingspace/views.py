@@ -13,14 +13,9 @@ from .serializers import ParkingSpaceSerializer
 from .filters import ParkingSpaceFilter
 from django_filters.utils import translate_validation
 from rest_framework.pagination import PageNumberPagination
-<<<<<<< HEAD
-
-
-=======
 from apps.booking.models import BookingItems
 from datetime import datetime as dt
 from django.utils import timezone
->>>>>>> develop
 
 #currently only logged in users can get and post.
 #TODO separate api view get and post according to perms
