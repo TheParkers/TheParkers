@@ -105,20 +105,18 @@ describe('AddParkingComponent', () => {
       name: 'University of Waterloo'
     }
     component.onAutocompleteSelected(googleAdress);
-    component.latitude = 0;
-    component.longitude = 0;
     let resultAddress: ParkingLocation= {
       type : "Feature",
       geometry: {
         type : "Point",
-        coordinates: [0,0] 
+        coordinates: [13.404954, 52.520008],
       },
       
       properties: {
         address: "200 University Ave W, Waterloo, ON N2L 3G1, Canada",
         city: "Waterloo",
         country: "Canada",
-        area_code: "N2L 3V5"
+        area_code: "N2L 3G1"
       }
     };
     expect(component.addressDetails).toEqual(resultAddress);
