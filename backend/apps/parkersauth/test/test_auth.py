@@ -73,4 +73,4 @@ class TestAuthModule(APITestCase):
         auth_headers = {}
         mockUser.return_value = test_user
         resp = self.client.get("/signin/user", {"tpk_firebaseid": "token"}, format='json',  **auth_headers)
-        self.assertEqual(resp.status_code, 401)
+        self.assertEqual(resp.status_code, 400)

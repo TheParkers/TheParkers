@@ -11,6 +11,7 @@ class ParkingSpaceFeatures(models.Model):
     tpk_has_indoor_parking = models.BooleanField(default=False)
 
 class ParkingSpace(models.Model):
+    tpk_ps_name = models.TextField(blank=True)
     tpk_user =  models.ForeignKey(User,
                 on_delete=models.CASCADE,
                 related_name='user',
