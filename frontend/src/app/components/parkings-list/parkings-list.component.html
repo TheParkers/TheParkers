@@ -10,10 +10,10 @@
             <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
               <agm-marker 
               *ngFor="let space of parkingSpaces; let i = index"
-              [latitude]="space.lat"
-              [longitude]="space.long">
+              [latitude]="space.tpk_ps_location.geometry.coordinates[1]"
+              [longitude]="space.tpk_ps_location.geometry.coordinates[0]">
             <agm-info-window>
-              <strong>{{space.name}}</strong>
+              <strong>{{space.tpk_ps_name}}</strong>
             </agm-info-window>
             </agm-marker>
             </agm-map>

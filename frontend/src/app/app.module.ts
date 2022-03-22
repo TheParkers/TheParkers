@@ -30,11 +30,11 @@ import { SearchParkingComponent } from './components/search-parking/search-parki
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
-import { UserService } from './services/user/user.service';
 import { ParkingsListComponent } from './components/parkings-list/parkings-list.component';
 import { ParkersHeaderComponent } from './components/parkers-header/parkers-header.component';
 import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
+import { ParkingsService } from './services/parkings/parkings.service';
 
 
 @NgModule({
@@ -82,9 +82,9 @@ import { AddParkingComponent } from './components/add-parking/add-parking.compon
     AuthService,
     FirebaseService, 
     GuardService,
-    UserService,
     LocalStorageService,
-    PreLoaderService
+    PreLoaderService,
+    ParkingsService
   ],
   bootstrap: [AppComponent]
 })

@@ -68,7 +68,7 @@ class TestUserModel(APITestCase):
                                     "email": "test@test.com", "displayName": 
                                     "test", "photoUrl": "test"}]}]}
         resp = self.client.put("/users/register/PutUser_1", {"tpk_firebaseid": "token"}, format='json')
-        self.assertEqual('{"tpk_name": "test", "tpk_email": "test@test.com", "tpk_photoUrl": "test"}', str(resp.content, 'utf-8'))
+        self.assertEqual('{"tpk_name": "test", "tpk_email": "test@test.com", "tpk_photoUrl": "test", "tpk_firebaseid": "PutUser_1"}', str(resp.content, 'utf-8'))
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
     
     @patch('apps.users.services.firebase.get_user_profile_bytoken')
