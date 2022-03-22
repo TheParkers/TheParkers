@@ -113,7 +113,8 @@ describe('DashboardComponent', () => {
       user: {
         tpk_name: 'test',
         tpk_email: 'testemail@test.com',
-        tpk_photoUrl: 'testurl'
+        tpk_photoUrl: 'testurl',
+        tpk_firebaseid: "testId"
       }
     }
     mockFirebaseService = TestBed.inject(FirebaseService);
