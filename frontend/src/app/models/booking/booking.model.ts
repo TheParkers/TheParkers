@@ -45,7 +45,7 @@ export interface bookings
                 tpk_base64_image: string;
             }
         >;
-        tpk_rating: string;
+        tpk_rating?: number;
         tpk_description: string;
         tpk_access_information: string;
         tpk_price_per_hour: number;
