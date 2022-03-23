@@ -59,11 +59,12 @@ def parkingspace_list(request):
             queryset = queryset.exclude(id__in=ids)
         
         radius = 200.0
-        lat = float(request.GET.get('lat'))
-        lng = float(request.GET.get('long'))
-        point = Point(lng,lat)
+        if(request.GET.get('lat') and request.GET.get('long')):
+            lat = request.GET.get('lat')
+            lng = request.GET.get('long')
+            point = Point(float(lng),float(lat))
 
-        queryset = queryset.filter(tpk_ps_location__location__distance_lt=(point, Distance(m=radius)))
+            queryset = queryset.filter(tpk_ps_location__location__distance_lt=(point, Distance(m=radius)))
 
         filterset = ParkingSpaceFilter(request.GET, queryset=queryset)
         if not filterset.is_valid():
