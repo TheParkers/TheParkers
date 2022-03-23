@@ -224,7 +224,6 @@ class TestParkingSpaceModel(APITestCase):
         '''
         test_get_filtered_by_radius: Get parking within radius of lat long provided
         '''
-        # response = self.client.get('/parking?long=43.476083&lat=-80.544851')
         response = self.client.get('/parking',{'long': 43.476083,'lat': -80.544851})
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         parkingspaces = ParkingSpace.objects.all()
