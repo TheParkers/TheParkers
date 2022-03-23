@@ -1,0 +1,28 @@
+
+<app-parkers-header>
+</app-parkers-header>
+  <ion-content>
+    <div class="container">
+        <ion-grid class="container-grid">
+          <ion-row>
+            <ion-col size-sm="10" size="12" class="content-xl">
+              <app-booking-desc *ngFor="let bookingspace of bookings" [booking] = "bookingspace">
+                
+              </app-booking-desc>
+            </ion-col>
+            <!-- <ion-col size-sm="6" size="12">
+              <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                <agm-marker 
+                *ngFor="let space of parkingSpaces; let i = index"
+                [latitude]="space.tpk_ps_location.geometry.coordinates[1]"
+                [longitude]="space.tpk_ps_location.geometry.coordinates[0]">
+              <agm-info-window>
+                <strong>{{space.tpk_ps_name}}</strong>
+              </agm-info-window>
+              </agm-marker>
+              </agm-map>
+            </ion-col> -->
+          </ion-row>
+        </ion-grid>
+    </div>
+  </ion-content>
