@@ -1,0 +1,31 @@
+.booking-image{
+    width: 100px;
+    height: 100px;
+}
+.booking-space{
+    margin-bottom: 1rem;
+}
+mat-icon{
+    color: goldenrod;
+    font-size: 1rem;
+}
+mat-panel-title{
+    flex-direction: column;
+    align-items: flex-start;
+}
+.mat-content{
+    justify-content: space-between;
+}
+mat-expansion-panel-header{
+    padding: 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+}
+mat-panel-description{
+    justify-content:flex-end;
+}
+.desc-heading{
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top:1rem;
+}

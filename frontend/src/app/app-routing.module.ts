@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
+import { BookingsListComponent } from './components/bookings-list/bookings-list.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
 import { ParkingsListComponent } from './components/parkings-list/parkings-list.component';
@@ -29,12 +30,19 @@ const routes: Routes = [
         component: AddParkingComponent,
         //canActivate: [GuardService],
       },
+      //Booking List Url
+      {
+        path: 'bookings', // child route path
+        component: BookingsListComponent,
+        //canActivate: [GuardService],
+      },
       // Parking space Urls
       {
         path: 'parkings', // child route path
         component: ParkingsListComponent,
         //canActivate: [GuardService],
       }
+      
     ]},
 ];
 
