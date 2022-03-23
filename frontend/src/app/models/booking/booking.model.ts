@@ -1,3 +1,11 @@
+export interface ParkingFeatures
+{
+    id?: number;
+    tpk_has_car_charging: boolean;
+    tpk_has_car_wash: boolean;
+    tpk_has_indoor_parking: boolean;
+}
+
 export interface bookings
 {   
     id?: number;
@@ -8,13 +16,7 @@ export interface bookings
     tpk_parkingspace: 
     {
         id?: number,
-        tpk_parking_features: 
-        {
-            id?: number;
-            tpk_has_car_charging: true; 
-            tpk_has_car_wash: false;
-            tpk_has_indoor_parking: false;
-        },
+        tpk_parking_features: ParkingFeatures,
         tpk_ps_location: 
         {
             id?: number;
