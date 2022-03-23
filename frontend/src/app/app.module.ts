@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatTableModule } from '@angular/material/table' 
 
 import { AgmCoreModule, GoogleMapsScriptProtocol } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
@@ -35,6 +36,8 @@ import { ParkersHeaderComponent } from './components/parkers-header/parkers-head
 import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
 import { ParkingsService } from './services/parkings/parkings.service';
+import { BookingsListComponent } from './components/bookings-list/bookings-list.component';
+import { BookingDescComponent } from './components/booking-desc/booking-desc.component';
 
 
 @NgModule({
@@ -47,6 +50,8 @@ import { ParkingsService } from './services/parkings/parkings.service';
     ParkersHeaderComponent,
     ParkingSpaceDescComponent,
     AddParkingComponent,
+    BookingsListComponent,
+    BookingDescComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +78,7 @@ import { ParkingsService } from './services/parkings/parkings.service';
     MatDatepickerModule,
     MatExpansionModule,
     MatGoogleMapsAutocompleteModule,
+    MatTableModule,
     MatCheckboxModule
   ],
   providers: [
