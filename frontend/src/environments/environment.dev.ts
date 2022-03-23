@@ -22,7 +22,8 @@ export const environment = {
     user: {
         userbyid: '/users/',
         userDetails:'/signin/user'
-    }
+    },
+    parking: "/parking"
   },
   actionSheetConfig: (service: any)=> {
       return {

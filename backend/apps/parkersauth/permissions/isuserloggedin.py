@@ -9,6 +9,9 @@ class IsUserLoggedIn(BasePermission):
     check: not an anonymous user, only parker authorised users
     '''
     def has_permission(self, request, view):
+        if request.method == 'GET':
+            return True
+
         if str(request.user) == 'AnonymousUser':
             return False
         return True

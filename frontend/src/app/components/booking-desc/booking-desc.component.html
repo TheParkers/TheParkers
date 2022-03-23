@@ -1,0 +1,85 @@
+<div class="booking-space">
+    <mat-accordion>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    <div>
+                        Parking Name
+                    </div> 
+                </mat-panel-title>
+                <mat-panel-description>
+                    <div>
+                        Price: {{booking.tpk_parkingspace.tpk_price_per_hour}}$ (Per hour)
+                    </div>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <ion-row class="ion-justify-content-between">
+                <ion-col size="3">
+                    <img class="booking-img" src="../../../assets/images/parking-spot.jpg">
+                </ion-col>
+                <ion-col>
+                    <ion-row>
+                        {{booking.tpk_parkingspace.tpk_ps_location.properties.address}}
+                    </ion-row>
+                    <ion-row>
+                        {{booking.tpk_parkingspace.tpk_ps_location.properties.city}}, {{booking.tpk_parkingspace.tpk_ps_location.properties.area_code}}
+                    </ion-row>
+                </ion-col>
+                <ion-button color="danger"> 
+                    Cancel Booking 
+
+                </ion-button>
+            </ion-row>
+            <ion-row>
+                <div class="desc-heading">
+                    Booking Start Date
+                </div>
+            </ion-row>
+            <ion-row>
+                {{booking.tpk_book_start_datetime}}
+            </ion-row>
+            <ion-row>
+                <div class="desc-heading">
+                    Booking End Date
+                </div>
+            </ion-row>
+            <ion-row>
+                {{booking.tpk_book_end_datetime}}
+            </ion-row>
+
+            <ion-row>
+                <div class="desc-heading">
+                    Parking Description
+                </div>
+            </ion-row>
+            <ion-row>
+                {{booking.tpk_parkingspace.tpk_description}}
+            </ion-row>
+            <ion-row>
+                <div class="desc-heading">
+                    Access Information
+                </div>
+            </ion-row>
+            <ion-row>
+                {{booking.tpk_parkingspace.tpk_access_information}}
+            </ion-row>
+            <div class="desc-heading">
+                Features
+            </div>
+            <ion-row>
+                <ul>
+                    <li *ngIf="booking.tpk_parkingspace.tpk_parking_features.tpk_has_car_charging">
+                        Car Charging
+                    </li>
+                    <li *ngIf="booking.tpk_parkingspace.tpk_parking_features.tpk_has_car_wash">
+                        Car Wash
+                    </li>
+                    <li *ngIf="booking.tpk_parkingspace.tpk_parking_features.tpk_has_indoor_parking">
+                        Indoor Parking
+                    </li>
+                </ul>
+            </ion-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+

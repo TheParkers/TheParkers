@@ -3,20 +3,20 @@
         <mat-expansion-panel>
             <mat-expansion-panel-header>
             <mat-panel-title>
-                <div>{{parkingSpace.name}}</div> 
+                <div>{{parkingSpace.tpk_ps_name}}</div> 
                 <div>
-                <mat-icon *ngFor="let item of [].constructor(parkingSpace.rating); let i = index" aria-hidden="false" aria-label="staricon">star</mat-icon>
+                <mat-icon *ngFor="let item of [].constructor(parkingSpace.tpk_rating); let i = index" aria-hidden="false" aria-label="staricon">star</mat-icon>
             </div> 
             </mat-panel-title>
             <mat-panel-description>
-                <div>Price: {{parkingSpace.price}}$</div>
+                <div>Price: {{parkingSpace.tpk_price_per_hour}}$ (Per hour)</div>
             </mat-panel-description>
             </mat-expansion-panel-header>
             <ion-row class="ion-justify-content-between">
                 <ion-col size="3"><img class="parking-img" src="../../../assets/images/parking-spot.jpg"></ion-col>
                 <ion-col>
-                    <ion-row>{{parkingSpace.address}}</ion-row>
-                    <ion-row>{{parkingSpace.city}}, {{parkingSpace.area_code}}</ion-row>
+                    <ion-row>{{parkingSpace.tpk_ps_location.properties.address}}</ion-row>
+                    <ion-row>{{parkingSpace.tpk_ps_location.properties.city}}, {{parkingSpace.tpk_ps_location.properties.area_code}}</ion-row>
                 </ion-col>
                 <div id="container">
                     <ion-button color = "success" (click)="initModal(parkingSpace)">Book Now</ion-button>
@@ -25,18 +25,18 @@
             </ion-row>
             <ion-row>
                 <div class="desc-heading">Parking Description</div>
-                <div>{{parkingSpace.description}}</div>
             </ion-row>
+            <ion-row>{{parkingSpace.tpk_description}}</ion-row>
             <ion-row>
                 <div class="desc-heading">Access Information</div>
-                <div>{{parkingSpace.access_information}}</div>
             </ion-row>
+            <ion-row>{{parkingSpace.tpk_access_information}}</ion-row>
             <div class="desc-heading">Features</div>
             <ion-row>
             <ul>
-                <li *ngIf="parkingSpace.parking_features.has_car_charging">Car Charging</li>
-                <li *ngIf="parkingSpace.parking_features.has_car_wash">Car Wash</li>
-                <li *ngIf="parkingSpace.parking_features.has_indoor_parking">Indoor Parking</li>
+                <li *ngIf="parkingSpace.tpk_parking_features.tpk_has_car_charging">Car Charging</li>
+                <li *ngIf="parkingSpace.tpk_parking_features.tpk_has_car_wash">Car Wash</li>
+                <li *ngIf="parkingSpace.tpk_parking_features.tpk_has_indoor_parking">Indoor Parking</li>
             </ul>
         </ion-row>
         </mat-expansion-panel>

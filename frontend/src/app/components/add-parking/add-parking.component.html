@@ -1,150 +1,158 @@
 <app-parkers-header></app-parkers-header>
 <ion-content [fullscreen]="true">
     <div class="form-container" class="add-parking-container">
-      <h1 class="form-heading">List your Parking</h1>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Parking Details</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-form-field appearance="fill">
-                  <mat-label>Parking Name</mat-label>
-                  <input matInput>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Address</mat-label>
-                  <input matInput
-                  matGoogleMapsAutocomplete
-                  (onAutocompleteSelected)="onAutocompleteSelected($event)"
-                  (onLocationSelected)="onLocationSelected($event)">
-                </mat-form-field>
-                <agm-map class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-                  <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-                </agm-map>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
-  
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Pricing/Availability</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-form-field appearance="fill">
-                  <mat-label>Price per Hour</mat-label>
-                  <input matInput type="number" placeholder="(in USD)">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Select Availability date range</mat-label>
-                  <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Start date">
-                    <input matEndDate placeholder="End date">
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
-  
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Parking Description</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <div class="input-section">
+      <form [formGroup]="addParkingForm">
+        <h1 class="form-heading">List your Parking</h1>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Parking Details</h3>
+                </mat-card-title>
+                <mat-card-content>
                   <mat-form-field appearance="fill">
-                    <!-- <mat-label>Describe Your Parking</mat-label> -->
-                    <textarea matInput placeholder="Give a short description of your parking. So drivers know more about the features, the location, what is close by, and what they can expect."></textarea>
+                    <mat-label>Parking Name</mat-label>
+                    <input formControlName="name" matInput>
                   </mat-form-field>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
+                  <mat-error *ngIf="invalidForm && addParkingForm.get('name')?.hasError('required')">Please enter name</mat-error>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Address</mat-label>
+                    <input formControlName="address" matInput
+                    matGoogleMapsAutocomplete
+                    (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                    (onLocationSelected)="onLocationSelected($event)">
+                  </mat-form-field>
+                  <mat-error *ngIf="invalidForm && addParkingForm.get('address')?.hasError('required')">Please enter address</mat-error>
+                  <agm-map class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+                  </agm-map>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
     
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Parking Access</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-form-field appearance="fill">
-                  <!-- <mat-label>Describe Your Parking</mat-label> -->
-                  <textarea matInput placeholder="How can drivers access to your parking? Do you deliver the key/remote control, do they need to know a code?"></textarea>
-                </mat-form-field>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Pricing/Availability</h3>
+                </mat-card-title>
+                <mat-card-content>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Price per Hour</mat-label>
+                    <input formControlName="price" matInput type="number" placeholder="(in USD)">
+                  </mat-form-field>
+                  <mat-error *ngIf="invalidForm && addParkingForm.get('price')?.hasError('required')">Please enter price(per-hour)</mat-error>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Select Availability date range</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                      <input formControlName="startDate" matStartDate placeholder="Start date">
+                      <input formControlName="endDate" matEndDate placeholder="End date">
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+                  <mat-error *ngIf="invalidForm && (addParkingForm.get('startDate')?.hasError('required') || addParkingForm.get('endDate')?.hasError('required'))">Please enter availability date range</mat-error>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Parking Description</h3>
+                </mat-card-title>
+                <mat-card-content>
+                  <div class="input-section">
+                    <mat-form-field appearance="fill">
+                      <textarea formControlName="description" matInput placeholder="Give a short description of your parking. So drivers know more about the features, the location, what is close by, and what they can expect."></textarea>
+                    </mat-form-field>
+                    <mat-error *ngIf="invalidForm && addParkingForm.get('description')?.hasError('required')">Please enter Parking Description</mat-error>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
+      
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Parking Access</h3>
+                </mat-card-title>
+                <mat-card-content>
+                  <mat-form-field appearance="fill">
+                    <textarea formControlName="accessInformation" matInput placeholder="How can drivers access to your parking? Do you deliver the key/remote control, do they need to know a code?"></textarea>
+                  </mat-form-field>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Parking Features</h3>
+                </mat-card-title>
+                <mat-card-content>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Parking area</mat-label>
+                    <input formControlName="area" matInput placeholder="(in square metres)">
+                  </mat-form-field>
+                  <mat-error *ngIf="invalidForm && addParkingForm.get('area')?.hasError('required')">Please enter Parking Area</mat-error>
+                  <mat-form-field appearance="fill">
+                    <mat-label>Parking Capacity</mat-label>
+                    <input formControlName="capacity" type = "number" matInput placeholder="(no. of cars)">
+                  </mat-form-field>
+                  <mat-error *ngIf="invalidForm && addParkingForm.get('capacity')?.hasError('required')">Please enter Parking Capacity</mat-error>
+                  <section>
+                    <h4>Select the features available at the parking spot:</h4>
+                    <p><mat-checkbox formControlName="isChargingAvailable" color = "primary">Car Charging</mat-checkbox></p>
+                    <p><mat-checkbox formControlName="isWashingAvailable" color = "primary">Car Washing</mat-checkbox></p>
+                    <p><mat-checkbox formControlName="isIndoorParking" color = "primary">Indoor Parking</mat-checkbox></p>
+                  </section>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
+    
+          <ion-row>
+            <ion-col>
+              <mat-card>
+                <mat-card-title>
+                  <h3>Parking Pictures</h3>
+                </mat-card-title>
+                <mat-card-content>
+                  <p>Upload some pictures to make your listing more attractive. Your first photo will be used in the search results.</p>
+                  <label for="file-upload" class="custom-file-upload">Upload images</label>
+                  <input 
+                      formControlName="photos"
+                      id="file-upload" 
+                      type="file" 
+                      class="form-control"
+                      multiple="" 
+                      (change)="onFileChange($event)">
+                  <div class="image-container">
+                    <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </ion-col>
+          </ion-row>
   
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Parking Features</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <mat-form-field appearance="fill">
-                  <mat-label>Parking area</mat-label>
-                  <input matInput placeholder="(in square metres)">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                  <mat-label>Parking Capacity</mat-label>
-                  <input type = "number" matInput placeholder="(no. of cars)">
-                </mat-form-field>
-                <section>
-                  <h4>Select the features available at the parking spot:</h4>
-                  <p><mat-checkbox color = "primary">Car Charging</mat-checkbox></p>
-                  <p><mat-checkbox color = "primary">Car Washing</mat-checkbox></p>
-                  <p><mat-checkbox color = "primary">Indoor Parking</mat-checkbox></p>
-                </section>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
-  
-        <ion-row>
-          <ion-col>
-            <mat-card>
-              <mat-card-title>
-                <h3>Parking Pictures</h3>
-              </mat-card-title>
-              <mat-card-content>
-                <p>Upload some pictures to make your listing more attractive. Your first photo will be used in the search results.</p>
-                <label for="file-upload" class="custom-file-upload">Upload images</label>
-                <input 
-                    id="file-upload" 
-                    type="file" 
-                    class="form-control"
-                    multiple="" 
-                    (change)="onFileChange($event)">
-                <div class="image-container">
-                  <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col class="list-parking">
-            <ion-button type="button">
-              List Parking
-            </ion-button>
-          </ion-col>
-        </ion-row>
-    </ion-grid>
+          <ion-row>
+            <ion-col class="list-parking">
+              <ion-button type="button" (click)="submitParking()">
+                List Parking
+              </ion-button>
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+      </form>
     </div>
 </ion-content>
 
