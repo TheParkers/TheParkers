@@ -20,6 +20,7 @@ export const environment = {
     loginUser: '/signin/',
     getbooking1: '/users',
     getbooking2: '/booking',
+	bookingspace : '/users/testid/booking',
     user: {
         userbyid: '/users/',
         userDetails:'/signin/user'

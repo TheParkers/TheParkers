@@ -2,12 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularDelegate } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { BookingComponent } from '../booking/booking.component';
 import { ParkingSpace } from 'src/app/models/parking/parking.model';
 
 import { ParkingSpaceDescComponent } from './parking-space-desc.component';
 
 describe('ParkingSpaceDescComponent', () => {
   let component: ParkingSpaceDescComponent;
+  let modalCtr: ModalController;
+  let angdelegate: AngularDelegate;
   let fixture: ComponentFixture<ParkingSpaceDescComponent>;
   let mockParkingSpace  = {
         "id": 2,
@@ -55,6 +60,10 @@ describe('ParkingSpaceDescComponent', () => {
     };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [
+        ModalController,
+        AngularDelegate
+      ],
       declarations: [ ParkingSpaceDescComponent ],
       imports: [MatIconModule, MatExpansionModule, BrowserAnimationsModule]
     })
@@ -62,6 +71,8 @@ describe('ParkingSpaceDescComponent', () => {
   });
 
   beforeEach(() => {
+    modalCtr = TestBed.inject(ModalController);
+    angdelegate = TestBed.inject(AngularDelegate);
     fixture = TestBed.createComponent(ParkingSpaceDescComponent);
     component = fixture.componentInstance;
     component.parkingSpace = mockParkingSpace;
@@ -71,4 +82,13 @@ describe('ParkingSpaceDescComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+   
+  it('Test modal create', () => {
+    component.initModal([]);
+    expect(component).toBeTruthy();
+  });
+   
+  
+
+
 });
