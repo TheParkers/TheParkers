@@ -40,7 +40,11 @@ export interface bookings
         tpk_parking_features: ParkingFeatures,
         tpk_ps_location: ParkingLocation
         tpk_user: string;
-        tpk_parkingspace_images: [],
+        tpk_parkingspace_images: Array <
+            {
+                tpk_base64_image: string;
+            }
+        >;
         tpk_rating: string;
         tpk_description: string;
         tpk_access_information: string;
