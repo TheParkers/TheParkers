@@ -217,3 +217,20 @@ class TestParkingSpaceModel(APITestCase):
         ps_json_resp = JsonResponse(serializer.data, safe=False)
         self.assertJSONEqual(str(response.content, encoding='utf8').strip('[]'),
                             str(ps_json_resp.content, encoding='utf8'))
+
+    @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
+    @patch('apps.users.services.firebase.get_user_profile_bytoken')
+    def test_get_filtered_by_radius(self, mock_perm, mock_service):
+        '''
+        test_get_filtered_by_radius: Get parking within radius of lat long provided
+        '''
+        # response = self.client.get('/parking?long=43.476083&lat=-80.544851')
+        response = self.client.get('/parking',{'long': 43.476083,'lat': -80.544851})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        parkingspaces = ParkingSpace.objects.all()
+        serializer = ParkingSpaceSerializer(parkingspaces, many=True)
+        #note that the get returns queryset, so we are using many=True.
+        ps_json_resp = JsonResponse(serializer.data, safe=False)
+        self.assertJSONEqual(str(response.content, encoding='utf8'),
+                            str(ps_json_resp.content, encoding='utf8'))
+                            
