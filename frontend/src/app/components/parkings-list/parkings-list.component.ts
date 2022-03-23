@@ -8,7 +8,7 @@ import { ParkingSpace } from 'src/app/models/parking/parking.model';
   templateUrl: './parkings-list.component.html',
   styleUrls: ['./parkings-list.component.scss']
 })
-export class ParkingsListComponent{
+export class ParkingsListComponent implements OnInit{
 
   public parkingSpaces? : ParkingSpace[];
   public zoom: number;

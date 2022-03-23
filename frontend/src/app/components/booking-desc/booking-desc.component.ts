@@ -7,7 +7,7 @@ import { OnInit } from '@angular/core';
   templateUrl: './booking-desc.component.html',
   styleUrls: ['./booking-desc.component.scss']
 })
-export class BookingDescComponent implements OnInit {
+export class BookingDescComponent {
 
   @Input()
   booking: any = {};
@@ -16,8 +16,6 @@ export class BookingDescComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-
-  }
+  
 
 }
