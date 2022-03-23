@@ -6,6 +6,27 @@ export interface ParkingFeatures
     tpk_has_indoor_parking: boolean;
 }
 
+
+export interface ParkingLocation
+{
+    id?:number;
+    type: string;
+    geometry: 
+    {
+        type: string;
+        coordinates: number[]
+    };
+    properties:  
+    {
+        address: string;
+        city: string;
+        country: string;
+        area_code: string;
+    };
+}
+
+
+
 export interface bookings
 {   
     id?: number;
@@ -17,23 +38,7 @@ export interface bookings
     {
         id?: number,
         tpk_parking_features: ParkingFeatures,
-        tpk_ps_location: 
-        {
-            id?: number;
-            type: string; 
-            geometry:
-            {
-                type: string;
-                coordinates: number;
-            },
-            properties: 
-            {
-                address: string;
-                city: string;
-                country: string;
-                area_code: string;
-            }
-        },
+        tpk_ps_location: ParkingLocation
         tpk_user: string;
         tpk_parkingspace_images: [],
         tpk_rating: string;
