@@ -62,7 +62,6 @@ def parkingspace_list(request):
         lat = float(request.GET.get('lat'))
         lng = float(request.GET.get('long'))
         point = Point(lng,lat)
-        # print(point)
 
         queryset = queryset.filter(tpk_ps_location__location__distance_lt=(point, Distance(m=radius)))
 
