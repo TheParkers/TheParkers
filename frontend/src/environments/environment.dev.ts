@@ -18,6 +18,7 @@ export const environment = {
   apiUrls: {
     registerUser: '/users/register/',
     loginUser: '/signin/',
+	bookingspace : '/users/testid/booking',
     user: {
         userbyid: '/users/',
         userDetails:'/signin/user'
