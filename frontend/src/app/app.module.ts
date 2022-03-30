@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { BookingService } from './services'
 import { MatTableModule } from '@angular/material/table' 
 
 import { AgmCoreModule, GoogleMapsScriptProtocol } from '@agm/core';
@@ -35,6 +36,7 @@ import { ParkingsListComponent } from './components/parkings-list/parkings-list.
 import { ParkersHeaderComponent } from './components/parkers-header/parkers-header.component';
 import { ParkingSpaceDescComponent } from './components/parking-space-desc/parking-space-desc.component';
 import { AddParkingComponent } from './components/add-parking/add-parking.component';
+import { BookingComponent } from './components/booking/booking.component';
 import { ParkingsService } from './services/parkings/parkings.service';
 import { BookingsListComponent } from './components/bookings-list/bookings-list.component';
 import { BookingDescComponent } from './components/booking-desc/booking-desc.component';
@@ -49,10 +51,12 @@ import { BookingDescComponent } from './components/booking-desc/booking-desc.com
     ParkingsListComponent,
     ParkersHeaderComponent,
     ParkingSpaceDescComponent,
+	  BookingComponent,
     AddParkingComponent,
     BookingsListComponent,
     BookingDescComponent
   ],
+  entryComponents: [BookingComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -90,6 +94,7 @@ import { BookingDescComponent } from './components/booking-desc/booking-desc.com
     GuardService,
     LocalStorageService,
     PreLoaderService,
+	  BookingService,
     ParkingsService
   ],
   bootstrap: [AppComponent]

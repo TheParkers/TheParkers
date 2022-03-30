@@ -37,6 +37,7 @@ export interface bookings
     tpk_parkingspace: 
     {
         id?: number,
+        tpk_ps_name: string;
         tpk_parking_features: ParkingFeatures,
         tpk_ps_location: ParkingLocation
         tpk_user: string;

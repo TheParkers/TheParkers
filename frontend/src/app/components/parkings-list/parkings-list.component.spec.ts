@@ -23,4 +23,7 @@ describe('ParkingsListComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should select', () => {
+    component.ngOnInit()
+  });
 });
