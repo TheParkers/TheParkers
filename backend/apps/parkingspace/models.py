@@ -18,7 +18,7 @@ class ParkingSpace(models.Model):
                 on_delete=models.CASCADE,
                 related_name='tpk_ps_location')
     tpk_rating = models.DecimalField(default=1,
-                validators=[MinValueValidator(1), MaxValueValidator(5)])
+                max_digits=4, decimal_places=2, validators=[MinValueValidator(1), MaxValueValidator(5)])
     tpk_description = models.TextField(max_length=500)
     tpk_access_information = models.TextField(max_length=500, default="NA")
     tpk_price_per_hour = models.FloatField(default=2.0)
