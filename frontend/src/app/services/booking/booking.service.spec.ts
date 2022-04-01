@@ -38,12 +38,14 @@ describe('BookingService', () => {
     let tpk_parkingspace = 2
     let tpk_book_start_datetime = 31
     let tpk_book_end_datetime = 31
+    let signedInUser = "testid"
     http.post.and.returnValue(of({}))
     service.createBooking
     (
       tpk_parkingspace, 
       tpk_book_start_datetime, 
-      tpk_book_end_datetime
+      tpk_book_end_datetime,
+      signedInUser
     )
   });
 
@@ -52,6 +54,7 @@ describe('BookingService', () => {
     let tpk_parkingspace = "2"
     let tpk_book_start_datetime = 31
     let tpk_book_end_datetime = 31
+    let signedInUser = "testid"
     let errorResponse: any
     expect(service).toBeTruthy();
     http.post.and.returnValue(throwError(() => errorResponse))
@@ -59,7 +62,8 @@ describe('BookingService', () => {
     (
       tpk_parkingspace, 
       tpk_book_start_datetime, 
-      tpk_book_end_datetime 
+      tpk_book_end_datetime,
+      signedInUser
       )
   });
 });

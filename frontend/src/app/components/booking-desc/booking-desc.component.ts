@@ -12,7 +12,8 @@ export class BookingDescComponent {
   @Input()
   booking: any = {};
 
-  constructor( ) { 
+  constructor( ) 
+  { 
     
   }
 
