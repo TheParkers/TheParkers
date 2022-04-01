@@ -18,7 +18,9 @@ export const environment = {
   apiUrls: {
     registerUser: '/users/register/',
     loginUser: '/signin/',
-    getbooking1: '/users',
+    createBooking1: '/users/',
+    createBooking2: '/booking',
+    getbooking1: '/users/',
     getbooking2: '/booking',
 	bookingspace : '/users/testid/booking',
     user: {
