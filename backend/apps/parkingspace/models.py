@@ -3,8 +3,6 @@ from apps.users.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 from apps.maps.models import ParkerMap
 
-
-
 class ParkingSpaceFeatures(models.Model):
     tpk_has_car_charging = models.BooleanField(default=False)
     tpk_has_car_wash = models.BooleanField(default=False)
@@ -19,7 +17,7 @@ class ParkingSpace(models.Model):
     tpk_ps_location = models.OneToOneField(ParkerMap,
                 on_delete=models.CASCADE,
                 related_name='tpk_ps_location')
-    tpk_rating = models.PositiveSmallIntegerField(default=1,
+    tpk_rating = models.DecimalField(default=1,
                 validators=[MinValueValidator(1), MaxValueValidator(5)])
     tpk_description = models.TextField(max_length=500)
     tpk_access_information = models.TextField(max_length=500, default="NA")
