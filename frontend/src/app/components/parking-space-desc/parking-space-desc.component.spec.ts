@@ -8,6 +8,7 @@ import { BookingComponent } from '../booking/booking.component';
 import { ParkingSpace } from 'src/app/models/parking/parking.model';
 
 import { ParkingSpaceDescComponent } from './parking-space-desc.component';
+import { Router } from '@angular/router';
 
 describe('ParkingSpaceDescComponent', () => {
   let component: ParkingSpaceDescComponent;
@@ -59,10 +60,23 @@ describe('ParkingSpaceDescComponent', () => {
         "tpk_is_booked": false
     };
   beforeEach(async () => {
+    class RouterStub{
+      getCurrentNavigation(){
+        return {
+           extras: {
+              state:{
+                startDate: '32432535344353',
+                endDate: '563646476577'
+              }
+            }
+          }
+        }
+     }
     await TestBed.configureTestingModule({
       providers: [
         ModalController,
-        AngularDelegate
+        AngularDelegate,
+        { provide: Router, useClass: RouterStub }
       ],
       declarations: [ ParkingSpaceDescComponent ],
       imports: [MatIconModule, MatExpansionModule, BrowserAnimationsModule]
@@ -88,7 +102,7 @@ describe('ParkingSpaceDescComponent', () => {
     expect(component).toBeTruthy();
   });
    
-  
-
-
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });

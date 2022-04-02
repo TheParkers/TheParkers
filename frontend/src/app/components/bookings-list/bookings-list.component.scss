@@ -1,19 +1,29 @@
 
+// ion-content{
+//   height: 100vh;
+// }
+ionic-grid{
+  height: 100%;
+}
+.booking-header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .container
   {
     background-color: lightgray;
     //height: 100vh;
     display: flex;
-
+    //width: 100%;
     padding-top: 1rem;
 
-    height: 1000px;
-
+    height: 1200px;
   }
+.bookings-history{
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
+}
 
-  ionic-grid
-  {
-    height: 100%;
-  }
-  
   
