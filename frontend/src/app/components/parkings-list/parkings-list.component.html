@@ -2,6 +2,13 @@
 <ion-content>
     <div class="container">
         <ion-grid class="container-grid">
+          <ion-row>
+            <ion-col>
+              <h2>
+                Parkings available in {{city}} from {{startDate}} to {{endDate}}:
+              </h2>
+            </ion-col>
+          </ion-row>
         <ion-row>
           <ion-col size-sm="6" size="12" class="content-xl">
             <app-parking-space-desc *ngFor="let space of parkingSpaces" [parkingSpace] = "space"></app-parking-space-desc>

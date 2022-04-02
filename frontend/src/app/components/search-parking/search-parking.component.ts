@@ -8,6 +8,7 @@ import { environment } from "../../../environments/environment.dev";
 import {} from 'googlemaps';
 import PlaceResult = google.maps.places.PlaceResult;
 import { ParkingsService } from 'src/app/services/parkings/parkings.service';
+import { LocalStorageService } from 'src/app/services';
 
 @Component({
   selector: 'app-search-parking',
@@ -17,7 +18,7 @@ import { ParkingsService } from 'src/app/services/parkings/parkings.service';
 export class SearchParkingComponent {
   private enteredLocality : string = "";
   public invalidForm: boolean = false;
-  constructor(private router:Router, private http: HttpClient , private parkingsService: ParkingsService) { }
+  constructor(private router:Router, private http: HttpClient , private parkingsService: ParkingsService, private localStorageService:LocalStorageService) { }
   searchParkingForm = new FormGroup({
     city : new FormControl("",[Validators.required]),
     startDate : new FormControl("",[Validators.required]),
@@ -51,7 +52,11 @@ export class SearchParkingComponent {
       this.http.get(getParkingsURL).subscribe((data) => {
         console.log(data);
         this.parkingsService.setParkings(data);
-        this.router.navigateByUrl('/parkings');
+        this.localStorageService.setItem("city",this.searchParkingForm.value.city);
+        this.localStorageService.setItem("startDate", startDate.toString());
+        this.localStorageService.setItem("endDate",endDate.toString());
+        this.router.navigate(['/parkings'], {state:{startDate: startDate, endDate:endDate, city:this.searchParkingForm.value.city}});
+        //this.router.navigateByUrl('/parkings');
       })
     } else{
       this.invalidForm = true;

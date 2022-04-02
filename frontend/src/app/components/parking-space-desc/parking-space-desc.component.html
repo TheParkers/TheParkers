@@ -13,7 +13,8 @@
             </mat-panel-description>
             </mat-expansion-panel-header>
             <ion-row class="ion-justify-content-between">
-                <ion-col size="3"><img class="parking-img" src="../../../assets/images/parking-spot.jpg"></ion-col>
+                <ion-col size="3"><img class="parking-img" src="{{parkingSpace.tpk_parkingspace_images[0].tpk_base64_image}}"></ion-col>
+                <!-- <ion-col size="3"><img class="parking-img" src="{{parkingSpace.tpk_parkingspace_images[0].tpk_base64_image}}" (click)="displayImages(parkingSpace)"></ion-col> -->
                 <ion-col>
                     <ion-row>{{parkingSpace.tpk_ps_location.properties.address}}</ion-row>
                     <ion-row>{{parkingSpace.tpk_ps_location.properties.city}}, {{parkingSpace.tpk_ps_location.properties.area_code}}</ion-row>
