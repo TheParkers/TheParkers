@@ -92,5 +92,9 @@ describe('BookingDescComponent', () =>
         expect(component).toBeTruthy();
       }
     );
+    
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
   }
 );

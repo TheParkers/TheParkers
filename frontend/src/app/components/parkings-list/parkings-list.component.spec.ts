@@ -41,4 +41,7 @@ describe('ParkingsListComponent', () => {
   it('should select', () => {
     component.ngOnInit()
   });
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });

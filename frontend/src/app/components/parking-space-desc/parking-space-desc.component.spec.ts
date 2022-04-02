@@ -102,7 +102,7 @@ describe('ParkingSpaceDescComponent', () => {
     expect(component).toBeTruthy();
   });
    
-  
-
-
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });

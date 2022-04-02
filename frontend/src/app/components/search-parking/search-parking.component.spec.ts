@@ -50,4 +50,8 @@ describe('SearchParkingComponent', () => {
     component.getParkings();
     expect(component.invalidForm).toBeFalse();
   });
+
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });

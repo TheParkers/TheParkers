@@ -78,4 +78,8 @@ describe('BookingComponent', () =>
       component.booking()
    }
   );
+  
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });
