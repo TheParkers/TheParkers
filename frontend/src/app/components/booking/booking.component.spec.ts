@@ -53,7 +53,7 @@ describe('BookingComponent', () =>
     angdelegate = TestBed.inject(AngularDelegate);
     fixture = TestBed.createComponent(BookingComponent);
     component = fixture.componentInstance;
-    component.parkingSpace = {parking_features:{}}
+    component.parkingSpace = {tpk_ps_location:{properties:{}},parking_features:{}}
     fixture.detectChanges();
   });
 
