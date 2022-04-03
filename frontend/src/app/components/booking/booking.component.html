@@ -41,7 +41,7 @@
           Booking Start Date
         </h2>
         <h3> 
-          {{tpk_book_start_datetime}}
+          {{tpk_book_start_datetime | date: "medium"}}
         </h3>
       </ion-label>
     </ion-item>
@@ -51,7 +51,7 @@
           Booking End Date
         </h2>
         <h3> 
-          {{tpk_book_end_datetime}}
+          {{tpk_book_end_datetime | date: "medium"}}
         </h3>
       </ion-label>
     </ion-item>

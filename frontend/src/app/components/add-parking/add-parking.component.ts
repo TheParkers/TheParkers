@@ -159,7 +159,9 @@ export class AddParkingComponent implements OnInit {
   
       };
       console.log(parking);
-      this.http.post(environment.apiServer + environment.apiUrls.parking,parking).subscribe((data)=>{
+      this.http.post(environment.apiServer + environment.apiUrls.parking,parking).subscribe((data)=>
+      {
+        alert("Parking Space Added Successfully");
         console.log(data);
       })
     } else if (this.addParkingForm.invalid){
