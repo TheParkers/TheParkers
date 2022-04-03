@@ -29,7 +29,7 @@ export const environment = {
     },
     parking: "/parking"
   },
-  actionSheetConfig: (service: any)=> {
+  actionSheetConfig: (service: any, router: any)=> {
       return {
         cssClass: 'my-custom-class',
         translucent: false,
@@ -42,6 +42,7 @@ export const environment = {
             type: 'delete'
           },
           handler: () => {
+            router.navigateByUrl('/bookings')
             console.log('Bookings clicked');
           }
         }, {
