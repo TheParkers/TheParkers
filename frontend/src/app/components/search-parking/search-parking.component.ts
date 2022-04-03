@@ -42,6 +42,8 @@ export class SearchParkingComponent {
 
   onLocationSelected(location: Location) {
     console.log('onLocationSelected: ', location);
+    this.localStorageService.setItem("lat", location.latitude.toString())
+    this.localStorageService.setItem("long", location.longitude.toString())
   }
 
   getParkings(){
