@@ -36,7 +36,7 @@
                 </div>
             </ion-row>
             <ion-row>
-                {{booking.tpk_book_start_datetime}}
+                {{booking.tpk_book_start_datetime | date :'medium'}}
             </ion-row>
             <ion-row>
                 <div class="desc-heading">
@@ -44,7 +44,7 @@
                 </div>
             </ion-row>
             <ion-row>
-                {{booking.tpk_book_end_datetime}}
+                {{booking.tpk_book_end_datetime | date :'medium'}}
             </ion-row>
 
             <ion-row>
