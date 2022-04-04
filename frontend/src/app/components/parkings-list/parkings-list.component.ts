@@ -22,7 +22,7 @@ export class ParkingsListComponent implements OnInit{
   constructor(private parkingsService: ParkingsService ,private router:Router, private localStorageService: LocalStorageService) {
     this.lat = parseInt(this.localStorageService.getItem("lat") || "43.474");
     this.lng = parseInt(this.localStorageService.getItem("long") || "-80.5465");
-    this.zoom = 8;
+    this.zoom = 10;
     let routerState = this.router.getCurrentNavigation()?.extras?.state;
     let sDate = routerState?.['startDate'] || this.localStorageService.getItem("startDate") || '';
     this.startDate = new Date(parseInt(sDate)*1000).toLocaleDateString("en-US");
