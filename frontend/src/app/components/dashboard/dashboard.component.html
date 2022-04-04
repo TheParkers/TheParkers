@@ -47,6 +47,14 @@
 
       <app-search-parking></app-search-parking>
 
+      <mat-form-field appearance="fill">
+        <mat-label>Address</mat-label>
+        <input formControlName="address" matInput
+        matGoogleMapsAutocomplete
+        (onAutocompleteSelected)="onAutocompleteSelected($event)"
+        (onLocationSelected)="onLocationSelected($event)">
+      </mat-form-field>
+
 
 
 <!-- 
