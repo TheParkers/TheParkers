@@ -39,8 +39,8 @@ export class DashboardComponent {
                 })
 
                 this.zoom = 10;
-                this.latitude = 52.520008;
-                this.longitude = 13.404954;
+                this.latitude = 43.474;
+                this.longitude = -80.5465;
               }
 
    /* istanbul ignore next */
