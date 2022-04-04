@@ -54,10 +54,12 @@ export class DashboardComponent {
     console.log('onDidDismiss resolved with role and data', role, data);
   }
 
+  /* istanbul ignore next */
   public navigateToAddParking(){
     this.router.navigateByUrl('/addParking');
   }
 
+  /* istanbul ignore next */
   private setCurrentPosition() {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -68,6 +70,7 @@ export class DashboardComponent {
     }
   }
 
+  /* istanbul ignore next */
   onAutocompleteSelected(result: PlaceResult) {
     console.log('onAutocompleteSelected: ', result);
     let country :string = "";
@@ -91,6 +94,7 @@ export class DashboardComponent {
       }
     }
 
+    /* istanbul ignore next */
     this.addressDetails = {
       type : "Feature",
       geometry: {
@@ -108,6 +112,7 @@ export class DashboardComponent {
 
   }
 
+  /* istanbul ignore next */
   onLocationSelected(location: Location) {
     console.log('onLocationSelected: ', location);
     this.latitude = location.latitude;
