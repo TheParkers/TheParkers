@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="9" time="107.967">
+ <testsuite name="Demo Parker End to End tests" timestamp="2022-04-04T15:37:19" hostname="localhost" time="107.967" errors="0" tests="9" skipped="0" disabled="0" failures="0">
+  <testcase classname="Demo Parker End to End tests" name="Serach Parking tests" time="38.563" />
+  <testcase classname="Demo Parker End to End tests" name="Test title name is correct" time="5.763" />
+  <testcase classname="Demo Parker End to End tests" name="Test google login button is present" time="6.313" />
+  <testcase classname="Demo Parker End to End tests" name="Test Search parking button rendering" time="4.294" />
+  <testcase classname="Demo Parker End to End tests" name="Test enter end date range error message" time="15.631" />
+  <testcase classname="Demo Parker End to End tests" name="Test enter start date range error message" time="15.501" />
+  <testcase classname="Demo Parker End to End tests" name="Test enter location error message" time="12.239" />
+  <testcase classname="Demo Parker End to End tests" name="Test the Add Parking guard " time="5.322" />
+  <testcase classname="Demo Parker End to End tests" name="Test the Get Bookings guard " time="4.332" />
+ </testsuite>
+</testsuites>

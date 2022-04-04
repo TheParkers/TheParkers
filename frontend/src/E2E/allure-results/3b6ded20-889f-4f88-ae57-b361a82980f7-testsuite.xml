@@ -1,0 +1,97 @@
+<?xml version='1.0'?>
+<ns2:test-suite xmlns:ns2='urn:model.allure.qatools.yandex.ru' start='1649101039417' stop='1649101147377'>
+    <name>Demo Parker End to End tests</name>
+    <title>Demo Parker End to End tests</title>
+    <test-cases>
+        <test-case start='1649101039418' status='passed' stop='1649101077981'>
+            <name>Serach Parking tests</name>
+            <title>Serach Parking tests</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='ae1aa8a5-ec64-41a1-ab25-a5fec928e388-attachment.png' type='image/png' size='802539'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101077981' status='passed' stop='1649101083744'>
+            <name>Test title name is correct</name>
+            <title>Test title name is correct</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='42120df8-a757-456c-908c-55bef37cab07-attachment.png' type='image/png' size='2442369'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101083744' status='passed' stop='1649101090057'>
+            <name>Test google login button is present</name>
+            <title>Test google login button is present</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='7f44e7c8-2cee-4031-b170-6317365e1353-attachment.png' type='image/png' size='2442369'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101090057' status='passed' stop='1649101094351'>
+            <name>Test Search parking button rendering</name>
+            <title>Test Search parking button rendering</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='a13b1aff-51cf-46c9-b760-de951222a646-attachment.png' type='image/png' size='2442369'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101094351' status='passed' stop='1649101109982'>
+            <name>Test enter end date range error message</name>
+            <title>Test enter end date range error message</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='b9d5cc86-0717-4a91-a154-62e773431849-attachment.png' type='image/png' size='2426805'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101109982' status='passed' stop='1649101125483'>
+            <name>Test enter start date range error message</name>
+            <title>Test enter start date range error message</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='e3afb1bb-1311-4283-a1a1-c8fc16cf5085-attachment.png' type='image/png' size='2428190'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101125483' status='passed' stop='1649101137722'>
+            <name>Test enter location error message</name>
+            <title>Test enter location error message</title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='bf0bfb5e-d916-4295-90fb-944e3ad9865b-attachment.png' type='image/png' size='2426076'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101137722' status='passed' stop='1649101143044'>
+            <name>Test the Add Parking guard </name>
+            <title>Test the Add Parking guard </title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='60867556-4eeb-4a5d-a497-fe4c097f7a9b-attachment.png' type='image/png' size='15193'/>
+            </attachments>
+        </test-case>
+        <test-case start='1649101143044' status='passed' stop='1649101147375'>
+            <name>Test the Get Bookings guard </name>
+            <title>Test the Get Bookings guard </title>
+            <labels/>
+            <parameters/>
+            <steps/>
+            <attachments>
+                <attachment title='Screenshot' source='dcdd5a25-5979-41cf-b479-c4785aebcd0b-attachment.png' type='image/png' size='15193'/>
+            </attachments>
+        </test-case>
+    </test-cases>
+</ns2:test-suite>

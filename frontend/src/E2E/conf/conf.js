@@ -45,7 +45,9 @@ exports.config =
   // Assign the test reporter to each running instance
   onPrepare: function() 
   {
-    // jasmine.getEnv().addReporter(reporter);
+    // capturing the screenshots for all the test
+    //jasmine.getEnv().addReporter(reporter);
+
     // var AllureReporter = require('jasmine-allure-reporter');
     // jasmine.getEnv().addReporter(new AllureReporter({
     //   resultsDir: 'allure-results'
@@ -75,7 +77,7 @@ exports.config =
     jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter(
         {
           consolidateAll: true,
-          savePath: './',
+          savePath: './Test Reports',
           filePrefix: 'xmlresults'
         }
       )
@@ -102,7 +104,7 @@ exports.config =
         testConfig = 
         {
             reportTitle: 'Protractor Test Execution Report',
-            outputPath: './',
+            outputPath: './Test Reports',
             outputFilename: 'ProtractorTestReport',
             screenshotPath: './screenshots',
             testBrowser: browserName,
@@ -111,7 +113,7 @@ exports.config =
             screenshotsOnlyOnFailure: true,
             testPlatform: platform
         };
-        new HTMLReport().from('xmlresults.xml', testConfig);
+        new HTMLReport().from('./Test Reports/xmlresults.xml', testConfig);
       }
     );
 
