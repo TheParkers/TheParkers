@@ -17,12 +17,14 @@ import { AuthService, FirebaseService, PreLoaderService } from 'src/app/services
 import { environment } from 'src/environments/environment.dev';
 import { UserDetails } from 'src/app/models/responses/user'
 import { DashboardComponent } from './dashboard.component';
+import { Router } from '@angular/router';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
   let mockFirebaseService: any;
   let mockActionSheetService: any;
+  let router:Router
   let mockParkerService:any;
   let mockActionServiceConfig = {
     cssClass: 'my-custom-class',
@@ -97,7 +99,7 @@ describe('DashboardComponent', () => {
   });
 
   it('test action control sheet', async () => {
-    let actualbuttons = environment.actionSheetConfig(null).buttons
+    let actualbuttons = environment.actionSheetConfig(null, router).buttons
     expect(actualbuttons.length).toEqual(mockActionServiceConfig.buttons.length)
     actualbuttons.forEach( (element, index) => {
         expect(element.data).toEqual(mockActionServiceConfig.buttons[index].data)

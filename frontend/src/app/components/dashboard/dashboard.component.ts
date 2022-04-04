@@ -31,7 +31,7 @@ export class DashboardComponent {
    /* istanbul ignore next */
   public async presentActionSheet() {
     console.log('inside action sheet',  this.firebaseService.authUser)
-    const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService));
+    const actionSheet = await this.actionSheetCtrl.create(environment.actionSheetConfig(this.firebaseService,this.router));
     console.log(actionSheet)
     await actionSheet.present();
 
