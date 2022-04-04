@@ -6,6 +6,7 @@ import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
 import { ParkingLocation } from 'src/app/models/booking/booking.model';
 import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
+import { ParkingsService } from 'src/app/services/parkings/parkings.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,7 +24,7 @@ export class DashboardComponent {
 
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
-              private router: Router
+              private router: Router,
               ) 
               {
                 this.firebaseService.getAuthUser().subscribe({

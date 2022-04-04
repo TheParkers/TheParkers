@@ -38,26 +38,15 @@
 
 
       <app-search-parking></app-search-parking>
-        <h1 class="form-heading">List your Parking</h1>
         <ion-grid>
           <ion-row>
             <ion-col>
-              <mat-card>
-                <mat-card-title>
-                  <h3>Parking Details</h3>
-                </mat-card-title>
-                <mat-card-content>
-                    <mat-label>Address</mat-label>
-                  <agm-map class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-                    <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-                  </agm-map>
-                </mat-card-content>
-              </mat-card>
+              <agm-map style="height:291px;" class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+              </agm-map>
             </ion-col>
           </ion-row>
       </ion-grid>
-
-
 
 <!-- 
       <ion-tabs>
