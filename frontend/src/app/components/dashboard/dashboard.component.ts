@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import PlaceResult = google.maps.places.PlaceResult;
 import { ActionSheetController } from '@ionic/angular';
 import { FirebaseService } from 'src/app/services';
 import { environment } from 'src/environments/environment.dev';
+import { ParkingLocation } from 'src/app/models/booking/booking.model';
+import {Location, Appearance} from '@angular-material-extensions/google-maps-autocomplete';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +18,8 @@ export class DashboardComponent {
   public latitude: number;
   public longitude: number;
   public rating: number = 1;
+  public addressDetails!: ParkingLocation;
+  public images : string[] = [];
 
   constructor(private actionSheetCtrl: ActionSheetController, 
               private firebaseService: FirebaseService,
