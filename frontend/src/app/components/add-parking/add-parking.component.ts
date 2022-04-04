@@ -73,7 +73,7 @@ export class AddParkingComponent implements OnInit {
     let city : string = "";
     let enteredResult = result.address_components;
     if (enteredResult){
-      this.rating = result.rating || 1;
+      this.rating = Math.floor((result.rating) || (Math.random() * (5 - 1) + 1));
       for (const address of enteredResult){
         //console.log(address);
         if (address['types'].indexOf("country") != -1){

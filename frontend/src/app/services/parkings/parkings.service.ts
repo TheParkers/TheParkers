@@ -12,13 +12,13 @@ export class ParkingsService {
 
   setParkings(parkings: any){
     this.parkingsList = parkings;
-    this.localStorageService.setItem("parkingsList", JSON.stringify(this.parkingsList));
+    //this.localStorageService.setItem("parkingsList", JSON.stringify(this.parkingsList));
   }
 
   getParkings(){
-    if (this.localStorageService.getItem("parkingsList") != null){
-      this.parkingsList = JSON.parse(this.localStorageService.getItem("parkingsList")||"");
-    }
+    // if (this.localStorageService.getItem("parkingsList") != null){
+    //   this.parkingsList = JSON.parse(this.localStorageService.getItem("parkingsList")||"");
+    // }
     return this.parkingsList;
   }
 }
