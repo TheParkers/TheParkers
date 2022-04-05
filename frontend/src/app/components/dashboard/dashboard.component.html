@@ -22,29 +22,30 @@
           </ion-title>
       </ion-toolbar>
 
+<div class="dashboard-content">
+  <ion-grid>
+    <ion-row style="width:200px;margin:auto;">
+      <ion-col style="display:flex;flex-direction: column;justify-content: center; height: 50px;align-items: center;" (click)="navigateToAddParking()" class="parker_blue corner-border">
+        <ion-col>
+          <img class="add-parking-map-icon" src="../../assets/images/park-map.png">
+        </ion-col>
+        <div style="font-size: 15px; font-weight: bold;"> Add new parking </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
-      <ion-grid>
-        <ion-row style="width:200px;margin:auto;">
-          <ion-col style="display:flex;flex-direction: column;justify-content: center; height: 50px;align-items: center;" (click)="navigateToAddParking()" class="parker_blue corner-border">
-            <ion-col>
-              <img class="add-parking-map-icon" src="../../assets/images/park-map.png">
-            </ion-col>
-            <div style="font-size: 15px; font-weight: bold;"> Add new parking </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
 
-
-      <app-search-parking></app-search-parking>
-        <ion-grid>
-          <ion-row style="width:60%; margin:auto;">
-            <ion-col>
-              <agm-map style="height:291px;" class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
-                <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
-              </agm-map>
-            </ion-col>
-          </ion-row>
-      </ion-grid>
+  <app-search-parking></app-search-parking>
+    <ion-grid>
+      <ion-row style="width:60%; margin:auto;">
+        <ion-col>
+          <agm-map style="height:291px;" class="parking-map" [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+            <agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>
+          </agm-map>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+</div>
 
 <!-- 
       <ion-tabs>

@@ -109,6 +109,7 @@ export class AddParkingComponent implements OnInit {
     console.log('onLocationSelected: ', location);
     this.latitude = location.latitude;
     this.longitude = location.longitude;
+    this.addressDetails.geometry.coordinates = [this.longitude, this.latitude];
   }
   
   onFileChange(event: Event) {
