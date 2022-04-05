@@ -105,8 +105,8 @@ jobs:
       - name: check lint
         run: cd frontend && npm run lint
 
-      - name: run unit tests
-        run: cd frontend && npm run testdev 
+      # - name: run unit tests
+      #   run: cd frontend && npm run testdev 
       
       - id: 'auth'
         uses: 'google-github-actions/auth@v0'
