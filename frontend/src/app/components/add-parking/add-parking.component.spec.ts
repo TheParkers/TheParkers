@@ -121,5 +121,8 @@ describe('AddParkingComponent', () => {
     };
     expect(component.addressDetails).toEqual(resultAddress);
   });
-
+  
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
 });

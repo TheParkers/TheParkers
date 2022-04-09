@@ -70,5 +70,8 @@ describe('BookingsListComponent', () =>
         expect(component).toBeTruthy();
       }
     );
+    afterAll(() => {
+      TestBed.resetTestingModule();
+    });
   }
 );

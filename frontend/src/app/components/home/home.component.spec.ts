@@ -68,4 +68,8 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  afterAll(() => {
+    TestBed.resetTestingModule();
+  });
+
 });
