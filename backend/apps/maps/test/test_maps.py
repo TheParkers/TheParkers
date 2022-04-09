@@ -2,6 +2,7 @@ from re import S
 from unittest.mock import patch
 from django.http import JsonResponse
 from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import Distance  
 
 from apps.maps.models import ParkerMap
 from apps.maps.serializers import MapSerializer
@@ -15,6 +16,8 @@ class TestMapsModel(APITestCase):
     def setUp(self, mockMap, mockPerm):
         mockPerm.return_value = True
         mockMap.return_value = ParkerMap.objects.create(location=Point(43.47221, -80.54486))
+        # ParkerMap.objects.create(location=Point(43.47223, -80.54487))
+        # ParkerMap.objects.create(location=Point(43.47220, -80.54485))
 
     @patch('apps.parkersauth.permissions.isuserloggedin.IsUserLoggedIn.has_permission')
     def test_get(self, mockPerm):
@@ -40,6 +43,7 @@ class TestMapsModel(APITestCase):
         response = self.client.get('/map/1/')
         serializer = MapSerializer(map_entry, many=False)
         map_entry_json = JsonResponse(serializer.data, safe=False)
+        # print(ParkerMap.objects.filter(location__distance_lt=(Point(43.49620, -80.54525), Distance(m=5))))
         self.assertJSONEqual(map_entry_json.content.decode('utf-8'),response.content.decode('utf-8'))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
     

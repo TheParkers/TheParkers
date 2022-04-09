@@ -16,6 +16,8 @@ from rest_framework.pagination import PageNumberPagination
 from apps.booking.models import BookingItems
 from datetime import datetime as dt
 from django.utils import timezone
+from django.contrib.gis.geos import Point
+from django.contrib.gis.measure import Distance  
 
 #currently only logged in users can get and post.
 #TODO separate api view get and post according to perms
@@ -55,6 +57,14 @@ def parkingspace_list(request):
                           end_time_overlapping_bookings_qs)
             ids = [booking.tpk_parkingspace_id for booking in bookings_qs]
             queryset = queryset.exclude(id__in=ids)
+        
+        radius = 200.0
+        if(request.GET.get('lat') and request.GET.get('long')):
+            lat = request.GET.get('lat')
+            lng = request.GET.get('long')
+            point = Point(float(lng),float(lat))
+
+            queryset = queryset.filter(tpk_ps_location__location__distance_lt=(point, Distance(m=radius)))
 
         filterset = ParkingSpaceFilter(request.GET, queryset=queryset)
         if not filterset.is_valid():
